@@ -1,6 +1,0 @@
-name = "Easy Breadcrumb"
-description = "Provides a plug-and-play block to be embedded in your pages, typically at some place near the page's header."
-
-core = 7.x
-package = "Easy Breadcrumb"
-version = "7.x-1.0"

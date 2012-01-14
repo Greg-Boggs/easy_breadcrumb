@@ -1,6 +1,6 @@
 <?php
 
-function pcp_uninstall() {
-	db_query("DELETE FROM {variable} WHERE name LIKE '". EasyBreadcrumb_Constants::DB_VARS_PREFIX . "%'");
-	cache_clear_all('variables', 'cache');
+function easy_breadcrumb_uninstall() {
+  db_query("DELETE FROM {variable} WHERE name LIKE '" . EasyBreadcrumbConstants::DB_VARS_PREFIX . "%'");
+  cache_clear_all('variables', 'cache');
 }

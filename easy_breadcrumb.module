@@ -67,8 +67,8 @@ function easy_breadcrumb_theme($existing, $type, $theme, $path) {
     'easy_breadcrumb' => array(
       'template' => 'easy_breadcrumb',
       'variables' => array(
-        'breadcrumb' => null,
-        'separator' => null,
+        'breadcrumb' => NULL,
+        'separator' => NULL,
       ),
       'path' => $path
     ),
@@ -96,7 +96,7 @@ function easy_breadcrumb_block_info() {
  * @return Assoc
  *   the required block's view
  */
-function easy_breadcrumb_block_view($delta = null) {
+function easy_breadcrumb_block_view($delta = NULL) {
   $block = array();
   switch ($delta) {
     case 'easy_breadcrumb':

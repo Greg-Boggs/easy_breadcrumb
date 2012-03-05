@@ -8,8 +8,9 @@
 /**
  * The default settings page.
  * @param String $op
- * 
- * @return String the rendered form
+ *   operation
+ * @return String
+ *   the rendered form
  */
 function easy_breadcrumb_settings_page($op = NULL) {
   return drupal_get_form('easy_breadcrumb_general_settings_form');
@@ -17,8 +18,8 @@ function easy_breadcrumb_settings_page($op = NULL) {
 
 /**
  * General configuration form
- * 
- * @return Assoc form
+ * @return Assoc
+ *   form
  */
 function easy_breadcrumb_general_settings_form() {
 
@@ -72,7 +73,9 @@ function easy_breadcrumb_general_settings_form() {
 /**
  * Process the submitting of the administration form of this module
  * @param Assoc $form
+ *   form
  * @param Assoc $form_state
+ *   form state
  */
 function easy_breadcrumb_admin_submit($form, &$form_state) {
 

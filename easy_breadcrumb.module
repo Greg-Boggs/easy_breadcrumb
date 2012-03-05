@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Module's hooks 
+ */
 
 /**
  * The Easy Breadcrumb module provides a block to be embedded in a page, tipically at some place in near the header.

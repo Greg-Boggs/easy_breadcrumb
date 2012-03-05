@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Module's admin forms 
+ */
 
 /**
  * The default settings page.

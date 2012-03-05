@@ -8,6 +8,7 @@
 /**
  * The default settings page.
  * @param String $op
+ * 
  * @return String the rendered form
  */
 function easy_breadcrumb_settings_page($op = NULL) {
@@ -16,6 +17,7 @@ function easy_breadcrumb_settings_page($op = NULL) {
 
 /**
  * General configuration form
+ * 
  * @return Assoc form
  */
 function easy_breadcrumb_general_settings_form() {

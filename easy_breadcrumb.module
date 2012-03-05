@@ -4,6 +4,7 @@
  * @file
  * Module's hooks
  */
+
 /**
  * The Easy Breadcrumb module provides a block to be embedded in a page, tipically at some place in near the header.
  * Easy Breadcrumb uses the URL (path alias) and the current page's title to extract the breadcrumb's segments and its respective links.
@@ -15,6 +16,7 @@ require_once 'EasyBreadcrumbConstants.inc';
 
 /**
  * Implementation of hook permission
+ * 
  * @return Assoc permission items
  */
 function easy_breadcrumb_permission() {
@@ -28,6 +30,7 @@ function easy_breadcrumb_permission() {
 
 /**
  * Implementation of hook menu
+ * 
  * @return Assoc menu items
  */
 function easy_breadcrumb_menu() {
@@ -55,6 +58,7 @@ function easy_breadcrumb_menu() {
 
 /**
  * Implementation of hook theme
+ * 
  * @return Assoc theme items
  */
 function easy_breadcrumb_theme($existing, $type, $theme, $path) {
@@ -73,6 +77,7 @@ function easy_breadcrumb_theme($existing, $type, $theme, $path) {
 
 /**
  * Implementation of hook block_info
+ * 
  * @return Assoc the blocks' info
  */
 function easy_breadcrumb_block_info() {
@@ -87,6 +92,7 @@ function easy_breadcrumb_block_info() {
 /**
  * Implementation of hook block_view
  * @param String $delta the identifier of the required module
+ * 
  * @return Assoc the required block's view
  */
 function easy_breadcrumb_block_view($delta = null) {

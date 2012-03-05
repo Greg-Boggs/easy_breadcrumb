@@ -19,10 +19,10 @@ require_once 'EasyBreadcrumbConstants.inc';
  */
 function easy_breadcrumb_permission() {
   return array(
-      'administer easy_breadcrumb' => array(
-          'title' => t('Administer EasyBreadcrumb'),
-          'description' => t('Perform administration tasks for the EasyBreadCrumb module.'),
-      ),
+    'administer easy_breadcrumb' => array(
+      'title' => t('Administer EasyBreadcrumb'),
+      'description' => t('Perform administration tasks for the EasyBreadCrumb module.'),
+    ),
   );
 }
 
@@ -33,22 +33,22 @@ function easy_breadcrumb_permission() {
 function easy_breadcrumb_menu() {
   $items = array();
   $items['admin/config/easy-breadcrumb'] = array(
-      'title' => 'EasyBreadcrumb form settings',
-      'description' => 'Controls settings for the EasyBreadcrumb module',
-      'file' => 'easy_breadcrumb_admin.inc',
-      'page callback' => 'easy_breadcrumb_settings_page',
-      'page arguments' => array(),
-      'access arguments' => array('administer easy_breadcrumb'),
+    'title' => 'EasyBreadcrumb form settings',
+    'description' => 'Controls settings for the EasyBreadcrumb module',
+    'file' => 'easy_breadcrumb_admin.inc',
+    'page callback' => 'easy_breadcrumb_settings_page',
+    'page arguments' => array(),
+    'access arguments' => array('administer easy_breadcrumb'),
   );
   $items['admin/config/easy-breadcrumb/general'] = array(
-      'title' => 'EasyBreadcrumb general form settings',
-      'description' => 'Controls settings for the EasyBreadcrumb module',
-      'file' => 'easy_breadcrumb_admin.inc',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('easy_breadcrumb_general_settings_form'),
-      'access arguments' => array('administer easy_breadcrumb'),
-      'type' => MENU_DEFAULT_LOCAL_TASK,
-      'weight' => 0,
+    'title' => 'EasyBreadcrumb general form settings',
+    'description' => 'Controls settings for the EasyBreadcrumb module',
+    'file' => 'easy_breadcrumb_admin.inc',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('easy_breadcrumb_general_settings_form'),
+    'access arguments' => array('administer easy_breadcrumb'),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 0,
   );
   return $items;
 }
@@ -60,14 +60,14 @@ function easy_breadcrumb_menu() {
 function easy_breadcrumb_theme($existing, $type, $theme, $path) {
   $path = drupal_get_path('module', 'easy_breadcrumb') . '/tpl';
   return array(
-      'easy_breadcrumb' => array(
-          'template' => 'easy_breadcrumb',
-          'variables' => array(
-              'breadcrumb' => null,
-              'separator' => null,
-          ),
-          'path' => $path
+    'easy_breadcrumb' => array(
+      'template' => 'easy_breadcrumb',
+      'variables' => array(
+        'breadcrumb' => null,
+        'separator' => null,
       ),
+      'path' => $path
+    ),
   );
 }
 
@@ -78,8 +78,8 @@ function easy_breadcrumb_theme($existing, $type, $theme, $path) {
 function easy_breadcrumb_block_info() {
   $block = array();
   $block['easy_breadcrumb'] = array(
-      'info' => 'EasyBreadcrumb',
-      'cache' => DRUPAL_CACHE_GLOBAL,
+    'info' => 'EasyBreadcrumb',
+    'cache' => DRUPAL_CACHE_GLOBAL,
   );
   return $block;
 }

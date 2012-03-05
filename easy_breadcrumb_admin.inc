@@ -24,41 +24,41 @@ function easy_breadcrumb_general_settings_form() {
 
   // Add fieldset for page specific settings
   $form['easy_breadcrumb'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('General settings'),
-      '#collapsible' => TRUE,
-      '#collapsed' => FALSE,
+    '#type' => 'fieldset',
+    '#title' => t('General settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
   );
 
   $form['easy_breadcrumb']['title_visible'] = array(
-      '#type' => 'checkbox',
-      '#title' => t("Display the current page's title in the breadcrumb"),
-      '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_VISIBLE, true),
-      '#description' => t("Should the current page title's be displayed in the breacrumb?"),
+    '#type' => 'checkbox',
+    '#title' => t("Display the current page's title in the breadcrumb"),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_VISIBLE, true),
+    '#description' => t("Should the current page title's be displayed in the breacrumb?"),
   );
 
   $form['easy_breadcrumb']['segments_separator'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Segments separator'),
-      '#description' => t("Enter the separator to be displayed between the breadcrumb's segments."),
-      '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR, '>>'),
+    '#type' => 'textfield',
+    '#title' => t('Segments separator'),
+    '#description' => t("Enter the separator to be displayed between the breadcrumb's segments."),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR, '>>'),
   );
 
   $form['easy_breadcrumb']['segments_title_mode'] = array(
-      '#type' => 'select',
-      '#title' => t("Segments title's transformation mode"),
-      '#options' => array(
-          'none' => t('None'),
-          'ucwords' => t("Capitalize the first letter of each word in the title"),
-          'ucfirst' => t("Capitalize the first letter of the title"),
-      ),
-      '#description' => t("Choose the transformation mode you want to apply to the segments's title."),
-      '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_TITLE_MODE, 'ucwords'),
+    '#type' => 'select',
+    '#title' => t("Segments title's transformation mode"),
+    '#options' => array(
+      'none' => t('None'),
+      'ucwords' => t("Capitalize the first letter of each word in the title"),
+      'ucfirst' => t("Capitalize the first letter of the title"),
+    ),
+    '#description' => t("Choose the transformation mode you want to apply to the segments's title."),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_TITLE_MODE, 'ucwords'),
   );
 
   $form['buttons'] = array(
-      'submit' => array('#type' => 'submit', '#value' => t('Save configuration')),
-      'reset' => array('#type' => 'reset', '#value' => t('Reset to defaults'))
+    'submit' => array('#type' => 'submit', '#value' => t('Save configuration')),
+    'reset' => array('#type' => 'reset', '#value' => t('Reset to defaults'))
   );
 
   $form['#submit'] = array('easy_breadcrumb_admin_submit');

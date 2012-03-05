@@ -1,9 +1,9 @@
 <?php
+
 /**
  * @file
- * Module's hooks 
+ * Module's hooks
  */
-
 /**
  * The Easy Breadcrumb module provides a block to be embedded in a page, tipically at some place in near the header.
  * Easy Breadcrumb uses the URL (path alias) and the current page's title to extract the breadcrumb's segments and its respective links.
@@ -100,4 +100,3 @@ function easy_breadcrumb_block_view($delta = null) {
   }
   return $block;
 }
-

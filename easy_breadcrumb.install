@@ -1,9 +1,9 @@
 <?php
+
 /**
  * @file
- * Install hooks 
+ * Install hooks
  */
-
 
 /**
  * Implements hook uninstall

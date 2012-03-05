@@ -69,14 +69,14 @@ function easy_breadcrumb_general_settings_form() {
  */
 function easy_breadcrumb_admin_submit($form, &$form_state) {
 
-  $segmentSeparator = $form_state['values']['segments_separator'];
-  $uppercaseMode = $form_state['values']['segments_title_mode'];
-  $titleVisible = $form_state['values']['title_visible'];
+  $segment_separator = $form_state['values']['segments_separator'];
+  $uppercase_mode = $form_state['values']['segments_title_mode'];
+  $title_visible = $form_state['values']['title_visible'];
 
-  variable_set(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR, $segmentSeparator);
-  variable_set(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_TITLE_MODE, $uppercaseMode);
-  variable_set(EasyBreadcrumbConstants::DB_VAR_TITLE_VISIBLE, $titleVisible);
+  variable_set(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR, $segment_separator);
+  variable_set(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_TITLE_MODE, $uppercase_mode);
+  variable_set(EasyBreadcrumbConstants::DB_VAR_TITLE_VISIBLE, $title_visible);
 
-  $successMsg = t("The module's settings have been saved.");
-  drupal_set_message($successMsg);
+  $success_msg = t("The module's settings have been saved.");
+  drupal_set_message($success_msg);
 }

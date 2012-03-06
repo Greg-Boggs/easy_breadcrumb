@@ -29,7 +29,7 @@ function easy_breadcrumb_general_settings_form() {
 
   $form = array();
 
-  // Add fieldset for page specific settings
+  // Add fieldset for page specific settings.
   $form['easy_breadcrumb'] = array(
     '#type' => 'fieldset',
     '#title' => t('General settings'),

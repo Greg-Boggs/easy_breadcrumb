@@ -9,6 +9,9 @@
  * Implements hook uninstall
  */
 function easy_breadcrumb_uninstall() {
-  db_query("DELETE FROM {variable} WHERE name LIKE '" . EasyBreadcrumbConstants::DB_VARS_PREFIX . "%'");
+
+  db_query("DELETE FROM {variable} WHERE name LIKE '" .
+    EasyBreadcrumbConstants::DB_VARS_PREFIX . "%'");
+
   cache_clear_all('variables', 'cache');
 }

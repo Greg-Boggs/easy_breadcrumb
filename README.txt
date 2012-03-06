@@ -8,3 +8,5 @@ breadcrumb by using the current URL, the user needs to do anything to get it
 working. The resulting block will be something like: "Home >> Contact Us" or
 "Home / Contact us". The breadcrumb presentation could vary depending on the
 module's settings.
+
+There is also an option for exclude some words from the "capitalizator".

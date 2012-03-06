@@ -41,7 +41,7 @@ function easy_breadcrumb_menu() {
   $items['admin/config/easy-breadcrumb'] = array(
     'title' => 'EasyBreadcrumb form settings',
     'description' => 'Controls settings for the EasyBreadcrumb module',
-    'file' => 'easy_breadcrumb_admin.inc',
+    'file' => 'includes/easy_breadcrumb_admin.inc',
     'page callback' => 'easy_breadcrumb_settings_page',
     'page arguments' => array(),
     'access arguments' => array('administer easy_breadcrumb'),
@@ -49,7 +49,7 @@ function easy_breadcrumb_menu() {
   $items['admin/config/easy-breadcrumb/general'] = array(
     'title' => 'EasyBreadcrumb general form settings',
     'description' => 'Controls settings for the EasyBreadcrumb module',
-    'file' => 'easy_breadcrumb_admin.inc',
+    'file' => 'includes/easy_breadcrumb_admin.inc',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('easy_breadcrumb_general_settings_form'),
     'access arguments' => array('administer easy_breadcrumb'),

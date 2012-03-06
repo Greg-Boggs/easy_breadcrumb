@@ -123,12 +123,12 @@ function easy_breadcrumb_admin_submit($form, &$form_state) {
 
   $segment_separator = $form_state['values']['segments_separator'];
   $title_visible = $form_state['values']['title_visible'];
-  $page_title_when_available =
-    $form_state['values']['page_title_when_available'];
+  $page_title_when_available
+    = $form_state['values']['page_title_when_available'];
   $capitalize_mode = $form_state['values']['segments_capitalize_mode'];
 
-  $capitalize_ignored_words =
-    $form_state['values']['segments_capitalize_ignored_words'];
+  $capitalize_ignored_words
+    = $form_state['values']['segments_capitalize_ignored_words'];
   $capitalize_ignored_words_arr = array();
   $capitalize_ignored_words_arr_aux = explode(',', $capitalize_ignored_words);
 

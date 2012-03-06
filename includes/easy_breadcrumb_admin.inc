@@ -10,7 +10,7 @@
  *
  * @param String $op
  *   operation
- *
+ * 
  * @return String
  *   the rendered form
  *
@@ -81,7 +81,7 @@ function easy_breadcrumb_general_settings_form() {
     ),
   );
 
-  $form['#submit'] = array('easy_breadcrumb_admin_submit',);
+  $form['#submit'] = array('easy_breadcrumb_admin_submit');
   $form['#theme'] = 'system_settings_form';
 
   return $form;
@@ -92,7 +92,7 @@ function easy_breadcrumb_general_settings_form() {
  *
  * @param Assoc $form
  *   form
- *
+ * 
  * @param Assoc $form_state
  *   form state
  *

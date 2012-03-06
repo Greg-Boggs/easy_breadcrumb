@@ -22,7 +22,7 @@ require_once 'includes/EasyBreadcrumbConstants.inc';
  *
  * @return Assoc
  *   permission items
- *
+ * 
  */
 function easy_breadcrumb_permission() {
   return array(
@@ -39,7 +39,7 @@ function easy_breadcrumb_permission() {
  *
  * @return Assoc
  *   menu items
- *
+ * 
  */
 function easy_breadcrumb_menu() {
   $items = array();
@@ -69,7 +69,7 @@ function easy_breadcrumb_menu() {
  *
  * @return Assoc
  *   theme items
- *
+ * 
  */
 function easy_breadcrumb_theme($existing, $type, $theme, $path) {
   $path = drupal_get_path('module', 'easy_breadcrumb') . '/tpl';
@@ -90,7 +90,7 @@ function easy_breadcrumb_theme($existing, $type, $theme, $path) {
  *
  * @return Assoc
  *   the blocks' info
- *
+ * 
  */
 function easy_breadcrumb_block_info() {
   $block = array();
@@ -106,10 +106,10 @@ function easy_breadcrumb_block_info() {
  *
  * @param String $delta
  *   the identifier of the required module
- *
+ * 
  * @return Assoc
  *   the required block's view
- *
+ * 
  */
 function easy_breadcrumb_block_view($delta = NULL) {
   $block = array();

@@ -5,6 +5,8 @@
  * Install hooks
  */
 
+require_once 'includes/EasyBreadcrumbConstants.inc';
+
 /**
  * Implements hook uninstall
  */

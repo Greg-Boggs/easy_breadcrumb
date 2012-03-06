@@ -10,8 +10,6 @@
  * Contact us". Such presentation could vary depending on the module's settings.
  */
 
-require_once 'includes/EasyBreadcrumbConstants.inc';
-
 /**
  * Implementation of hook permission
  *

@@ -5,6 +5,8 @@
  * Module's admin forms
  */
 
+require_once 'EasyBreadcrumbConstants.inc';
+
 /**
  * The default settings page.
  *

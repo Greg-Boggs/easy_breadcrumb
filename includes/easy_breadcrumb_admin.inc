@@ -71,9 +71,14 @@ function easy_breadcrumb_general_settings_form() {
   );
 
   $form['buttons'] = array(
-    'submit' => array('#type' => 'submit', '#value' =>
-      t('Save configuration'),),
-    'reset' => array('#type' => 'reset', '#value' => t('Reset to defaults'),),
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t('Save configuration'),
+    ),
+    'reset' => array(
+      '#type' => 'reset',
+      '#value' => t('Reset to defaults'),
+    ),
   );
 
   $form['#submit'] = array('easy_breadcrumb_admin_submit',);

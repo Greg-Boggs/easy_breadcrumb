@@ -10,7 +10,7 @@
  *
  * @param String $op
  *   operation
- * 
+ *
  * @return String
  *   the rendered form
  *
@@ -92,7 +92,6 @@ function easy_breadcrumb_general_settings_form() {
  *
  * @param Assoc $form
  *   form
- * 
  * @param Assoc $form_state
  *   form state
  *

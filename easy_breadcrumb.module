@@ -2,19 +2,14 @@
 
 /**
  * @file
- * Module's hooks
- */
-
-/**
  * The Easy Breadcrumb module provides a block to be embedded in a page,
  * tipically at some place in near the header.
  * Easy Breadcrumb uses the URL (path alias) and the current page's title to
  * extract the breadcrumb's segments and its respective links.
  * The resulting block will be something like: "Home >> Contact Us" or "Home /
  * Contact us". Such presentation could vary depending on the module's settings.
- *
- * @version 1.0 - 2012-01-05
  */
+
 require_once 'includes/EasyBreadcrumbConstants.inc';
 
 /**
@@ -22,7 +17,7 @@ require_once 'includes/EasyBreadcrumbConstants.inc';
  *
  * @return Assoc
  *   permission items
- * 
+ *
  */
 function easy_breadcrumb_permission() {
   return array(
@@ -39,7 +34,7 @@ function easy_breadcrumb_permission() {
  *
  * @return Assoc
  *   menu items
- * 
+ *
  */
 function easy_breadcrumb_menu() {
   $items = array();
@@ -69,7 +64,7 @@ function easy_breadcrumb_menu() {
  *
  * @return Assoc
  *   theme items
- * 
+ *
  */
 function easy_breadcrumb_theme($existing, $type, $theme, $path) {
   $path = drupal_get_path('module', 'easy_breadcrumb') . '/tpl';
@@ -90,7 +85,7 @@ function easy_breadcrumb_theme($existing, $type, $theme, $path) {
  *
  * @return Assoc
  *   the blocks' info
- * 
+ *
  */
 function easy_breadcrumb_block_info() {
   $block = array();
@@ -106,10 +101,10 @@ function easy_breadcrumb_block_info() {
  *
  * @param String $delta
  *   the identifier of the required module
- * 
+ *
  * @return Assoc
  *   the required block's view
- * 
+ *
  */
 function easy_breadcrumb_block_view($delta = NULL) {
   $block = array();

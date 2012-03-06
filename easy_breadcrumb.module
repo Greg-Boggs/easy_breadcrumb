@@ -80,7 +80,7 @@ function easy_breadcrumb_theme($existing, $type, $theme, $path) {
         'breadcrumb' => NULL,
         'separator' => NULL,
       ),
-      'path' => $path
+      'path' => $path,
     ),
   );
 }

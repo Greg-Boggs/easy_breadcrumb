@@ -106,7 +106,7 @@ function easy_breadcrumb_block_info() {
  *
  * @param String $delta
  *   the identifier of the required module
- * 
+ *
  * @return Assoc
  *   the required block's view
  *

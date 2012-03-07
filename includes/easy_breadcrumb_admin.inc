@@ -132,7 +132,7 @@ function easy_breadcrumb_admin_submit($form, &$form_state) {
   $capitalize_ignored_words_arr = array();
   $capitalize_ignored_words_arr_aux = explode(',', $capitalize_ignored_words);
 
-  foreach($capitalize_ignored_words_arr_aux as $k => $v) {
+  foreach ($capitalize_ignored_words_arr_aux as $k => $v) {
     $v = trim($v);
     $capitalize_ignored_words_arr[$v] = $v;
   }

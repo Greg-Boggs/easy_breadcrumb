@@ -12,7 +12,6 @@ require_once 'EasyBreadcrumbConstants.inc';
  *
  * @return Assoc
  *   resulting renderizable array
- *
  */
 function _easy_breadcrumb_block() {
 
@@ -98,7 +97,6 @@ function _easy_breadcrumb_block() {
  *
  * @return string
  *   normalized segment title
- *
  */
 function _easy_breadcrumb_normalize_url_segment_text($segment,
 $uppercase_mode = 'ucwords') {

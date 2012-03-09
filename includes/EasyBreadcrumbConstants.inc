@@ -1,1 +1,24 @@
-<?php/** * @file * Module's contants *//** * EasyBreadcrumb module's contants */interface EasyBreadcrumbConstants {  // Module's name.  const MODULE_NAME = 'easy_breadcrumb';  // Prefijo a usar en el nombre de todas las variables que se guardan en BD.  const DB_VARS_PREFIX = 'easy_breadcrumb.db_var.';  const DB_VAR_SEGMENTS_SEPARATOR = 'easy_breadcrumb.db_var.segments_separator';  const DB_VAR_TITLE_VISIBLE = 'easy_breadcrumb.db_var.title_visible';  const DB_VAR_PAGE_TITLE_WHEN_AVAILABLE = 'easy_breadcrumb.db_var.page_title_when_available';  const DB_VAR_SEGMENTS_CAPITALIZE_MODE = 'easy_breadcrumb.db_var.segments_capitalize_mode';  const DB_VAR_SEGMENTS_CAPITALIZE_IGNORED_WORDS = 'easy_breadcrumb.db_var.segments_capitalize_ignored_words';}
+<?php
+
+/**
+ * @file
+ * Module's contants
+ */
+
+/**
+ * EasyBreadcrumb module's contants
+ */
+interface EasyBreadcrumbConstants {
+
+  // Module's name.
+  const MODULE_NAME = 'easy_breadcrumb';
+
+  // Prefijo a usar en el nombre de todas las variables que se guardan en BD.
+  const DB_VARS_PREFIX = 'easy_breadcrumb.db_var.';
+  const DB_VAR_SEGMENTS_SEPARATOR = 'easy_breadcrumb.db_var.segments_separator';
+  const DB_VAR_TITLE_VISIBLE = 'easy_breadcrumb.db_var.title_visible';
+  const DB_VAR_PAGE_TITLE_WHEN_AVAILABLE = 'easy_breadcrumb.db_var.page_title_when_available';
+  const DB_VAR_SEGMENTS_CAPITALIZE_MODE = 'easy_breadcrumb.db_var.segments_capitalize_mode';
+  const DB_VAR_SEGMENTS_CAPITALIZE_IGNORED_WORDS = 'easy_breadcrumb.db_var.segments_capitalize_ignored_words';
+
+}

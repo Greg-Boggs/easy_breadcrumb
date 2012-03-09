@@ -114,7 +114,7 @@ $uppercase_mode = 'ucwords') {
         EasyBreadcrumbConstants::DB_VAR_SEGMENTS_CAPITALIZE_IGNORED_WORDS, '');
       // Converts the not-ignored words of the segment.
       $segments_arr[0] = ucfirst($segments_arr[0]);
-      for ($i=1,$n=count($segments_arr); $i < $n; ++$i) {
+      for ($i = 1,$n = count($segments_arr); $i < $n; ++$i) {
         if (!isset ($capitalize_ignored_words_arr[$segments_arr[$i]])) {
           $segments_arr[$i] = ucfirst($segments_arr[$i]);
         }

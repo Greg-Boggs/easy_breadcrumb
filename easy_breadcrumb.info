@@ -1,6 +1,8 @@
 name = "Easy Breadcrumb"
 description = "Provides a plug-and-play block to be embedded in your pages,
 typically at some place near the page's header."
+files[] = includes/EasyBreadcrumbConstants.inc
+configure = admin/config/easy-breadcrumb
 dependencies[] = pathauto
 
 core = 7.x

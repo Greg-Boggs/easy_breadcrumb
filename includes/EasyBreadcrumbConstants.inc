@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Module's contants
+ * Module's contants.
  */
 
 /**
@@ -10,10 +10,10 @@
  */
 interface EasyBreadcrumbConstants {
 
-  // Module's name.
+  // The module's name.
   const MODULE_NAME = 'easy_breadcrumb';
 
-  // Prefijo a usar en el nombre de todas las variables que se guardan en BD.
+  // Prefix for all the database variables.
   const DB_VARS_PREFIX = 'easy_breadcrumb.db_var.';
   const DB_VAR_SEGMENTS_SEPARATOR = 'easy_breadcrumb.db_var.segments_separator';
   const DB_VAR_TITLE_VISIBLE = 'easy_breadcrumb.db_var.title_visible';

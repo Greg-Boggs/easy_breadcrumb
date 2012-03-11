@@ -2,35 +2,35 @@
 
 /**
  * @file
- * The Easy Breadcrumb module provides a block to be embedded in a page,
- * tipically at some place in near the header.
- * Easy Breadcrumb uses the URL (path alias) and the current page's title to
- * extract the breadcrumb's segments and its respective links.
- * The resulting block will be something like: "Home >> Contact Us" or "Home /
- * Contact us". Such presentation could vary depending on the module's settings.
+ * The Easy Breadcrumb module provides a block to be embedded in any page,
+ * typically at some place near the page's header.
+ * Easy Breadcrumb uses the URL (path alias) and the current page's title
+ * (when available) to obtain the breadcrumb's segments and its respective
+ * links. The resulting block will be something like:
+ * "Home >> Contact Us" or "Home / Contact us".
+ * Such presentation could vary depending on the configuration of the module.
  */
 
 /**
- * Implementation of hook permission
+ * Implements hook_permission().
  *
  * @return Assoc
- *   permission items
+ *   permission items.
  */
 function easy_breadcrumb_permission() {
   return array(
     'administer easy_breadcrumb' => array(
       'title' => t('Administer EasyBreadcrumb'),
-      'description' => t('Perform administration tasks for the EasyBreadCrumb
-        module.'),
+      'description' => t('Perform administration tasks for the EasyBreadCrumb module.'),
     ),
   );
 }
 
 /**
- * Implementation of hook menu
+ * Implements hook_menu().
  *
  * @return Assoc
- *   menu items
+ *   menu items.
  */
 function easy_breadcrumb_menu() {
   $items = array();
@@ -38,7 +38,7 @@ function easy_breadcrumb_menu() {
     'title' => 'EasyBreadcrumb form settings',
     'description' => 'Controls settings for the EasyBreadcrumb module',
     'file' => 'includes/easy_breadcrumb_admin.inc',
-    'page callback' => 'easy_breadcrumb_settings_page',
+    'page callback' => '_easy_breadcrumb_settings_page',
     'page arguments' => array(),
     'access arguments' => array('administer easy_breadcrumb'),
   );
@@ -47,7 +47,7 @@ function easy_breadcrumb_menu() {
     'description' => 'Controls settings for the EasyBreadcrumb module',
     'file' => 'includes/easy_breadcrumb_admin.inc',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('easy_breadcrumb_general_settings_form'),
+    'page arguments' => array('_easy_breadcrumb_general_settings_form'),
     'access arguments' => array('administer easy_breadcrumb'),
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => 0,
@@ -56,10 +56,10 @@ function easy_breadcrumb_menu() {
 }
 
 /**
- * Implementation of hook theme
+ * Implements hook_theme().
  *
  * @return Assoc
- *   theme items
+ *   theme items.
  */
 function easy_breadcrumb_theme($existing, $type, $theme, $path) {
   $path = drupal_get_path('module', 'easy_breadcrumb') . '/tpl';
@@ -68,6 +68,7 @@ function easy_breadcrumb_theme($existing, $type, $theme, $path) {
       'template' => 'easy_breadcrumb',
       'variables' => array(
         'breadcrumb' => NULL,
+        'segments_quantity' => NULL,
         'separator' => NULL,
       ),
       'path' => $path,
@@ -76,28 +77,28 @@ function easy_breadcrumb_theme($existing, $type, $theme, $path) {
 }
 
 /**
- * Implementation of hook block_info
+ * Implements hook_block_info().
  *
  * @return Assoc
- *   the blocks' info
+ *   the blocks' info.
  */
 function easy_breadcrumb_block_info() {
   $block = array();
   $block['easy_breadcrumb'] = array(
     'info' => 'EasyBreadcrumb',
-    'cache' => DRUPAL_CACHE_GLOBAL,
+    'cache' => DRUPAL_CACHE_PER_PAGE,
   );
   return $block;
 }
 
 /**
- * Implementation of hook block_view
+ * Implements hook_block_view().
  *
  * @param String $delta
- *   the identifier of the required module
+ *   the identifier of the requested block.
  *
  * @return Assoc
- *   the required block's view
+ *   the requested block's view.
  */
 function easy_breadcrumb_block_view($delta = NULL) {
   $block = array();

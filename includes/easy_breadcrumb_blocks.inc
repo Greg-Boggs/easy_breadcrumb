@@ -19,7 +19,7 @@ function _easy_breadcrumb_block() {
   $breadcrumb = array();
   $home_text = t('Home');
   // Adds a segment for the home page.
-  $breadcrumb[] = l($home_text, NULL, array('attributes' => array('class' => $class_arr),));
+  $breadcrumb[] = l($home_text, NULL, array('attributes' => array('class' => $class_arr)));
 
   // Don't waste resources if the 'home' is the current page.
   if (!drupal_is_front_page()) {

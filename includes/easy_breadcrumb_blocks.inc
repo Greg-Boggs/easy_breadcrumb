@@ -52,10 +52,10 @@ function _easy_breadcrumb_block() {
       );
     }
 
-    // Gets the flag saying if the title will be appended to the breadcrumb.
+    // Gets the flag saying if the title should be appended to the breadcrumb.
     $is_title_visible = variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_VISIBLE, TRUE);
 
-    // Adds the title to the breadcrumb if it is not discarded by the settings.
+    // Adds the page's title to the breadcrumb.
     if ($is_title_visible) {
       // Marks the breadcrumb title with an identifier class (useful for CSS).
       $class_arr[1] = 'easy-breadcrumb_segment-title';

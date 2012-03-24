@@ -27,6 +27,18 @@ function easy_breadcrumb_permission() {
 }
 
 /**
+ * Implements hook_init(). 
+ */
+function easy_breadcrumb_init() {
+  $disable_drupal_default_breadcrumb = variable_get(EasyBreadcrumbConstants::DB_VAR_DISABLE_DRUPAL_DEFAULT_BREADCRUMB,
+    TRUE);
+  if ($disable_drupal_default_breadcrumb) {
+    // Sets the Drupal's default breadcrumb as an empty array to disable it.
+    drupal_set_breadcrumb(array());
+  }
+}
+
+/**
  * Implements hook_menu().
  *
  * @return Assoc
@@ -85,7 +97,7 @@ function easy_breadcrumb_theme($existing, $type, $theme, $path) {
 function easy_breadcrumb_block_info() {
   $block = array();
   $block['easy_breadcrumb'] = array(
-    'info' => 'EasyBreadcrumb',
+    'info' => 'Easy Breadcrumb',
     'cache' => DRUPAL_CACHE_PER_PAGE,
   );
   return $block;

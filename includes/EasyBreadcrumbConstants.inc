@@ -23,7 +23,8 @@ interface EasyBreadcrumbConstants {
 
   // Prefix for all the database variables.
   const DB_VARS_PREFIX = 'easy_breadcrumb.db_var.';
-  const DB_VAR_SEGMENTS_SEPARATOR = '';
+  
+  const DB_VAR_SEGMENTS_SEPARATOR = 'easy_breadcrumb.db_var.segments_separator';
   const DB_VAR_INCLUDE_FRONT_PAGE_SEGMENT = 'easy_breadcrumb.db_var.include_front_page';
   const DB_VAR_INCLUDE_PAGE_TITLE_SEGMENT = 'easy_breadcrumb.db_var.inlcude_page_title';
   const DB_VAR_PAGE_TITLE_WHEN_AVAILABLE = 'easy_breadcrumb.db_var.page_title_when_available';

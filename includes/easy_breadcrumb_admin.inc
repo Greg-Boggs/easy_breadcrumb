@@ -67,7 +67,7 @@ function _easy_breadcrumb_general_settings_form() {
     '#type' => 'textfield',
     '#title' => t('Segments separator'),
     '#description' => t("Separator to be used between the breadcrumb's segments."),
-    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR, '/'),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR, '>>'),
   );
 
   $fieldset_general[EasyBreadcrumbConstants::CAPITALIZATOR_MODE] = array(

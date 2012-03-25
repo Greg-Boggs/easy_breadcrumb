@@ -70,7 +70,8 @@ function _easy_breadcrumb_block() {
       if ($valid_path) {        
         $item = $alias_arr[$i];        
         // Normalized segment's text (e.g. 'Blog');
-        $segment_text = _easy_breadcrumb_normalize_url_segment_text($item, $capitalizator_mode);
+        $segment_text = _easy_breadcrumb_normalize_url_segment_text($item, $capitalizator_mode,
+          $capitalizator_ignored_words);
         $segments_classes[1] = 'easy-breadcrumb_segment-' . $c;
         // Adds the segment to the breadcrumb.
         $breadcrumb[] = l($segment_text, $segment_url, array(
@@ -106,7 +107,7 @@ function _easy_breadcrumb_block() {
   }
 
   // Gets the configured segments separator.
-  $separator = variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR, '/');
+  $separator = variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR, '>>');
 
   $build = array();
   $build['easy_breadcrumb'] = array(
@@ -134,7 +135,7 @@ function _easy_breadcrumb_block() {
  */
 function _easy_breadcrumb_normalize_url_segment_text($segment, $uppercase_mode = 'ucwords',
 $capitalizator_ignored_words = array()) {
-
+  
   // Transforms 'hello-world' on 'hello world'.
   $normalized_segment = str_replace('-', ' ', $segment);
 

@@ -1,18 +1,22 @@
-The Easy Breadcrumb module provides a plug-and-play breadcrumb block to be
-embedded in your pages, typically at some place near the page's header.
+The Easy Breadcrumb module provides a plug-and-play block to be embedded in your pages,
+typically at some place near the page's header. This modules is currently available for Drupal 7.x.
 
-Easy Breadcrumb uses the current URL (path alias) and the current page's title
-to automatically extract the breadcrumb's segments and its respective links.
-Easy Breadcrumb is really a plug and play module, it auto-generates the
-breadcrumb by using the current URL, the user needs dont's need to configure
-anything to get it working.
+Easy Breadcrumb uses the current URL (path alias) and the current page's title to automatically
+extract the breadcrumb's segments and its respective links. Easy Breadcrumb is really a
+plug and play module, it auto-generates the breadcrumb by using the current URL, the user
+needs to do anything to get it working. The resulting block will be something like:
+"Home >> Contact Us" or "Home / Contact us". The breadcrumb presentation could vary
+depending on the module's settings.
 
-The resulting block will display something like: "Home >> Contact Us" or
-"Home / Contact us". The breadcrumb presentation could vary depending on your
-module's settings.
+By example, having a URL like "gallery/videos/once-a-time-in-cartagena", EasyBreadcrumb will
+automatically produces the breadcrumb "Gallery >> Videos >> Once a time in Cartagena" or
+"Gallery >> Videos >> Once a Time in Cartagena". Again, the breadcrumb presentation could
+vary depending on the module's settings.
+
+For consistency, Easy Breadcrumb requires the Pathauto module.
 
 
-*** Module's Configuration ***
+Configuration:
 
   To start using it, just go to the admin modules page (URL "admin/modules/list"),
   locate it under the category "others" and activate it, then go to the blocks list page
@@ -43,5 +47,3 @@ module's settings.
     'capitalizator': for this, enter the desired words to be ignored by the
     'capitalizator' separating them with commas. There is a 'textarea' named
     "Words to be ignored by the 'capitalizator'" for this purpose.
-
-*** end Module's Configuration ***

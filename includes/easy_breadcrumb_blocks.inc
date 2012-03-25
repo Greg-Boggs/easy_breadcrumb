@@ -38,7 +38,8 @@ function _easy_breadcrumb_block() {
     $capitalizator_mode = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_MODE, 'ucwords');
     
     // Ignored words.
-    $capitalizator_ignored_words = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS, array());
+    $capitalizator_ignored_words = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS,
+      array('of', 'and', 'de', 'del', 'y'));
 
     // Obtains the alias of the current path.
     $alias = drupal_get_path_alias();

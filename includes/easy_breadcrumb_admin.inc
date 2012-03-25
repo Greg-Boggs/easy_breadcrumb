@@ -84,7 +84,8 @@ function _easy_breadcrumb_general_settings_form() {
   );
 
   // Formats the ignored-words array as comma separated list of words (word1, word2, wordN) before display them.
-  $capitalizator_ignored_words_arr = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS, array());
+  $capitalizator_ignored_words_arr = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS,
+    array('of', 'and', 'de', 'del', 'y'));
   $capitalizator_ignored_words = @join(', ', $capitalizator_ignored_words_arr);
 
   $fieldset_general[EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS] = array(

@@ -23,8 +23,8 @@ Configuration:
   (URL "admin/structure/block") and locate the block named "Easy Breadcrumb",
   and configure it like any other block (region, URLs, etc.).
 
-  The configuration page of this module is under "Admin > Configuration > Easy Breadcrumb"
-  (URL "admin/config/easy-breadcrumb").
+  The configuration page of this module is under "Admin > Configuration > User Interface >
+  Easy Breadcrumb" (URL "admin/config/user-interface/easy-breadcrumb").
 
   The provided options for this module are the following.
 

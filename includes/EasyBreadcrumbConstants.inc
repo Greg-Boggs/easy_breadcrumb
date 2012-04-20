@@ -47,7 +47,7 @@ interface EasyBreadcrumbConstants {
   const CAPITALIZATOR_MODE = 'easy_breadcrumb-capitalizator_mode';
 
   /**
-   * List of words to be ignored by the 'capitalizator'. E.g.: of, and.
+   * List of words to be ignored by the 'capitalizator'. E.g.: of and.
    */
   const CAPITALIZATOR_IGNORED_WORDS = 'easy_breadcrumb-capitalizator_ignored_words';
 

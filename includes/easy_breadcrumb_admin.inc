@@ -90,15 +90,15 @@ function _easy_breadcrumb_general_settings_form() {
     '#default_value' => variable_get(EasyBreadcrumbConstants::CAPITALIZATOR_MODE, 'ucwords'),
   );
 
-  // Formats the ignored-words array as comma separated list of words (word1, word2, wordN) before display them.
+  // Formats the ignored-words array as space separated list of words (word1 word2 wordN) before display them.
   $capitalizator_ignored_words_arr = variable_get(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS,
     array('of', 'and', 'de', 'del', 'y'));
-  $capitalizator_ignored_words = @join(', ', $capitalizator_ignored_words_arr);
+  $capitalizator_ignored_words = @join(' ', $capitalizator_ignored_words_arr);
 
   $fieldset_general[EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS] = array(
     '#type' => 'textarea',
     '#title' => t("Words to be ignored by the 'capitalizator'"),
-    '#description' => t("Enter a comma separated list of words to be ignored by the 'capitalizator'. E.g.: of, and.<br/>
+    '#description' => t("Enter a space separated list of words to be ignored by the 'capitalizator'. E.g.: of and.<br/>
       Note: this will be applyed only to words not at the beginning of each segment."),
     '#default_value' => $capitalizator_ignored_words,
   );
@@ -151,7 +151,7 @@ function _easy_breadcrumb_admin_submit($form, &$form_state) {
   // Stores the list of ignored words as an array. E.g.: array('of','and').
   $capitalize_ignored_words = $values[EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS];
   $capitalizator_ignored_words_arr = array();
-  $capitalize_ignored_words_arr_aux = explode(',', $capitalize_ignored_words);
+  $capitalize_ignored_words_arr_aux = explode(' ', $capitalize_ignored_words);
   foreach ($capitalize_ignored_words_arr_aux as $k => $v) {
     $v = trim($v);
     if($v !== '') {

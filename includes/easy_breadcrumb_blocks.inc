@@ -37,7 +37,7 @@ function _easy_breadcrumb_block() {
     // Gets the flag saying the capitalizator mode.
     $capitalizator_mode = variable_get(EasyBreadcrumbConstants::CAPITALIZATOR_MODE, 'ucwords');
 
-    // Ignored words.
+    // List of words to be ignored by the capitalizator.
     $capitalizator_ignored_words = variable_get(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS,
       array('of', 'and', 'de', 'del', 'y'));
 

@@ -47,7 +47,7 @@ function easy_breadcrumb_init() {
 function easy_breadcrumb_menu() {
   $items = array();
   $items['admin/config/user-interface/easy-breadcrumb'] = array(
-    'title' => 'EasyBreadcrumb form settings',
+    'title' => 'EasyBreadcrumb settings',
     'description' => 'Controls settings for the EasyBreadcrumb module',
     'file' => 'includes/easy_breadcrumb_admin.inc',
     'page callback' => '_easy_breadcrumb_settings_page',

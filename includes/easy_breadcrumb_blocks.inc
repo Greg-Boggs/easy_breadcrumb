@@ -20,7 +20,7 @@ function _easy_breadcrumb_block() {
   $segments_classes = array('easy-breadcrumb_segment');
 
   // Gets the flag saying if the front page segment should be included.
-  $include_front_page_segment = variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_FRONT_PAGE_SEGMENT, TRUE);
+  $include_front_page_segment = variable_get(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT, TRUE);
 
   // Conditionally include the front page segment in the breadcrumb.
   if ($include_front_page_segment) {
@@ -35,10 +35,10 @@ function _easy_breadcrumb_block() {
   if (!drupal_is_front_page()) {
 
     // Gets the flag saying the capitalizator mode.
-    $capitalizator_mode = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_MODE, 'ucwords');
-    
+    $capitalizator_mode = variable_get(EasyBreadcrumbConstants::CAPITALIZATOR_MODE, 'ucwords');
+
     // Ignored words.
-    $capitalizator_ignored_words = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS,
+    $capitalizator_ignored_words = variable_get(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS,
       array('of', 'and', 'de', 'del', 'y'));
 
     // Obtains the alias of the current path.
@@ -67,9 +67,9 @@ function _easy_breadcrumb_block() {
 
       // Only adds the segment if its URL really exists.
       $valid_path = drupal_valid_path($segment_url);
-      
-      if ($valid_path) {        
-        $item = $alias_arr[$i];        
+
+      if ($valid_path) {
+        $item = $alias_arr[$i];
         // Normalized segment's text (e.g. 'Blog');
         $segment_text = _easy_breadcrumb_normalize_url_segment_text($item, $capitalizator_mode,
           $capitalizator_ignored_words);
@@ -82,13 +82,13 @@ function _easy_breadcrumb_block() {
     }
 
     // Gets the flag saying if the title should be appended to the breadcrumb.
-    $include_page_title_segment = variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_PAGE_TITLE_SEGMENT, TRUE);
+    $include_page_title_segment = variable_get(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT, TRUE);
 
     // Adds the page's title to the breadcrumb.
     if ($include_page_title_segment) {
       // Marks the page's-title-segment with an identifier class (useful for CSS).
       $segments_classes[1] = 'easy-breadcrumb_segment-title';
-      $use_page_title_when_available = variable_get(EasyBreadcrumbConstants::DB_VAR_PAGE_TITLE_WHEN_AVAILABLE, TRUE);
+      $use_page_title_when_available = variable_get(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE, TRUE);
       // Tries to get the title of the current page (if available).
       if ($use_page_title_when_available) {
         $page_title = drupal_get_title();
@@ -100,15 +100,19 @@ function _easy_breadcrumb_block() {
         $page_title = _easy_breadcrumb_normalize_url_segment_text($page_title, $capitalizator_mode,
           $capitalizator_ignored_words);
       }
-      // Adds the title to the breadcrumb.
-      $breadcrumb[] = l($page_title, $alias, array(
-        'attributes' => array('class' => $segments_classes))
-      );
+      $title_segment_as_link = variable_get(EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK, FALSE);
+      // If the page's title will be a link or just a text.
+      if($title_segment_as_link) {
+        $breadcrumb[] = l($page_title, $alias, array('attributes' => array('class' => $segments_classes)));
+      } else {
+        $classes = implode(' ', $segments_classes);
+        $breadcrumb[] = '<span class="' . $classes . '">' . $page_title . '</span>';
+      }
     }
   }
 
   // Gets the configured segments separator.
-  $separator = variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR, '>>');
+  $separator = variable_get(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR, '>>');
 
   $build = array();
   $build['easy_breadcrumb'] = array(
@@ -136,14 +140,14 @@ function _easy_breadcrumb_block() {
  */
 function _easy_breadcrumb_normalize_url_segment_text($segment, $uppercase_mode = 'ucwords',
 $capitalizator_ignored_words = array()) {
-  
+
   // Transforms 'hello-world' on 'hello world'.
   $normalized_segment = str_replace('-', ' ', $segment);
 
   switch ($uppercase_mode) {
     // Converts the text 'once a time' to 'Once a Time'.
     case 'ucwords':
-      $segments_arr = explode(' ', $normalized_segment);      
+      $segments_arr = explode(' ', $normalized_segment);
       // Converts the non-ignored words of the segment.
       $segments_arr[0] = ucfirst($segments_arr[0]);
       for ($i = 1, $n = count($segments_arr); $i < $n; ++$i) {

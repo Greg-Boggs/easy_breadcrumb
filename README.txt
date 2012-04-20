@@ -13,8 +13,8 @@ automatically produces the breadcrumb "Gallery >> Videos >> Once a time in Carta
 "Gallery >> Videos >> Once a Time in Cartagena". Again, the breadcrumb presentation could
 vary depending on the module's settings.
 
-For consistency, Easy Breadcrumb requires the Pathauto module.
-
+For consistency, Easy Breadcrumb requires the Pathauto module. Easy Breadcrumb naturally
+encourages the creation of semantic and consistent paths.
 
 Configuration:
 
@@ -29,14 +29,16 @@ Configuration:
   The provided options for this module are the following.
 
   * To disable the Drupal default breadcrumb: mark / unmark the checkbox
-    "Disable the Drupal's default breadcrumb".
+    "Disable the default Drupal's breadcrumb".
   * To include / exclude the front page from the breadcrumb: mark / unmark
-    the checkbox "Display the front page as a segment in the breadcrumb".
+    the checkbox "Include the front page as the first segment in the breadcrumb".
   * To include / exclude the current page's title from the breadcrumb: mark / unmark
-    the checkbox "Display the current page's title in the breadcrumb".
+    the checkbox "Include the current page's title as a segment in the breadcrumb".
   * To decide if the module should use the page's title when it is available
     instead of it always trying to deduce it from the URL: mark / unmark the
     checkbox "Use the page's title when available".
+  * To decide if the module should print the title as a link then mark / unmark the
+    checkbox "Make the page's title segment a link".
   * To use a custom separator between the breadcrumb's segments: just enter
     the string (default to ">>") or the HTML code to be used as the segments
     separator in the textfield "Segments separator".
@@ -44,6 +46,6 @@ Configuration:
     title: for this, choose one of the provided options in the combobox
     "Segments title's transformation mode".
   * You might want some words to be ignored (not to be capitalized) by the
-    'capitalizator': for this, enter the desired words to be ignored by the
+    'capitalizator'. For this, enter the desired words to be ignored by the
     'capitalizator' separating them with commas. There is a 'textarea' named
     "Words to be ignored by the 'capitalizator'" for this purpose.

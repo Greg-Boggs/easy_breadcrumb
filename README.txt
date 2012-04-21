@@ -49,3 +49,6 @@ Configuration:
     'capitalizator'. For this, enter the desired words to be ignored by the
     'capitalizator' separating them with commas. There is a 'textarea' named
     "Words to be ignored by the 'capitalizator'" for this purpose.
+
+Module Page: http://drupal.org/sandbox/sonemonu/1395492
+Git: git clone http://git.drupal.org/sandbox/sonemonu/1395492.git easy_breadcrumb

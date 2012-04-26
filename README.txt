@@ -48,14 +48,14 @@ Configuration:
   * To decide if the module should print the title as a link then mark / unmark
     the checkbox "Make the page's title segment a link".
   * To use a custom separator between the breadcrumb's segments: just enter
-    the string (default to ">>") or the HTML code to be used as the segments
-    separator in the textfield "Segments separator".
-  * The module allows to choose a transformation mode for to the segments's
-    title: for this, choose one of the provided options in the combobox
+    the string (default to ">>") to be used as the segments separator in the
+    textfield "Segments separator".
+  * The module allows to choose a transformation mode for the segments' title:
+    for this, choose one of the provided options in the combobox
     "Segments title's transformation mode".
   * You might want some words to be ignored (not to be capitalized) by the
     'capitalizator'. For this, enter the desired words to be ignored by the
-    'capitalizator' separating them with commas. There is a 'textarea' named
+    'capitalizator' separating them with a space. There is a 'textarea' named
     "Words to be ignored by the 'capitalizator'" for this purpose.
 
 Module Page: http://drupal.org/sandbox/sonemonu/1395492

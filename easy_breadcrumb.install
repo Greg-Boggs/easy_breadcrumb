@@ -13,7 +13,8 @@ function easy_breadcrumb_uninstall() {
   require_once 'includes/EasyBreadcrumbConstants.inc';
 
   // Deletes all the created variables by this module.
-  db_query("DELETE FROM {variable} WHERE name LIKE '" . EasyBreadcrumbConstants::MODULE_NAME. "-%'");
+  db_query("DELETE FROM {variable} WHERE name LIKE '" .
+    EasyBreadcrumbConstants::MODULE_NAME . "-%'");
 
   // Removes these variables from the Drupal's cache.
   cache_clear_all('variables', 'cache');

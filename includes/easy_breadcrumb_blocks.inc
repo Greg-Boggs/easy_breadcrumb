@@ -31,7 +31,8 @@ function _easy_breadcrumb_block() {
     $breadcrumb[] = l($front_text, NULL, array('attributes' => array('class' => $segments_classes)));
   }
 
-  // There won't be more segments if visiting the front page, the don't waste resources.
+  // There won't be more segments if visiting the front page, the don't waste
+  // resources.
   if (!drupal_is_front_page()) {
 
     // Gets the flag saying the capitalizator mode.
@@ -52,17 +53,19 @@ function _easy_breadcrumb_block() {
 
     $segment_url_arr = array();
 
-    // Iterates over the segments of the current URL ("blog/article/hello-world")
-    // excepting the last segment (the title, 'hello-world' in that case).
+    // Iterates over the segments of the current URL
+    // ("blog/article/hello-world") excepting the last segment
+    // (the title, 'hello-world' in that case).
     for ($c = 1, $i = 0; $c < $segments_quantity; ++$c, ++$i) {
 
-      // Build an array containing the URL of the segment being currently processed.
-      // E.g., having $alias as "blog/article/hello-world", at the first iteration
-      // this array will be array('blog'), the second (and last in that case)
-      // the array will be array('blog','article').
+      // Build an array containing the URL of the segment being currently
+      // processed. E.g., having $alias as "blog/article/hello-world", at the
+      // first iteration this array will be array('blog'), the second
+      // (and last in that case) the array will be array('blog','article').
       $segment_url_arr[] = $alias_arr[$i];
 
-      // String with the raw URL of the segment being processed (e.g. 'blog/article').
+      // String with the raw URL of the segment being processed
+      // (e.g. 'blog/article').
       $segment_url = implode('/', $segment_url_arr);
 
       // Only adds the segment if its URL really exists.
@@ -86,7 +89,8 @@ function _easy_breadcrumb_block() {
 
     // Adds the page's title to the breadcrumb.
     if ($include_page_title_segment) {
-      // Marks the page's-title-segment with an identifier class (useful for CSS).
+      // Marks the page's-title-segment with an identifier class
+      // (useful for CSS).
       $segments_classes[1] = 'easy-breadcrumb_segment-title';
       $use_page_title_when_available = variable_get(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE, TRUE);
       // Tries to get the title of the current page (if available).
@@ -102,9 +106,10 @@ function _easy_breadcrumb_block() {
       }
       $title_segment_as_link = variable_get(EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK, FALSE);
       // If the page's title will be a link or just a text.
-      if($title_segment_as_link) {
+      if ($title_segment_as_link) {
         $breadcrumb[] = l($page_title, $alias, array('attributes' => array('class' => $segments_classes)));
-      } else {
+      }
+      else {
         $classes = implode(' ', $segments_classes);
         $breadcrumb[] = '<span class="' . $classes . '">' . $page_title . '</span>';
       }
@@ -149,11 +154,11 @@ $capitalizator_ignored_words = array()) {
     case 'ucwords':
       $segments_arr = explode(' ', $normalized_segment);
       // Converts the non-ignored words of the segment.
-      $segments_arr[0] = ucfirst($segments_arr[0]);
+      $segments_arr[0] = drupal_ucfirst($segments_arr[0]);
       for ($i = 1, $n = count($segments_arr); $i < $n; ++$i) {
         // Transforms this word only if it is not in the list of ignored words.
         if (!isset($capitalizator_ignored_words[$segments_arr[$i]])) {
-          $segments_arr[$i] = ucfirst($segments_arr[$i]);
+          $segments_arr[$i] = drupal_ucfirst($segments_arr[$i]);
         }
       }
       $normalized_segment = join(' ', $segments_arr);
@@ -161,7 +166,7 @@ $capitalizator_ignored_words = array()) {
 
     // Converts the text 'once a time' to 'Once a time'.
     case 'ucfirst':
-      $normalized_segment = ucfirst($normalized_segment);
+      $normalized_segment = drupal_ucfirst($normalized_segment);
       break;
 
     default:

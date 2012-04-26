@@ -90,7 +90,8 @@ function _easy_breadcrumb_general_settings_form() {
     '#default_value' => variable_get(EasyBreadcrumbConstants::CAPITALIZATOR_MODE, 'ucwords'),
   );
 
-  // Formats the ignored-words array as space separated list of words (word1 word2 wordN) before display them.
+  // Formats the ignored-words array as space separated list of words
+  // (word1 word2 wordN) before display them.
   $capitalizator_ignored_words_arr = variable_get(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS,
     array('of', 'and', 'de', 'del', 'y'));
   $capitalizator_ignored_words = @join(' ', $capitalizator_ignored_words_arr);
@@ -154,7 +155,7 @@ function _easy_breadcrumb_admin_submit($form, &$form_state) {
   $capitalize_ignored_words_arr_aux = explode(' ', $capitalize_ignored_words);
   foreach ($capitalize_ignored_words_arr_aux as $k => $v) {
     $v = trim($v);
-    if($v !== '') {
+    if ($v !== '') {
       $capitalizator_ignored_words_arr[$v] = $v;
     }
   }

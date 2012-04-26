@@ -85,7 +85,8 @@ function _easy_breadcrumb_block() {
         $breadcrumb[] = l($segment_text, $segment_url, array(
           'attributes' => array('class' => $segments_classes),)
         );
-      } else {
+      }
+      else {
         $classes = implode(' ', $segments_classes);
         $breadcrumb[] = '<span class="' . $classes . '">' . $segment_text . '</span>';
       }

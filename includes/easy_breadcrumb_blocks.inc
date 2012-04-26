@@ -68,19 +68,26 @@ function _easy_breadcrumb_block() {
       // (e.g. 'blog/article').
       $segment_url = implode('/', $segment_url_arr);
 
-      // Only adds the segment if its URL really exists.
+      // Get the segment's raw text from the URL.
+      $item = $alias_arr[$i];
+      // Normalized segment's text (e.g. 'Blog');
+      $segment_text = _easy_breadcrumb_normalize_url_segment_text($item, $capitalizator_mode,
+        $capitalizator_ignored_words);
+      $segments_classes[1] = 'easy-breadcrumb_segment-' . $c;
+
+      // Check if this is a valid path.
       $valid_path = drupal_valid_path($segment_url);
 
+      // Only adds the segment as link if its URL really exists; adds it as text
+      // otherwise.
       if ($valid_path) {
-        $item = $alias_arr[$i];
-        // Normalized segment's text (e.g. 'Blog');
-        $segment_text = _easy_breadcrumb_normalize_url_segment_text($item, $capitalizator_mode,
-          $capitalizator_ignored_words);
-        $segments_classes[1] = 'easy-breadcrumb_segment-' . $c;
         // Adds the segment to the breadcrumb.
         $breadcrumb[] = l($segment_text, $segment_url, array(
           'attributes' => array('class' => $segments_classes),)
         );
+      } else {
+        $classes = implode(' ', $segments_classes);
+        $breadcrumb[] = '<span class="' . $classes . '">' . $segment_text . '</span>';
       }
     }
 

@@ -30,8 +30,7 @@ function easy_breadcrumb_permission() {
  * Implements hook_init().
  */
 function easy_breadcrumb_init() {
-  $disable_drupal_default_breadcrumb = variable_get(EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB,
-    TRUE);
+  $disable_drupal_default_breadcrumb = variable_get(EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB, TRUE);
   if ($disable_drupal_default_breadcrumb) {
     // Sets the Drupal's default breadcrumb as an empty array to disable it.
     drupal_set_breadcrumb(array());
@@ -49,7 +48,7 @@ function easy_breadcrumb_menu() {
   $items['admin/config/user-interface/easy-breadcrumb'] = array(
     'title' => 'EasyBreadcrumb settings',
     'description' => 'Controls settings for the EasyBreadcrumb module',
-    'file' => 'includes/easy_breadcrumb_admin.inc',
+    'file' => 'includes/easy_breadcrumb.admin.inc',
     'page callback' => '_easy_breadcrumb_settings_page',
     'page arguments' => array(),
     'access arguments' => array('administer easy_breadcrumb'),
@@ -57,7 +56,7 @@ function easy_breadcrumb_menu() {
   $items['admin/config/user-interface/easy-breadcrumb/general'] = array(
     'title' => 'EasyBreadcrumb general form settings',
     'description' => 'Controls settings for the EasyBreadcrumb module',
-    'file' => 'includes/easy_breadcrumb_admin.inc',
+    'file' => 'includes/easy_breadcrumb.admin.inc',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_easy_breadcrumb_general_settings_form'),
     'access arguments' => array('administer easy_breadcrumb'),
@@ -116,7 +115,7 @@ function easy_breadcrumb_block_view($delta = NULL) {
   $block = array();
   switch ($delta) {
     case 'easy_breadcrumb':
-      require_once 'includes/easy_breadcrumb_blocks.inc';
+      require_once 'includes/easy_breadcrumb.blocks.inc';
       $block['subject'] = NULL;
       $block['content'] = _easy_breadcrumb_block();
       break;

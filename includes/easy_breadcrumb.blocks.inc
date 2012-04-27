@@ -84,7 +84,8 @@ function _easy_breadcrumb_block() {
         // Adds the segment to the breadcrumb.
         $breadcrumb[] = l($segment_text, $segment_url, array(
           'attributes' => array('class' => $segments_classes),
-        ));
+          )
+        );
       }
       else {
         $classes = implode(' ', $segments_classes);

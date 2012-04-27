@@ -40,7 +40,7 @@ function _easy_breadcrumb_block() {
 
     // List of words to be ignored by the capitalizator.
     $capitalizator_ignored_words = variable_get(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS,
-      array('of', 'and', 'de', 'del', 'y'));
+    EasyBreadcrumbConstants::$DEFAULT_IGNORED_WORDS);
 
     // Obtains the alias of the current path.
     $alias = drupal_get_path_alias();

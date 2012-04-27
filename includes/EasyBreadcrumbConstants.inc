@@ -8,12 +8,17 @@
 /**
  * EasyBreadcrumb module's contants
  */
-interface EasyBreadcrumbConstants {
+class EasyBreadcrumbConstants {
 
   /**
    * Module's name.
    */
   const MODULE_NAME = 'easy_breadcrumb';
+
+  /**
+   * Default list of ignored words.
+   */
+  public static $DEFAULT_IGNORED_WORDS = array('of', 'and', 'de', 'del', 'y');
 
   /**
    *  Separator between segments.

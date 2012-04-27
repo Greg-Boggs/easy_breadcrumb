@@ -83,7 +83,7 @@ function _easy_breadcrumb_block() {
       if ($valid_path) {
         // Adds the segment to the breadcrumb.
         $breadcrumb[] = l($segment_text, $segment_url, array(
-          'attributes' => array('class' => $segments_classes),)
+          'attributes' => array('class' => $segments_classes), )
         );
       }
       else {

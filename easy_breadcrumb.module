@@ -61,8 +61,8 @@ function easy_breadcrumb_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_easy_breadcrumb_general_settings_form'),
     'access arguments' => array('administer easy_breadcrumb'),
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-    'weight' => 0,
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 10,
   );
   return $items;
 }

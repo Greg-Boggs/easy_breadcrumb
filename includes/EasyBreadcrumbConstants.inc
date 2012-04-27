@@ -16,11 +16,6 @@ class EasyBreadcrumbConstants {
   const MODULE_NAME = 'easy_breadcrumb';
 
   /**
-   * Default list of ignored words.
-   */
-  public static $DEFAULT_IGNORED_WORDS = array('of', 'and', 'de', 'del', 'y');
-
-  /**
    *  Separator between segments.
    */
   const SEGMENTS_SEPARATOR = 'easy_breadcrumb-segments_separator';
@@ -60,5 +55,16 @@ class EasyBreadcrumbConstants {
    * Flag for disabling or not the default Drupal's breadcrumb.
    */
   const DISABLE_DEFAULT_DRUPAL_BREADCRUMB = 'easy_breadcrumb-disable_drupal_breadcrumb';
+
+  /**
+   * Default list of ignored words.
+   *
+   * @return array
+   *   Default list of ignored words.
+   */
+  public static function default_ignored_words() {
+    static $DEFAULT_IGNORED_WORDS = array('of', 'and', 'de', 'del', 'y');
+    return $DEFAULT_IGNORED_WORDS;
+  }
 
 }

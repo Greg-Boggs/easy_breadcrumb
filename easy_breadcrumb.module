@@ -96,7 +96,7 @@ function easy_breadcrumb_theme($existing, $type, $theme, $path) {
 function easy_breadcrumb_block_info() {
   $block = array();
   $block['easy_breadcrumb'] = array(
-    'info' => 'Easy Breadcrumb',
+    'info' => t('Easy Breadcrumb'),
     'cache' => DRUPAL_CACHE_PER_PAGE,
   );
   return $block;

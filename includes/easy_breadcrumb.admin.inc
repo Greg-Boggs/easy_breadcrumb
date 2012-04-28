@@ -37,37 +37,36 @@ function _easy_breadcrumb_general_settings_form() {
   $fieldset_general[EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB] = array(
     '#type' => 'checkbox',
     '#title' => t("Disable the default Drupal's breadcrumb"),
+    '#description' => t("Always disable the default Drupal's breadcrumb."),
     '#default_value' => variable_get(EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB, TRUE),
-    '#description' => t("¿Should this module disable the default Drupal's breadcrumb?"),
   );
 
   $fieldset_general[EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT] = array(
     '#type' => 'checkbox',
-    '#title' => t("Include the front page as the first segment in the breadcrumb"),
+    '#title' => t("Include the front page as a segment in the breadcrumb"),
+    '#description' => t("Include the front page as the first segment in the breacrumb."),
     '#default_value' => variable_get(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT, TRUE),
-    '#description' => t("¿Should the front page be included as a segment in the breacrumb?"),
   );
 
   $fieldset_general[EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT] = array(
     '#type' => 'checkbox',
     '#title' => t("Include the current page's title as a segment in the breadcrumb"),
+    '#description' => t("Include the current page's title as the last segment in the breacrumb."),
     '#default_value' => variable_get(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT, TRUE),
-    '#description' => t("¿Should the current page's title be included as a segment in the breacrumb?"),
   );
 
   $fieldset_general[EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE] = array(
     '#type' => 'checkbox',
     '#title' => t("Use the page's title when available"),
+    '#description' => t("Use the page's title when it is available instead of always trying to deduce it from the URL."),
     '#default_value' => variable_get(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE, TRUE),
-    '#description' => t("¿Use the page's title when it is available instead of always trying to
-      deduce it from the URL?"),
   );
 
   $fieldset_general[EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK] = array(
     '#type' => 'checkbox',
     '#title' => t("Make the page's title segment a link"),
+    '#description' => t("Prints the page's title segment as a link."),
     '#default_value' => variable_get(EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK, FALSE),
-    '#description' => t("¿Prints the page's title segment as a link?"),
   );
 
   $fieldset_general[EasyBreadcrumbConstants::SEGMENTS_SEPARATOR] = array(
@@ -85,8 +84,8 @@ function _easy_breadcrumb_general_settings_form() {
       'ucwords' => t("Capitalize the first letter of each word in the segment"),
       'ucfirst' => t("Only capitalize the first letter of the whole segment"),
     ),
-    '#description' => t("Choose the transformation mode you want to apply to the
-      segments (E.g.: 'blog/once-a-time' -> 'Home >> Blog >> Once a Time')."),
+    '#description' => t("Choose the transformation mode you want to apply to the segments
+      (E.g.: 'blog/once-a-time' -> 'Home >> Blog >> Once a Time')."),
     '#default_value' => variable_get(EasyBreadcrumbConstants::CAPITALIZATOR_MODE, 'ucwords'),
   );
 
@@ -99,8 +98,8 @@ function _easy_breadcrumb_general_settings_form() {
   $fieldset_general[EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS] = array(
     '#type' => 'textarea',
     '#title' => t("Words to be ignored by the 'capitalizator'"),
-    '#description' => t("Enter a space separated list of words to be ignored by the 'capitalizator'. E.g.: of and.<br/>
-      Note: this will be applyed only to words not at the beginning of each segment."),
+    '#description' => t("Enter a space separated list of words to be ignored by the 'capitalizator'. E.g.: of and.!br
+      Note: this will be applyed only to words not at the beginning of each segment.", array('!br' => '<br/>')),
     '#default_value' => $capitalizator_ignored_words,
   );
 

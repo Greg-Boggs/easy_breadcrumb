@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Install hooks.
@@ -12,9 +11,15 @@ function easy_breadcrumb_uninstall() {
 
   require_once 'includes/EasyBreadcrumbConstants.inc';
 
-  // Deletes all the created variables by this module.
-  db_query("DELETE FROM {variable} WHERE name LIKE '" . EasyBreadcrumbConstants::MODULE_NAME . "-%'");
+  // Use reflection for getting constants.
+  $oClass = new ReflectionClass('EasyBreadcrumbConstants');
+  $constants = $oClass->getConstants();
 
-  // Removes these variables from the Drupal's cache.
-  cache_clear_all('variables', 'cache');
+  // Deletes all the created variables by this module.
+  foreach ($constants as $constant_name => $constant_value) {
+    // The database variables are named using the prefix 'DB_VAR'.
+    if (strpos($constant_name, 'DB_VAR_') === 0) {
+      variable_del($constant_value);
+    }
+  }
 }

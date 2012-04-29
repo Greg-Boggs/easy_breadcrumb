@@ -1,22 +1,8 @@
 <?php
-
 /**
  * @file
  * Module's admin forms.
  */
-
-/**
- * The default settings page.
- *
- * @param String $op
- *   operation.
- *
- * @return String
- *   the rendered form.
- */
-function _easy_breadcrumb_settings_page($op = NULL) {
-  return drupal_get_form('_easy_breadcrumb_general_settings_form');
-}
 
 /**
  * General configuration form.
@@ -34,49 +20,49 @@ function _easy_breadcrumb_general_settings_form() {
     '#collapsed' => FALSE,
   );
 
-  $fieldset_general[EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB] = array(
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_DISABLE_DEFAULT_DRUPAL_BREADCRUMB] = array(
     '#type' => 'checkbox',
     '#title' => t("Disable the default Drupal's breadcrumb"),
     '#description' => t("Always disable the default Drupal's breadcrumb."),
-    '#default_value' => variable_get(EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB, TRUE),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_DISABLE_DEFAULT_DRUPAL_BREADCRUMB, TRUE),
   );
 
-  $fieldset_general[EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT] = array(
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_INCLUDE_HOME_SEGMENT] = array(
     '#type' => 'checkbox',
     '#title' => t("Include the front page as a segment in the breadcrumb"),
     '#description' => t("Include the front page as the first segment in the breacrumb."),
-    '#default_value' => variable_get(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT, TRUE),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_HOME_SEGMENT, TRUE),
   );
 
-  $fieldset_general[EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT] = array(
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_INCLUDE_TITLE_SEGMENT] = array(
     '#type' => 'checkbox',
     '#title' => t("Include the current page's title as a segment in the breadcrumb"),
     '#description' => t("Include the current page's title as the last segment in the breacrumb."),
-    '#default_value' => variable_get(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT, TRUE),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_TITLE_SEGMENT, TRUE),
   );
 
-  $fieldset_general[EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE] = array(
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_TITLE_FROM_PAGE_WHEN_AVAILABLE] = array(
     '#type' => 'checkbox',
     '#title' => t("Use the page's title when available"),
     '#description' => t("Use the page's title when it is available instead of always trying to deduce it from the URL."),
-    '#default_value' => variable_get(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE, TRUE),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_FROM_PAGE_WHEN_AVAILABLE, TRUE),
   );
 
-  $fieldset_general[EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK] = array(
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_TITLE_SEGMENT_AS_LINK] = array(
     '#type' => 'checkbox',
     '#title' => t("Make the page's title segment a link"),
     '#description' => t("Prints the page's title segment as a link."),
-    '#default_value' => variable_get(EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK, FALSE),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_SEGMENT_AS_LINK, FALSE),
   );
 
-  $fieldset_general[EasyBreadcrumbConstants::SEGMENTS_SEPARATOR] = array(
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR] = array(
     '#type' => 'textfield',
     '#title' => t('Segments separator'),
     '#description' => t("Separator to be used between the breadcrumb's segments."),
-    '#default_value' => variable_get(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR, '>>'),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR, '>>'),
   );
 
-  $fieldset_general[EasyBreadcrumbConstants::CAPITALIZATOR_MODE] = array(
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_MODE] = array(
     '#type' => 'select',
     '#title' => t("Segments title's transformation mode"),
     '#options' => array(
@@ -86,16 +72,16 @@ function _easy_breadcrumb_general_settings_form() {
     ),
     '#description' => t("Choose the transformation mode you want to apply to the segments
       (E.g.: 'blog/once-a-time' -> 'Home >> Blog >> Once a Time')."),
-    '#default_value' => variable_get(EasyBreadcrumbConstants::CAPITALIZATOR_MODE, 'ucwords'),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_MODE, 'ucwords'),
   );
 
   // Formats the ignored-words array as space separated list of words
   // (word1 word2 wordN) before display them.
-  $capitalizator_ignored_words_arr = variable_get(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS,
+  $capitalizator_ignored_words_arr = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS,
     EasyBreadcrumbConstants::defaultIgnoredWords());
   $capitalizator_ignored_words = @join(' ', $capitalizator_ignored_words_arr);
 
-  $fieldset_general[EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS] = array(
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS] = array(
     '#type' => 'textarea',
     '#title' => t("Words to be ignored by the 'capitalizator'"),
     '#description' => t("Enter a space separated list of words to be ignored by the 'capitalizator'. E.g.: of and.!br
@@ -113,10 +99,6 @@ function _easy_breadcrumb_general_settings_form() {
     'submit' => array(
       '#type' => 'submit',
       '#value' => t('Save configuration'),
-    ),
-    'reset' => array(
-      '#type' => 'reset',
-      '#value' => t('Reset to defaults'),
     ),
   );
 
@@ -139,36 +121,21 @@ function _easy_breadcrumb_general_settings_form() {
  */
 function _easy_breadcrumb_admin_submit($form, &$form_state) {
 
-  $values = $form_state['values'];
-
-  $disable_default_drupal_breadcrumb = $values[EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB];
-  $include_home_segment = $values[EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT];
-  $include_title_segment = $values[EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT];
-  $title_from_page_when_available = $values[EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE];
-  $title_segment_as_link = $values[EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK];
-  $segment_separator = $values[EasyBreadcrumbConstants::SEGMENTS_SEPARATOR];
-  $capitalizator_mode = $values[EasyBreadcrumbConstants::CAPITALIZATOR_MODE];
-  // Stores the list of ignored words as an array. E.g.: array('of','and').
-  $capitalize_ignored_words = $values[EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS];
-  $capitalizator_ignored_words_arr = array();
-  $capitalize_ignored_words_arr_aux = explode(' ', $capitalize_ignored_words);
-  foreach ($capitalize_ignored_words_arr_aux as $k => $v) {
-    $v = trim($v);
-    if ($v !== '') {
-      $capitalizator_ignored_words_arr[$v] = $v;
+  // Pre-processes the list of ignored words for storing them as an array.
+  // E.g.: array('of','and').
+  $ignored_words = $form_state['values'][EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS];
+  $ignored_words_arr = array();
+  $ignored_words_arr_aux = explode(' ', $ignored_words);
+  foreach ($ignored_words_arr_aux as $word) {
+    $word = trim($word);
+    if ($word !== '') {
+      $ignored_words_arr[$word] = $word;
     }
   }
 
-  variable_set(EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB, $disable_default_drupal_breadcrumb);
-  variable_set(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR, $segment_separator);
-  variable_set(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT, $include_home_segment);
-  variable_set(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT, $include_title_segment);
-  variable_set(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE, $title_from_page_when_available);
-  variable_set(EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK, $title_segment_as_link);
-  variable_set(EasyBreadcrumbConstants::CAPITALIZATOR_MODE, $capitalizator_mode);
-  variable_set(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS, $capitalizator_ignored_words_arr);
+  // Updates the $form_state before passing it to the Drupal system.
+  $form_state['values'][EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS] = $ignored_words_arr;
 
-  $success_msg = t("The module's settings have been saved.");
-  $success_msg = check_plain($success_msg);
-  drupal_set_message($success_msg);
+  // Delegates persistence to the existing Drupal system.
+  system_settings_form_submit($form, $form_state);
 }

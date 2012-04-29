@@ -4,6 +4,5 @@ typically at some place near the page's header."
 files[] = includes/EasyBreadcrumbConstants.inc
 configure = admin/config/user-interface/easy-breadcrumb
 dependencies[] = pathauto
-recommends[] = transliteration
 
 core = 7.x

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Module's blocks.
@@ -20,7 +19,7 @@ function _easy_breadcrumb_block() {
   $segments_classes = array('easy-breadcrumb_segment');
 
   // Gets the flag saying if the front page segment should be included.
-  $include_front_page_segment = variable_get(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT, TRUE);
+  $include_front_page_segment = variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_HOME_SEGMENT, TRUE);
 
   // Conditionally include the front page segment in the breadcrumb.
   if ($include_front_page_segment) {
@@ -36,10 +35,10 @@ function _easy_breadcrumb_block() {
   if (!drupal_is_front_page()) {
 
     // Gets the flag saying the capitalizator mode.
-    $capitalizator_mode = variable_get(EasyBreadcrumbConstants::CAPITALIZATOR_MODE, 'ucwords');
+    $capitalizator_mode = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_MODE, 'ucwords');
 
     // List of words to be ignored by the capitalizator.
-    $capitalizator_ignored_words = variable_get(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS,
+    $capitalizator_ignored_words = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS,
     EasyBreadcrumbConstants::defaultIgnoredWords());
 
     // Obtains the alias of the current path.
@@ -56,24 +55,24 @@ function _easy_breadcrumb_block() {
     // Iterates over the segments of the current URL
     // ("blog/article/hello-world") excepting the last segment
     // (the title, 'hello-world' in that case).
-    for ($c = 1, $i = 0; $c < $segments_quantity; ++$c, ++$i) {
+    for ($idx_0 = 0, $idx_1 = 1; $idx_1 < $segments_quantity; ++$idx_0, ++$idx_1) {
 
       // Build an array containing the URL of the segment being currently
       // processed. E.g., having $alias as "blog/article/hello-world", at the
       // first iteration this array will be array('blog'), the second
       // (and last in that case) the array will be array('blog','article').
-      $segment_url_arr[] = $alias_arr[$i];
+      $segment_url_arr[] = $alias_arr[$idx_0];
 
       // String with the raw URL of the segment being processed
       // (e.g. 'blog/article').
       $segment_url = implode('/', $segment_url_arr);
 
       // Get the segment's raw text from the URL.
-      $item = $alias_arr[$i];
+      $item = $alias_arr[$idx_0];
       // Normalized segment's text (e.g. 'Blog');
       $segment_text = _easy_breadcrumb_normalize_url_segment_text($item, $capitalizator_mode,
         $capitalizator_ignored_words);
-      $segments_classes[1] = 'easy-breadcrumb_segment-' . $c;
+      $segments_classes[1] = 'easy-breadcrumb_segment-' . $idx_1;
 
       // Check if this is a valid path.
       $valid_path = drupal_valid_path($segment_url);
@@ -94,14 +93,14 @@ function _easy_breadcrumb_block() {
     }
 
     // Gets the flag saying if the title should be appended to the breadcrumb.
-    $include_page_title_segment = variable_get(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT, TRUE);
+    $include_page_title_segment = variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_TITLE_SEGMENT, TRUE);
 
     // Adds the page's title to the breadcrumb.
     if ($include_page_title_segment) {
       // Marks the page's-title-segment with an identifier class
       // (useful for CSS).
       $segments_classes[1] = 'easy-breadcrumb_segment-title';
-      $use_page_title_when_available = variable_get(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE, TRUE);
+      $use_page_title_when_available = variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_FROM_PAGE_WHEN_AVAILABLE, TRUE);
       // Tries to get the title of the current page (if available).
       if ($use_page_title_when_available) {
         $page_title = drupal_get_title();
@@ -113,7 +112,7 @@ function _easy_breadcrumb_block() {
         $page_title = _easy_breadcrumb_normalize_url_segment_text($page_title, $capitalizator_mode,
           $capitalizator_ignored_words);
       }
-      $title_segment_as_link = variable_get(EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK, FALSE);
+      $title_segment_as_link = variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_SEGMENT_AS_LINK, FALSE);
       // If the page's title will be a link or just a text.
       if ($title_segment_as_link) {
         $breadcrumb[] = l($page_title, $alias, array('attributes' => array('class' => $segments_classes)));
@@ -126,13 +125,15 @@ function _easy_breadcrumb_block() {
   }
 
   // Gets the configured segments separator.
-  $separator = variable_get(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR, '>>');
+  $separator = variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR, '>>');
+  $separator = check_plain($separator);
+  $segments_quantity = count($breadcrumb);
 
   $build = array();
   $build['easy_breadcrumb'] = array(
     '#theme' => 'easy_breadcrumb',
     '#breadcrumb' => $breadcrumb,
-    '#segments_quantity' => count($breadcrumb),
+    '#segments_quantity' => $segments_quantity,
     '#separator' => $separator,
   );
 
@@ -164,10 +165,10 @@ $capitalizator_ignored_words = array()) {
       $segments_arr = explode(' ', $normalized_segment);
       // Converts the non-ignored words of the segment.
       $segments_arr[0] = drupal_ucfirst($segments_arr[0]);
-      for ($i = 1, $n = count($segments_arr); $i < $n; ++$i) {
+      for ($idx_1 = 1, $segments_words_quantity = count($segments_arr); $idx_1 < $segments_words_quantity; ++$idx_1) {
         // Transforms this word only if it is not in the list of ignored words.
-        if (!isset($capitalizator_ignored_words[$segments_arr[$i]])) {
-          $segments_arr[$i] = drupal_ucfirst($segments_arr[$i]);
+        if (!isset($capitalizator_ignored_words[$segments_arr[$idx_1]])) {
+          $segments_arr[$idx_1] = drupal_ucfirst($segments_arr[$idx_1]);
         }
       }
       $normalized_segment = join(' ', $segments_arr);

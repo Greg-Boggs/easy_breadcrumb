@@ -69,7 +69,7 @@ class EasyBreadcrumbConstants {
       'de',
       'del',
       'y',
-      'o'
+      'o',
     );
     return $DEFAULT_IGNORED_WORDS;
   }

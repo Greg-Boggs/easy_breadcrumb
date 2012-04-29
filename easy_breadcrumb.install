@@ -12,8 +12,8 @@ function easy_breadcrumb_uninstall() {
   require_once 'includes/EasyBreadcrumbConstants.inc';
 
   // Use reflection for getting constants.
-  $oClass = new ReflectionClass('EasyBreadcrumbConstants');
-  $constants = $oClass->getConstants();
+  $o_class = new ReflectionClass('EasyBreadcrumbConstants');
+  $constants = $o_class->getConstants();
 
   // Deletes all the created variables by this module.
   foreach ($constants as $constant_name => $constant_value) {

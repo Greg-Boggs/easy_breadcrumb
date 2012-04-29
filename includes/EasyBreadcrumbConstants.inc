@@ -62,7 +62,15 @@ class EasyBreadcrumbConstants {
    *   Default list of ignored words.
    */
   public static function defaultIgnoredWords() {
-    static $DEFAULT_IGNORED_WORDS = array('of', 'and', 'or', 'de', 'del', 'y', 'o');
+    static $DEFAULT_IGNORED_WORDS = array(
+      'of',
+      'and',
+      'or',
+      'de',
+      'del',
+      'y',
+      'o'
+    );
     return $DEFAULT_IGNORED_WORDS;
   }
 

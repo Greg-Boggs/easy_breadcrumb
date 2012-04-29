@@ -98,7 +98,7 @@ function _easy_breadcrumb_general_settings_form() {
   $form['buttons'] = array(
     'submit' => array(
       '#type' => 'submit',
-      '#value' => t('Save configuration'),
+      '#value' => t('Save'),
     ),
   );
 

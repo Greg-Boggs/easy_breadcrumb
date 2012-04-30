@@ -8,7 +8,8 @@ Easy Breadcrumb is really a plug and play module, it auto-generates the
 breadcrumb by using the current URL, the user needs to do anything to get it
 working. The resulting block will be something like:
 "Home >> Contact Us" or "Home / Contact us". The breadcrumb presentation could
-vary depending on the module's settings.
+vary depending on the module's settings. Easy Breadcrumb naturally encourages
+the creation of semantic and consistent paths.
 
 By example, having a URL like "gallery/videos/once-a-time-in-cartagena",
 EasyBreadcrumb will automatically produces the breadcrumb
@@ -16,8 +17,15 @@ EasyBreadcrumb will automatically produces the breadcrumb
 "Gallery >> Videos >> Once a Time in Cartagena". Again, the breadcrumb
 presentation could vary depending on the module's settings.
 
-For consistency, Easy Breadcrumb requires the Pathauto module. Easy Breadcrumb
-naturally encourages the creation of semantic and consistent paths.
+Requirements
+  * Pathauto
+
+Recommended modules:
+  * Transliteration
+      is useful if your site is likely contain characters beyond ASCII
+      128. Like: ñ, ó, among others. After activate it, go to
+      admin/config/search/path/settings and check the option Transliterate
+      prior to creating alias.
 
 Configuration:
 
@@ -58,5 +66,4 @@ Configuration:
     'capitalizator' separating them with a space. There is a 'textarea' named
     "Words to be ignored by the 'capitalizator'" for this purpose.
 
-Module Page: http://drupal.org/sandbox/sonemonu/1395492
-Git git clone http://git.drupal.org/sandbox/sonemonu/1395492.git easy_breadcrumb
+Module Page: http://drupal.org/project/easy_breadcrumb

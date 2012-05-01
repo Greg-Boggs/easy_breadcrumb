@@ -122,15 +122,15 @@ function _easy_breadcrumb_general_settings_form() {
 function _easy_breadcrumb_admin_submit($form, &$form_state) {
 
   // Pre-processes the list of ignored words for storing them as an array.
+  // Replaces line-endings by spaces and splits words by spaces.
   // E.g.: array('of','and').
   $ignored_words = $form_state['values'][EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS];
+  $ignored_words = preg_replace("/\r*\n+/", ' ', $ignored_words);
+  $ignored_words = trim($ignored_words);
   $ignored_words_arr = array();
-  $ignored_words_arr_aux = explode(' ', $ignored_words);
+  $ignored_words_arr_aux = $ignored_words === '' ? array() : preg_split("/\s+/", $ignored_words);
   foreach ($ignored_words_arr_aux as $word) {
-    $word = trim($word);
-    if ($word !== '') {
-      $ignored_words_arr[$word] = $word;
-    }
+    $ignored_words_arr[$word] = $word;
   }
 
   // Updates the $form_state before passing it to the Drupal system.

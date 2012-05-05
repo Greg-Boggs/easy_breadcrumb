@@ -19,8 +19,8 @@
 function easy_breadcrumb_permission() {
   return array(
     'administer easy_breadcrumb' => array(
-      'title' => t('Administer EasyBreadcrumb'),
-      'description' => t('Perform administration tasks for the EasyBreadCrumb module.'),
+      'title' => t("Administer Easy Breadcrumb"),
+      'description' => t('Perform administration tasks for the module Easy Breadcrumb.'),
     ),
   );
 }
@@ -45,8 +45,8 @@ function easy_breadcrumb_init() {
 function easy_breadcrumb_menu() {
   $items = array();
   $items['admin/config/user-interface/easy-breadcrumb'] = array(
-    'title' => 'Easy Breadcrumb',
-    'description' => "Controls settings for the 'Easy Breadcrumb' module",
+    'title' => t('Easy Breadcrumb'),
+    'description' => t("Controls settings for the module Easy Breadcrumb"),
     'file' => 'includes/easy_breadcrumb.admin.inc',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_easy_breadcrumb_general_settings_form'),

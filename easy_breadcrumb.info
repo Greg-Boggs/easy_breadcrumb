@@ -1,6 +1,5 @@
-name = "Easy Breadcrumb"
-description = "Provides a plug-and-play block to be embedded in your pages,
-typically at some place near the page's header."
+name = Easy Breadcrumb
+description = Provides a plug-and-play block to be embedded in your pages, typically at some place near the page's header.
 files[] = includes/EasyBreadcrumbConstants.inc
 configure = admin/config/user-interface/easy-breadcrumb
 dependencies[] = pathauto

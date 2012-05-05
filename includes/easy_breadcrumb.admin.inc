@@ -70,8 +70,7 @@ function _easy_breadcrumb_general_settings_form() {
       'ucwords' => t("Capitalize the first letter of each word in the segment"),
       'ucfirst' => t("Only capitalize the first letter of the whole segment"),
     ),
-    '#description' => t("Choose the transformation mode you want to apply to the segments
-      (E.g.: 'blog/once-a-time' -> 'Home >> Blog >> Once a Time')."),
+    '#description' => t("Choose the transformation mode you want to apply to the segments' title. E.g.: 'blog/once-a-time' -> 'Home >> Blog >> Once a Time'."),
     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_MODE, 'ucwords'),
   );
 
@@ -84,8 +83,7 @@ function _easy_breadcrumb_general_settings_form() {
   $fieldset_general[EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS] = array(
     '#type' => 'textarea',
     '#title' => t("Words to be ignored by the 'capitalizator'"),
-    '#description' => t("Enter a space separated list of words to be ignored by the 'capitalizator'. E.g.: of and.!br
-      Note: this will be applyed only to words not at the beginning of each segment.", array('!br' => '<br/>')),
+    '#description' => t("Enter a space separated list of words to be ignored by the 'capitalizator'. This will be applyed only to the words not at the beginning of each segment. E.g.: of and."),
     '#default_value' => $capitalizator_ignored_words,
   );
 

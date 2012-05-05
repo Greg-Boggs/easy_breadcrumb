@@ -46,7 +46,7 @@ function easy_breadcrumb_menu() {
   $items = array();
   $items['admin/config/user-interface/easy-breadcrumb'] = array(
     'title' => 'Easy Breadcrumb',
-    'description' => t("Controls settings for the module Easy Breadcrumb"),
+    'description' => "Controls settings for the module Easy Breadcrumb",
     'file' => 'includes/easy_breadcrumb.admin.inc',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_easy_breadcrumb_general_settings_form'),

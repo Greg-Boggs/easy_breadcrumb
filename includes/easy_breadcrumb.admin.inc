@@ -64,27 +64,42 @@ function _easy_breadcrumb_general_settings_form() {
 
   $fieldset_general[EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_MODE] = array(
     '#type' => 'select',
-    '#title' => t("Segments title's transformation mode"),
+    '#title' => t("Transformation mode for the segments' titles"),
     '#options' => array(
       'none' => t('None'),
       'ucwords' => t("Capitalize the first letter of each word in the segment"),
-      'ucfirst' => t("Only capitalize the first letter of the whole segment"),
+      'ucfirst' => t("Only capitalize the first letter of each segment"),
     ),
-    '#description' => t("Choose the transformation mode you want to apply to the segments' title. E.g.: 'blog/once-a-time' -> 'Home >> Blog >> Once a Time'."),
+    '#description' => t("Choose the transformation mode you want to apply to the segments' titles. E.g.: 'blog/once-a-time' -> 'Home >> Blog >> Once a Time'."),
     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_MODE, 'ucwords'),
   );
 
   // Formats the ignored-words array as space separated list of words
-  // (word1 word2 wordN) before display them.
+  // (word1 word2 wordN) before displaying them.
   $capitalizator_ignored_words_arr = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS,
     EasyBreadcrumbConstants::defaultIgnoredWords());
   $capitalizator_ignored_words = @join(' ', $capitalizator_ignored_words_arr);
 
   $fieldset_general[EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS] = array(
     '#type' => 'textarea',
+    '#rows' => 3,
     '#title' => t("Words to be ignored by the 'capitalizator'"),
     '#description' => t("Enter a space separated list of words to be ignored by the 'capitalizator'. This will be applyed only to the words not at the beginning of each segment. E.g.: of and."),
     '#default_value' => $capitalizator_ignored_words,
+  );
+
+  // Formats the excluded-paths array as line separated list of paths before
+  // display them.
+  $excluded_paths_arr = variable_get(EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS,
+    array());
+  $excluded_paths = @join("\r\n", $excluded_paths_arr);
+
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS] = array(
+    '#type' => 'textarea',
+    '#rows' => 3,
+    '#title' => t("Paths to be excluded while generating the breadcrumb's segments"),
+    '#description' => t("Enter a line-separated list of paths (relatives to the root) to be excluded while generating the breadcrumb's segments. E.g.: blog/article."),
+    '#default_value' => $excluded_paths,
   );
 
   $form = array();
@@ -122,17 +137,30 @@ function _easy_breadcrumb_admin_submit($form, &$form_state) {
   // Pre-processes the list of ignored words for storing them as an array.
   // Replaces line-endings by spaces and splits words by spaces.
   // E.g.: array('of','and').
+  $ignored_words_arr = array();
   $ignored_words = $form_state['values'][EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS];
   $ignored_words = preg_replace("/\r*\n+/", ' ', $ignored_words);
   $ignored_words = trim($ignored_words);
-  $ignored_words_arr = array();
   $ignored_words_arr_aux = $ignored_words === '' ? array() : preg_split("/\s+/", $ignored_words);
   foreach ($ignored_words_arr_aux as $word) {
     $ignored_words_arr[$word] = $word;
   }
 
+  // Pre-processes the list of paths to be excluded while generating segments.
+  $excluded_paths_arr = array();
+  $excluded_paths = $form_state['values'][EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS];
+  $excluded_paths = trim($excluded_paths);
+  if ($excluded_paths !== '') {
+    $excluded_paths = preg_replace("/\s+/", "\r\n", $excluded_paths);
+    $excluded_paths_arr_aux = preg_split("/\r*\n/", $excluded_paths);
+    foreach ($excluded_paths_arr_aux as $path) {
+      $excluded_paths_arr[$path] = $path;
+    }
+  }
+
   // Updates the $form_state before passing it to the Drupal system.
   $form_state['values'][EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS] = $ignored_words_arr;
+  $form_state['values'][EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS] = $excluded_paths_arr;
 
   // Delegates persistence to the existing Drupal system.
   system_settings_form_submit($form, $form_state);

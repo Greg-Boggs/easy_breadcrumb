@@ -15,6 +15,11 @@ class EasyBreadcrumbConstants {
   const MODULE_NAME = 'easy_breadcrumb';
 
   /**
+   * Flag for disabling or not the default Drupal's breadcrumb.
+   */
+  const DB_VAR_DISABLE_DEFAULT_DRUPAL_BREADCRUMB = 'easy_breadcrumb-disable_drupal_breadcrumb';
+
+  /**
    *  Separator between segments.
    */
   const DB_VAR_SEGMENTS_SEPARATOR = 'easy_breadcrumb-segments_separator';
@@ -51,9 +56,9 @@ class EasyBreadcrumbConstants {
   const DB_VAR_CAPITALIZATOR_IGNORED_WORDS = 'easy_breadcrumb-capitalizator_ignored_words';
 
   /**
-   * Flag for disabling or not the default Drupal's breadcrumb.
+   * List of paths to be excluded from the breadcrumb's segments.
    */
-  const DB_VAR_DISABLE_DEFAULT_DRUPAL_BREADCRUMB = 'easy_breadcrumb-disable_drupal_breadcrumb';
+  const DB_VAR_EXCLUDED_PATHS = 'easy_breadcrumb-excluded_paths';
 
   /**
    * Default list of ignored words.

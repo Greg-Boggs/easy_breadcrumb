@@ -41,6 +41,9 @@ function _easy_breadcrumb_block() {
     $capitalizator_ignored_words = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS,
     EasyBreadcrumbConstants::defaultIgnoredWords());
 
+    // List of excluded paths while generating segments.
+    $excluded_paths = variable_get(EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS, array());
+
     // Obtains the alias of the current path.
     $alias = drupal_get_path_alias();
 
@@ -66,6 +69,12 @@ function _easy_breadcrumb_block() {
       // String with the raw URL of the segment being processed
       // (e.g. 'blog/article').
       $segment_url = implode('/', $segment_url_arr);
+
+      // If the URL of this segment is in the excluded list of paths, then
+      // continue evaluating the next segment.
+      if(isset($excluded_paths[$segment_url])) {
+        continue;
+      }
 
       // Get the segment's raw text from the URL.
       $item = $alias_arr[$idx_0];

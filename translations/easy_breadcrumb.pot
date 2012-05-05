@@ -1,6 +1,7 @@
+# $Id$
 #
-# Spanish translation of Drupal (general)
-# Copyright 2012 Roger Padilla <rogerjose81@gmail.com>
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
 # Generated from files:
 #  easy_breadcrumb.module: n/a
 #  easy_breadcrumb.info: n/a
@@ -10,116 +11,125 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: easy_breadcrumb 7.x-1.3\n"
-"POT-Creation-Date: 2012-05-05 15:29-0400\n"
-"PO-Revision-Date: 2012-05-05 15:29-0400\n"
-"Last-Translator: Roger Padilla <rogerjose81@gmail.com>\n"
-"Language-Team: Spanish <rogerjose81@gmail.com>\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2012-05-05 18:12-0400\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
 
 #: easy_breadcrumb.module:22
 msgid "Administer Easy Breadcrumb"
-msgstr "Administrar Easy Breadcrumb"
+msgstr ""
 
 #: easy_breadcrumb.module:23
 msgid "Perform administration tasks for the module Easy Breadcrumb."
-msgstr "Tareas administrativas para el módulo Easy Breadcrumb"
+msgstr ""
 
 #: easy_breadcrumb.module:88 easy_breadcrumb.info:0
 msgid "Easy Breadcrumb"
-msgstr "Easy Breadcrumb"
+msgstr ""
 
 #: easy_breadcrumb.info:0
 msgid "Provides a plug-and-play block to be embedded in your pages, typically at some place near the page's header."
-msgstr "Proporciona un bloque listo para embeber en tus páginas, típicamente cerca a la cabecera de la página."
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:18
 msgid "General settings"
-msgstr "Opciones generales"
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:25
 msgid "Disable the default Drupal's breadcrumb"
-msgstr "Deshabilitar el breadcrumb por defecto de Drupal"
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:26
 msgid "Always disable the default Drupal's breadcrumb."
-msgstr "Deshabilitar siempre el breadcrumb por defecto de Drupal."
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:32
 msgid "Include the front page as a segment in the breadcrumb"
-msgstr "Incluir la página de inicio como un segmento en el breadcrumb"
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:33
 msgid "Include the front page as the first segment in the breacrumb."
-msgstr "Incluir la página de inicio como el primer segmento en el breadcrumb."
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:39
 msgid "Include the current page's title as a segment in the breadcrumb"
-msgstr "Incluir el título de la página actual como un segmento en el breadcrumb"
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:40
 msgid "Include the current page's title as the last segment in the breacrumb."
-msgstr "Incluir el título de la página actual como el último segmento en el breadcrumb."
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:46
 msgid "Use the page's title when available"
-msgstr "Usar el título de la página cuando esté disponible"
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:47
 msgid "Use the page's title when it is available instead of always trying to deduce it from the URL."
-msgstr "Usar el título de la página cuando esté disponible en lugar de siempre tratar de deducirlo de la URL."
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:53
 msgid "Make the page's title segment a link"
-msgstr "Hacer que el segmento con el título de la página sea un enlace"
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:54
 msgid "Prints the page's title segment as a link."
-msgstr "Imprima como un enlace el segmento con el título de la página"
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:60
 msgid "Segments separator"
-msgstr "Separador de segmentos"
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:61
 msgid "Separator to be used between the breadcrumb's segments."
-msgstr "Separador a usar entre los segmentos del breadcrumb."
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:67
-msgid "Segments title's transformation mode"
-msgstr "Modo para la transformación del título de los segmentos"
+msgid "Transformation mode for the segments' titles"
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:69
 msgid "None"
-msgstr "Ninguno"
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:70
 msgid "Capitalize the first letter of each word in the segment"
-msgstr "Poner en mayúscula la primera letra de cada palabra en el segmento"
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:71
-msgid "Only capitalize the first letter of the whole segment"
-msgstr "Poner en mayúscula sólo la primera letra del segmento"
+msgid "Only capitalize the first letter of each segment"
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:73
-msgid "Choose the transformation mode you want to apply to the segments' title. E.g.: 'blog/once-a-time' -> 'Home >> Blog >> Once a Time'."
-msgstr "Elija la transformación que quiere aplicar a los títulos de los segmentos. Ej.: 'blog/erase-una-vez' -> 'Inicio >> Blog >> Érase una Vez'."
+msgid "Choose the transformation mode you want to apply to the segments' titles. E.g.: 'blog/once-a-time' -> 'Home >> Blog >> Once a Time'."
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:85
 msgid "Words to be ignored by the 'capitalizator'"
-msgstr "Palabras a ser ignoradas por el 'conversor a mayúsculas'"
+msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:86
 msgid "Enter a space separated list of words to be ignored by the 'capitalizator'. This will be applyed only to the words not at the beginning of each segment. E.g.: of and."
-msgstr "Ingrese una lista de palabras separadas por un espacio, estas serán ignoradas por el 'conversor a mayúsculas'. Esto aplica solamente a las palabras que no estén al inicio del segmento. Ej.: de y o."
+msgstr ""
 
-#: includes/easy_breadcrumb.admin.inc:99
+#: includes/easy_breadcrumb.admin.inc:100
+msgid "Paths to be excluded while generating the breadcrumb's segments"
+msgstr ""
+
+#: includes/easy_breadcrumb.admin.inc:101
+msgid "Enter a line-separated list of paths (relatives to the root) to be excluded while generating the breadcrumb's segments. E.g.: blog/article."
+msgstr ""
+
+#: includes/easy_breadcrumb.admin.inc:113
 msgid "Save"
-msgstr "Guardar"
+msgstr ""
 
 #: includes/easy_breadcrumb.blocks.inc:26
 msgid "Home"
-msgstr "Inicio"
+msgstr ""

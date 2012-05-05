@@ -1,21 +1,20 @@
 The Easy Breadcrumb module provides a plug-and-play block to be embedded in your
-pages, typically at some place near the page's header. This modules is currently
-available for Drupal 7.x.
+pages, typically at some place near the page's header. Easy Breadcrumb takes
+advantage of the work you've already done for generating your paths' alias,
+while it naturally encourages the creation of semantic and consistent paths.
+This modules is currently available for Drupal 7.x.
 
 Easy Breadcrumb uses the current URL (path alias) and the current page's title
 to automatically extract the breadcrumb's segments and its respective links.
 Easy Breadcrumb is really a plug and play module, it auto-generates the
 breadcrumb by using the current URL, the user needs to do anything to get it
-working. The resulting block will be something like:
-"Home >> Contact Us" or "Home / Contact us". The breadcrumb presentation could
-vary depending on the module's settings. Easy Breadcrumb naturally encourages
-the creation of semantic and consistent paths.
+working.
 
-By example, having a URL like "gallery/videos/once-a-time-in-cartagena",
+For example, having an URL like "gallery/videos/once-a-time-in-cartagena",
 EasyBreadcrumb will automatically produces the breadcrumb
-"Gallery >> Videos >> Once a time in Cartagena" or
-"Gallery >> Videos >> Once a Time in Cartagena". Again, the breadcrumb
-presentation could vary depending on the module's settings.
+"Home >> Gallery >> Videos >> Once a time in Cartagena" or
+"Home >> Videos >> Once a Time in Cartagena". Again, the breadcrumb presentation
+will vary depending on your module's settings.
 
 Requirements
   * Pathauto
@@ -60,10 +59,14 @@ Configuration:
     textfield "Segments separator".
   * The module allows to choose a transformation mode for the segments' title:
     for this, choose one of the provided options in the combobox
-    "Segments title's transformation mode".
+    "Transformation mode for the segments' titles".
   * You might want some words to be ignored (not to be capitalized) by the
     'capitalizator'. For this, enter the desired words to be ignored by the
     'capitalizator' separating them with a space. There is a 'textarea' named
     "Words to be ignored by the 'capitalizator'" for this purpose.
+  * For excluding some paths from the segments to be generated, enter a
+    line-separated list of paths (relatives to root) in the 'textarea' named
+    "Paths to be excluded while generating the breadcrumb's segments".
+    E.g.: blog/article.
 
 Module Page: http://drupal.org/project/easy_breadcrumb

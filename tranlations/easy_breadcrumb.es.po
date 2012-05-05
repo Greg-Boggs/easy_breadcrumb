@@ -28,13 +28,9 @@ msgstr "Administrar Easy Breadcrumb"
 msgid "Perform administration tasks for the module Easy Breadcrumb."
 msgstr "Tareas administrativas para el módulo Easy Breadcrumb"
 
-#: easy_breadcrumb.module:48;88 easy_breadcrumb.info:0
+#: easy_breadcrumb.module:88 easy_breadcrumb.info:0
 msgid "Easy Breadcrumb"
 msgstr "Easy Breadcrumb"
-
-#: easy_breadcrumb.module:49
-msgid "Controls settings for the module Easy Breadcrumb"
-msgstr "Configuración del módulo Easy Breadcrumb"
 
 #: easy_breadcrumb.info:0
 msgid "Provides a plug-and-play block to be embedded in your pages, typically at some place near the page's header."

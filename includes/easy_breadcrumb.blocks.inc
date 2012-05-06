@@ -72,7 +72,7 @@ function _easy_breadcrumb_block() {
 
       // If the URL of this segment is in the excluded list of paths, then
       // continue evaluating the next segment.
-      if(isset($excluded_paths[$segment_url])) {
+      if (isset($excluded_paths[$segment_url])) {
         continue;
       }
 

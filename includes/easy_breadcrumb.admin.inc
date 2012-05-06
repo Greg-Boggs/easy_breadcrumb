@@ -97,8 +97,8 @@ function _easy_breadcrumb_general_settings_form() {
   $fieldset_general[EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS] = array(
     '#type' => 'textarea',
     '#rows' => 3,
-    '#title' => t("Paths to be excluded while generating the breadcrumb's segments"),
-    '#description' => t("Enter a line-separated list of paths (relatives to the root) to be excluded while generating the breadcrumb's segments. E.g.: blog/article."),
+    '#title' => t("Paths alias to be excluded while generating the breadcrumb's segments"),
+    '#description' => t("Enter a line-separated list of paths alias (relatives to the root) to be excluded while generating the breadcrumb's segments. E.g.: blog/article."),
     '#default_value' => $excluded_paths,
   );
 

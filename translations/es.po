@@ -117,12 +117,12 @@ msgid "Enter a space separated list of words to be ignored by the 'capitalizator
 msgstr "Ingrese una lista de palabras separadas por un espacio, estas serán ignoradas por el 'conversor a mayúsculas'. Esto aplica solamente a las palabras que no estén al inicio del segmento. Ej.: de y o."
 
 #: includes/easy_breadcrumb.admin.inc:100
-msgid "Paths to be excluded while generating the breadcrumb's segments"
+msgid "Paths alias to be excluded while generating the breadcrumb's segments"
 msgstr "Alias de URLs a ser excluidos en la generación de segmentos"
 
 #: includes/easy_breadcrumb.admin.inc:101
-msgid "Enter a line-separated list of paths (relatives to the root) to be excluded while generating the breadcrumb's segments. E.g.: blog/article."
-msgstr "Ingrese una lista de rutas (relativas a la raíz) separadas por una línea, estas serán excluidas de los segmentos generados. Ej.: blog/articulo."
+msgid "Enter a line-separated list of paths alias (relatives to the root) to be excluded while generating the breadcrumb's segments. E.g.: blog/article."
+msgstr "Ingrese una lista de alias de rutas (relativas a la raíz) separadas por una línea, estas serán excluidas de los segmentos generados. Ej.: blog/articulo."
 
 #: includes/easy_breadcrumb.admin.inc:113
 msgid "Save"

@@ -20,6 +20,11 @@ class EasyBreadcrumbConstants {
   const DB_VAR_DISABLE_DEFAULT_DRUPAL_BREADCRUMB = 'easy_breadcrumb-disable_drupal_breadcrumb';
 
   /**
+   * Flag for including invalid paths while generating the breadcrumb's segments.
+   */
+  const DB_VAR_INCLUDE_INVALID_PATHS = 'easy_breadcrumb-include_invalid_paths';
+
+  /**
    *  Separator between segments.
    */
   const DB_VAR_SEGMENTS_SEPARATOR = 'easy_breadcrumb-segments_separator';
@@ -54,11 +59,6 @@ class EasyBreadcrumbConstants {
    * List of words to be ignored by the 'capitalizator'. E.g.: of and.
    */
   const DB_VAR_CAPITALIZATOR_IGNORED_WORDS = 'easy_breadcrumb-capitalizator_ignored_words';
-
-  /**
-   * List of paths to be excluded from the breadcrumb's segments.
-   */
-  const DB_VAR_EXCLUDED_PATHS = 'easy_breadcrumb-excluded_paths';
 
   /**
    * Default list of ignored words.

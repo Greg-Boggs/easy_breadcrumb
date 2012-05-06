@@ -12,6 +12,8 @@
  */
 function _easy_breadcrumb_general_settings_form() {
 
+  drupal_add_js(drupal_get_path('module', 'easy_breadcrumb') . '/js/easy_breadcrumb.admin.js');
+
   // Fieldset for grouping general settings fields.
   $fieldset_general = array(
     '#type' => 'fieldset',
@@ -25,6 +27,13 @@ function _easy_breadcrumb_general_settings_form() {
     '#title' => t("Disable the default Drupal's breadcrumb"),
     '#description' => t("Always disable the default Drupal's breadcrumb."),
     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_DISABLE_DEFAULT_DRUPAL_BREADCRUMB, TRUE),
+  );
+
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_INCLUDE_INVALID_PATHS] = array(
+    '#type' => 'checkbox',
+    '#title' => t("Include invalid paths alias as plain-text segments"),
+    '#description' => t("Include the invalid paths alias as plain-text segments in the breadcrumb."),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_INVALID_PATHS, TRUE),
   );
 
   $fieldset_general[EasyBreadcrumbConstants::DB_VAR_INCLUDE_HOME_SEGMENT] = array(
@@ -88,20 +97,6 @@ function _easy_breadcrumb_general_settings_form() {
     '#default_value' => $capitalizator_ignored_words,
   );
 
-  // Formats the excluded-paths array as line separated list of paths before
-  // display them.
-  $excluded_paths_arr = variable_get(EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS,
-    array());
-  $excluded_paths = @join("\r\n", $excluded_paths_arr);
-
-  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS] = array(
-    '#type' => 'textarea',
-    '#rows' => 3,
-    '#title' => t("Paths alias to be excluded while generating the breadcrumb's segments"),
-    '#description' => t("Enter a line-separated list of paths alias (relatives to the root) to be excluded while generating the breadcrumb's segments. E.g.: blog/article."),
-    '#default_value' => $excluded_paths,
-  );
-
   $form = array();
 
   // Inserts the fieldset for grouping general settings fields.
@@ -139,28 +134,15 @@ function _easy_breadcrumb_admin_submit($form, &$form_state) {
   // E.g.: array('of','and').
   $ignored_words_arr = array();
   $ignored_words = $form_state['values'][EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS];
-  $ignored_words = preg_replace("/\r*\n+/", ' ', $ignored_words);
+  $ignored_words = preg_replace('/\r*\n+/', ' ', $ignored_words);
   $ignored_words = trim($ignored_words);
-  $ignored_words_arr_aux = $ignored_words === '' ? array() : preg_split("/\s+/", $ignored_words);
+  $ignored_words_arr_aux = $ignored_words === '' ? array() : preg_split('/\s+/', $ignored_words);
   foreach ($ignored_words_arr_aux as $word) {
     $ignored_words_arr[$word] = $word;
   }
 
-  // Pre-processes the list of paths to be excluded while generating segments.
-  $excluded_paths_arr = array();
-  $excluded_paths = $form_state['values'][EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS];
-  $excluded_paths = trim($excluded_paths);
-  if ($excluded_paths !== '') {
-    $excluded_paths = preg_replace("/\s+/", "\r\n", $excluded_paths);
-    $excluded_paths_arr_aux = preg_split("/\r*\n/", $excluded_paths);
-    foreach ($excluded_paths_arr_aux as $path) {
-      $excluded_paths_arr[$path] = $path;
-    }
-  }
-
   // Updates the $form_state before passing it to the Drupal system.
   $form_state['values'][EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS] = $ignored_words_arr;
-  $form_state['values'][EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS] = $excluded_paths_arr;
 
   // Delegates persistence to the existing Drupal system.
   system_settings_form_submit($form, $form_state);

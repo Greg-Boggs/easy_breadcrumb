@@ -41,8 +41,8 @@ function _easy_breadcrumb_block() {
     $capitalizator_ignored_words = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS,
     EasyBreadcrumbConstants::defaultIgnoredWords());
 
-    // List of excluded paths while generating segments.
-    $excluded_paths = variable_get(EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS, array());
+    // Flag for including invalid paths as plain-text segments.
+    $include_invalid_paths = variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_INVALID_PATHS, TRUE);
 
     // Obtains the alias of the current path.
     $alias = drupal_get_path_alias();
@@ -70,12 +70,6 @@ function _easy_breadcrumb_block() {
       // (e.g. 'blog/article').
       $segment_url = implode('/', $segment_url_arr);
 
-      // If the URL of this segment is in the excluded list of paths, then
-      // continue evaluating the next segment.
-      if (isset($excluded_paths[$segment_url])) {
-        continue;
-      }
-
       // Get the segment's raw text from the URL.
       $item = $alias_arr[$idx_0];
       // Normalized segment's text (e.g. 'Blog');
@@ -95,7 +89,7 @@ function _easy_breadcrumb_block() {
           )
         );
       }
-      else {
+      else if ($include_invalid_paths) {
         $classes = implode(' ', $segments_classes);
         $breadcrumb[] = '<span class="' . $classes . '">' . $segment_text . '</span>';
       }
@@ -165,14 +159,16 @@ function _easy_breadcrumb_block() {
 function _easy_breadcrumb_normalize_url_segment_text($segment, $uppercase_mode = 'ucwords',
 $capitalizator_ignored_words = array()) {
 
-  // Transforms 'hello-world' on 'hello world'.
-  $normalized_segment = str_replace('-', ' ', $segment);
+  // Transforms '-hello--world_javascript-' on 'hello world javascript'.
+  $normalized_segment = str_replace(array('-', '_'), ' ', $segment);
+  $normalized_segment = trim($normalized_segment);
+  $normalized_segment = preg_replace('/\s{2,}/', ' ', $normalized_segment);
 
   switch ($uppercase_mode) {
-    // Converts the text 'once a time' to 'Once a Time'.
+    // Transforms the text 'once a time' to 'Once a Time'.
     case 'ucwords':
       $segments_arr = explode(' ', $normalized_segment);
-      // Converts the non-ignored words of the segment.
+      // Transforms the non-ignored words of the segment.
       $segments_arr[0] = drupal_ucfirst($segments_arr[0]);
       for ($idx_1 = 1, $segments_words_quantity = count($segments_arr); $idx_1 < $segments_words_quantity; ++$idx_1) {
         // Transforms this word only if it is not in the list of ignored words.
@@ -183,7 +179,7 @@ $capitalizator_ignored_words = array()) {
       $normalized_segment = join(' ', $segments_arr);
       break;
 
-    // Converts the text 'once a time' to 'Once a time'.
+    // Transforms the text 'once a time' to 'Once a time'.
     case 'ucfirst':
       $normalized_segment = drupal_ucfirst($normalized_segment);
       break;

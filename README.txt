@@ -40,33 +40,27 @@ Configuration:
 
   The provided options for this module are the following.
 
-  * To disable the Drupal default breadcrumb: mark / unmark the checkbox
+  * For disabling the Drupal default breadcrumb, tick the checkbox
     "Disable the default Drupal's breadcrumb".
-  * To include / exclude the front page from the breadcrumb: mark / unmark
-    the checkbox "Include the front page as the first segment in the
-    breadcrumb".
-  * To include / exclude the current page's title from the breadcrumb:
-    mark / unmark
-    the checkbox "Include the current page's title as a segment in the
-    breadcrumb".
-  * To decide if the module should use the page's title when it is available
-    instead of it always trying to deduce it from the URL: mark / unmark the
-    checkbox "Use the page's title when available".
-  * To decide if the module should print the title as a link then mark / unmark
-    the checkbox "Make the page's title segment a link".
-  * To use a custom separator between the breadcrumb's segments: just enter
-    the string (default to ">>") to be used as the segments separator in the
-    textfield "Segments separator".
-  * The module allows to choose a transformation mode for the segments' title:
-    for this, choose one of the provided options in the combobox
-    "Transformation mode for the segments' titles".
-  * You might want some words to be ignored (not to be capitalized) by the
-    'capitalizator'. For this, enter the desired words to be ignored by the
-    'capitalizator' separating them with a space. There is a 'textarea' named
-    "Words to be ignored by the 'capitalizator'" for this purpose.
-  * For excluding some paths from the segments to be generated, enter a
-    line-separated list of paths (relatives to root) in the 'textarea' named
-    "Paths to be excluded while generating the breadcrumb's segments".
-    E.g.: blog/article.
+  * For including invalid path alias as plain-text segments, tick the checkbox
+    "Include invalid paths alias as plain-text segments".
+  * For including the front page in the breadcrumb, tick the checkbox "Include
+    the front page as the first segment in the breadcrumb".
+  * For including the current page's title in the breadcrumb, tick the checkbox
+    "Include the current page's title as a segment in the breadcrumb".
+  * For using the page's title when it is available instead of always trying to
+    deduce it from the URL, tick the checkbox "Use the page's title when
+    available".
+  * For printing the page's title as a link, tick the checkbox "Make the page's
+    title segment a link".
+  * For using a custom separator between the breadcrumb's segments, enter the
+    string (default to ">>") to be used as the segments separator in the
+    field "Segments separator".
+  * For choosing a transformation mode for the segments' title, select one of
+    the provided options in the field "Transformation mode for the segments'
+    titles".
+  * For making the 'capilazator' ignore some words (words not to be
+    capitalized), enter the desired words separating them with a space in the
+    field "Words to be ignored by the 'capitalizator'" for that purpose.
 
 Module Page: http://drupal.org/project/easy_breadcrumb

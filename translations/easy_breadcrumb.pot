@@ -117,12 +117,12 @@ msgstr ""
 msgid "Enter a space separated list of words to be ignored by the 'capitalizator'. This will be applyed only to the words not at the beginning of each segment. E.g.: of and."
 msgstr ""
 
-#: includes/easy_breadcrumb.admin.inc:100
-msgid "Paths alias to be excluded while generating the breadcrumb's segments"
+#: includes/easy_breadcrumb.admin.inc:93
+msgid "Include invalid paths alias as plain-text segments"
 msgstr ""
 
-#: includes/easy_breadcrumb.admin.inc:101
-msgid "Enter a line-separated list of paths alias (relatives to the root) to be excluded while generating the breadcrumb's segments. E.g.: blog/article."
+#: includes/easy_breadcrumb.admin.inc:94
+msgid "Include the invalid paths alias as plain-text segments in the breadcrumb."
 msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:113

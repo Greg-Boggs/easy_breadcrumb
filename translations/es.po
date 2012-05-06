@@ -78,7 +78,7 @@ msgstr "Hacer que el segmento con el título de la página sea un enlace"
 
 #: includes/easy_breadcrumb.admin.inc:54
 msgid "Prints the page's title segment as a link."
-msgstr "Imprima el segmento con el título de la página como un enlace"
+msgstr "Imprima el segmento con el título de la página como un enlace."
 
 #: includes/easy_breadcrumb.admin.inc:60
 msgid "Segments separator"
@@ -116,13 +116,13 @@ msgstr "Palabras a ser ignoradas por el 'conversor a mayúsculas'"
 msgid "Enter a space separated list of words to be ignored by the 'capitalizator'. This will be applyed only to the words not at the beginning of each segment. E.g.: of and."
 msgstr "Ingrese una lista de palabras separadas por un espacio, estas serán ignoradas por el 'conversor a mayúsculas'. Esto aplica solamente a las palabras que no estén al inicio del segmento. Ej.: de y o."
 
-#: includes/easy_breadcrumb.admin.inc:100
-msgid "Paths alias to be excluded while generating the breadcrumb's segments"
-msgstr "Alias de URLs a ser excluidos en la generación de segmentos"
+#: includes/easy_breadcrumb.admin.inc:93
+msgid "Include invalid paths alias as plain-text segments"
+msgstr "Incluir los alias de rutas no validos como segmentos de texto-plano"
 
-#: includes/easy_breadcrumb.admin.inc:101
-msgid "Enter a line-separated list of paths alias (relatives to the root) to be excluded while generating the breadcrumb's segments. E.g.: blog/article."
-msgstr "Ingrese una lista de alias de rutas (relativas a la raíz) separadas por una línea, estas serán excluidas de los segmentos generados. Ej.: blog/articulo."
+#: includes/easy_breadcrumb.admin.inc:94
+msgid "Include the invalid paths alias as plain-text segments in the breadcrumb."
+msgstr "Incluir los alias de rutas no validos como segmentos de texto-plano en el breadcrumb."
 
 #: includes/easy_breadcrumb.admin.inc:113
 msgid "Save"

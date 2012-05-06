@@ -118,7 +118,7 @@ msgstr "Ingrese una lista de palabras separadas por un espacio, estas serán ign
 
 #: includes/easy_breadcrumb.admin.inc:100
 msgid "Paths to be excluded while generating the breadcrumb's segments"
-msgstr ""
+msgstr "Alias de URLs a ser excluidos en la generación de segmentos"
 
 #: includes/easy_breadcrumb.admin.inc:101
 msgid "Enter a line-separated list of paths (relatives to the root) to be excluded while generating the breadcrumb's segments. E.g.: blog/article."

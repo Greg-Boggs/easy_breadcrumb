@@ -52,8 +52,8 @@ function _easy_breadcrumb_general_settings_form() {
 
   $fieldset_general[EasyBreadcrumbConstants::DB_VAR_TITLE_FROM_PAGE_WHEN_AVAILABLE] = array(
     '#type' => 'checkbox',
-    '#title' => t("Use the page's title when available"),
-    '#description' => t("Use the page's title when it is available instead of always trying to deduce it from the URL."),
+    '#title' => t("Use the real page's title when available"),
+    '#description' => t("Use the real page's title when it is available instead of always deducing it from the URL."),
     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_FROM_PAGE_WHEN_AVAILABLE, TRUE),
   );
 

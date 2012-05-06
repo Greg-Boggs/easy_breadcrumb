@@ -38,29 +38,17 @@ Configuration:
   "Admin > Configuration > User Interface > Easy Breadcrumb"
   (URL "admin/config/user-interface/easy-breadcrumb").
 
-  The provided options for this module are the following.
+  Configurable parameters:
 
-  * For disabling the Drupal default breadcrumb, tick the checkbox
-    "Disable the default Drupal's breadcrumb".
-  * For including invalid path alias as plain-text segments, tick the checkbox
-    "Include invalid paths alias as plain-text segments".
-  * For including the front page in the breadcrumb, tick the checkbox "Include
-    the front page as the first segment in the breadcrumb".
-  * For including the current page's title in the breadcrumb, tick the checkbox
-    "Include the current page's title as a segment in the breadcrumb".
-  * For using the page's title when it is available instead of always trying to
-    deduce it from the URL, tick the checkbox "Use the page's title when
-    available".
-  * For printing the page's title as a link, tick the checkbox "Make the page's
-    title segment a link".
-  * For using a custom separator between the breadcrumb's segments, enter the
-    string (default to ">>") to be used as the segments separator in the
-    field "Segments separator".
-  * For choosing a transformation mode for the segments' title, select one of
-    the provided options in the field "Transformation mode for the segments'
-    titles".
-  * For making the 'capilazator' ignore some words (words not to be
-    capitalized), enter the desired words separating them with a space in the
-    field "Words to be ignored by the 'capitalizator'" for that purpose.
+    * Disable the default Drupal's breadcrumb.
+    * Include / Exclude invalid path alias as plain-text segments.
+    * Include / Exclude the front page as a segment in the breadcrumb.
+    * Include / Exclude the current page's title as a segment in the breadcrumb.
+    * Use the real page's title when it is available instead of always deducing
+      it from the URL.
+    * Print the page's title as a link or as plain-text segment.
+    * Use a custom separator between the breadcrumb's segments.
+    * Choose a transformation mode for the segments' title.
+    * Make the 'capitalizator' ignore some words (words not to be capitalized).
 
 Module Page: http://drupal.org/project/easy_breadcrumb

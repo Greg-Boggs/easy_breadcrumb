@@ -66,11 +66,11 @@ msgid "Include the current page's title as the last segment in the breacrumb."
 msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:46
-msgid "Use the page's title when available"
+msgid "Use the real page's title when available"
 msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:47
-msgid "Use the page's title when it is available instead of always trying to deduce it from the URL."
+msgid "Use the real page's title when it is available instead of always deducing it from the URL."
 msgstr ""
 
 #: includes/easy_breadcrumb.admin.inc:53

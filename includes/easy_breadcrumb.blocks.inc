@@ -45,7 +45,7 @@ function _easy_breadcrumb_block() {
     $include_invalid_paths = variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_INVALID_PATHS, TRUE);
 
     // Obtains the alias of the current path.
-    $alias = drupal_get_path_alias();
+    $alias = drupal_get_path_alias($_GET['q']);
 
     // Get the segments of the current path.
     $alias_arr = explode('/', $alias);
@@ -78,7 +78,7 @@ function _easy_breadcrumb_block() {
       $segments_classes[1] = 'easy-breadcrumb_segment-' . $idx_1;
 
       // Check if this is a valid path.
-      $valid_path = drupal_valid_path($segment_url);
+      $valid_path = menu_valid_path(array('link_path' => $segment_url));
 
       // Only adds the segment as link if its URL really exists; adds it as text
       // otherwise.
@@ -132,13 +132,7 @@ function _easy_breadcrumb_block() {
   $separator = check_plain($separator);
   $segments_quantity = count($breadcrumb);
 
-  $build = array();
-  $build['easy_breadcrumb'] = array(
-    '#theme' => 'easy_breadcrumb',
-    '#breadcrumb' => $breadcrumb,
-    '#segments_quantity' => $segments_quantity,
-    '#separator' => $separator,
-  );
+  $build = theme('easy_breadcrumb', $breadcrumb, $segments_quantity, $separator);
 
   return $build;
 }

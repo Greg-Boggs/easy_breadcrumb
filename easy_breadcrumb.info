@@ -4,4 +4,4 @@ files[] = includes/EasyBreadcrumbConstants.inc
 configure = admin/config/user-interface/easy-breadcrumb
 dependencies[] = pathauto
 
-core = 7.x
+core = 6.x

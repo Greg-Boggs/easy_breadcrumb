@@ -20,7 +20,7 @@ class EasyBreadcrumbConstants {
   const DB_VAR_DISABLE_DEFAULT_DRUPAL_BREADCRUMB = 'easy_breadcrumb-disable_drupal_breadcrumb';
 
   /**
-   * Flag for including invalid paths while generating the breadcrumb's segments.
+   * Flag for including invalid paths while generating the breadcrumb segments.
    */
   const DB_VAR_INCLUDE_INVALID_PATHS = 'easy_breadcrumb-include_invalid_paths';
 

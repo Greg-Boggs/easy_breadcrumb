@@ -62,16 +62,13 @@ function easy_breadcrumb_menu() {
  *   theme items.
  */
 function easy_breadcrumb_theme($existing, $type, $theme, $path) {
-  $path = drupal_get_path('module', 'easy_breadcrumb') . '/tpl';
   return array(
     'easy_breadcrumb' => array(
-      'template' => 'easy_breadcrumb',
       'variables' => array(
         'breadcrumb' => NULL,
         'segments_quantity' => NULL,
         'separator' => NULL,
       ),
-      'path' => $path,
     ),
   );
 }
@@ -110,4 +107,35 @@ function easy_breadcrumb_block_view($delta = NULL) {
       break;
   }
   return $block;
+}
+
+/**
+ * Theme function for the breadcrumb.
+ *
+ * @param $variables Assoc
+ *   arguments
+ *
+ * @return string
+ *   HTML for the themed breadcrumb.
+ */
+function theme_easy_breadcrumb($variables) {
+
+  $breadcrumb = $variables['breadcrumb'];
+  $segments_quantity = $variables['segments_quantity'];
+  $separator = $variables['separator'];
+
+  $html = '';
+
+  if($segments_quantity > 0):
+    $html .= '<div class="easy-breadcrumb">';
+    for ($i = 0, $s = $segments_quantity - 1; $i < $segments_quantity; ++$i):
+      $html .= '<span class="easy-breadcrumb_segment-wrapper">' . $breadcrumb[$i] . '</span>';
+      if ($i < $s):
+        $html .= '<span class="easy-breadcrumb_segment-separator"> ' . $separator . ' </span>';
+      endif;
+    endfor;
+    $html .= '</div>';
+  endif;
+
+  return $html;
 }

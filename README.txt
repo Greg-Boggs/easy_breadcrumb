@@ -2,7 +2,7 @@ The Easy Breadcrumb module provides a plug-and-play block to be embedded in your
 pages, typically at some place near the page's header. Easy Breadcrumb takes
 advantage of the work you've already done for generating your paths' alias,
 while it naturally encourages the creation of semantic and consistent paths.
-This modules is currently available for Drupal 7.x.
+This modules is currently available for Drupal 6.x and 7.x.
 
 Easy Breadcrumb uses the current URL (path alias) and the current page's title
 to automatically extract the breadcrumb's segments and its respective links.

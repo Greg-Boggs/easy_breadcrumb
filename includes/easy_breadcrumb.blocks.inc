@@ -89,7 +89,7 @@ function _easy_breadcrumb_block() {
           )
         );
       }
-      else if ($include_invalid_paths) {
+      elseif ($include_invalid_paths) {
         $classes = implode(' ', $segments_classes);
         $breadcrumb[] = '<span class="' . $classes . '">' . $segment_text . '</span>';
       }

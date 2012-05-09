@@ -13,10 +13,10 @@
 /**
  * Implements hook_perm();
  *
- * @return
- *   An array of permission strings. The strings must not be wrapped with the t()
- *   function, since the string extractor takes care of extracting permission names
- *   defined in the perm hook for translation.
+ * @return array
+ *   An array of permission strings. The strings must not be wrapped with the
+ *   t() function, since the string extractor takes care of extracting
+ *   permission names defined in the perm hook for translation.
  */
 function easy_breadcrumb_perm() {
   return array('administer easy_breadcrumb');
@@ -37,13 +37,14 @@ function easy_breadcrumb_init() {
  * Implements hook_menu().
  *
  * @return
- *   An array of menu items. Each menu item has a key corresponding to the Drupal
- *   path being registered. The corresponding array value is an associative array
- *   that may contain the following key-value pairs: "title": Required. The
- *   untranslated title of the menu item. "title callback": Function to generate the
- *   title; defaults to t(). If you require only the raw string to be output, set
- *   this to FALSE. "title arguments": Arguments to send to t() or your custom
- *   callback, with path component substitution as described above.
+ *   An array of menu items. Each menu item has a key corresponding to the
+ *   Drupal path being registered. The corresponding array value is an
+ *   associative array that may contain the following key-value pairs: "title":
+ *   Required. The untranslated title of the menu item. "title callback":
+ *   Function to generate the title; defaults to t(). If you require only the
+ *   raw string to be output, set this to FALSE. "title arguments": Arguments to
+ *   send to t() or your custom callback, with path component substitution as
+ *   described above.
  */
 function easy_breadcrumb_menu() {
   $items = array();
@@ -61,27 +62,28 @@ function easy_breadcrumb_menu() {
 /**
  * Implements hook_theme().
  *
- * @param $existing
- *   An array of existing implementations that may be used for override purposes.
- *   This is primarily useful for themes that may wish to examine existing
- *   implementations to extract data (such as arguments) so that it may properly
- *   register its own, higher priority implementations.
- * @param $type
- *   What 'type' is being processed. This is primarily useful so that themes tell if
- *   they are the actual theme being called or a parent theme. May be one of:
- *   module: A module is being checked for theme implementations. base_theme_engine:
- *   A theme engine is being checked for a theme which is a parent of the actual
- *   theme being used. theme_engine: A theme engine is being checked for the actual
- *   theme being used. base_theme: A base theme is being checked for theme
- *   implementations. theme: The actual theme in use is being checked.
- * @param $theme
- *   The actual name of theme that is being being checked (mostly only useful for
- *   theme engine).
- * @param $path
- *   The directory path of the theme or module, so that it doesn't need to be looked
- *   up.
+ * @param array $existing
+ *   An array of existing implementations that may be used for override
+ *   purposes. This is primarily useful for themes that may wish to examine
+ *   existing implementations to extract data (such as arguments) so that it may
+ *   properly register its own, higher priority implementations.
+ * @param string $type
+ *   What 'type' is being processed. This is primarily useful so that themes
+ *   tell if they are the actual theme being called or a parent theme. May be
+ *   one of: module: A module is being checked for theme implementations.
+ *   base_theme_engine: A theme engine is being checked for a theme which is a
+ *   parent of the actual theme being used. theme_engine: A theme engine is
+ *   being checked for the actual theme being used. base_theme: A base theme is
+ *   being checked for theme implementations. theme: The actual theme in use is
+ *   being checked.
+ * @param string $theme
+ *   The actual name of theme that is being being checked (mostly only useful
+ *   for theme engine).
+ * @param string $path
+ *   The directory path of the theme or module, so that it doesn't need to be
+ *   looked up.
  *
- * @return
+ * @return Assoc
  *   A keyed array of theme hooks.
  */
 function easy_breadcrumb_theme($existing, $type, $theme, $path) {
@@ -114,17 +116,17 @@ function theme_easy_breadcrumb($breadcrumb, $segments_quantity, $separator) {
 
   $html = '';
 
-  if($segments_quantity > 0):
+  if($segments_quantity > 0) {
     $html .= '<div class="easy-breadcrumb">';
-    for ($i = 0, $s = $segments_quantity - 1; $i < $segments_quantity; ++$i):
+    for ($i = 0, $s = $segments_quantity - 1; $i < $segments_quantity; ++$i) {
       $html .= '<span class="easy-breadcrumb_segment-wrapper">' . $breadcrumb[$i] . '</span>';
-      if ($i < $s):
+      if ($i < $s) {
         $html .= '<span class="easy-breadcrumb_segment-separator"> ' . $separator . ' </span>';
-      endif;
-    endfor;
+      }
+    }
     $html .= '</div>';
-  endif;
-  
+  }
+
   return $html;
 }
 

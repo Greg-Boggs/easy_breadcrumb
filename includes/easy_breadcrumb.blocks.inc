@@ -203,8 +203,8 @@ function _easy_breadcrumb_validate_path_alias($path_alias) {
     $result = db_query_range("SELECT pid FROM {url_alias} WHERE alias = :alias", array(
       ':alias' => $path_alias,
     ), 0, 1);
-    $pid = $result->fetchCol();
-    $valid = !empty($pid);
+    $row = db_fetch_object($result);
+    $valid = !empty($row->pid);
   }
 
   return $valid;

@@ -26,6 +26,7 @@ function easy_breadcrumb_perm() {
  * Implements hook_init().
  */
 function easy_breadcrumb_init() {
+  require_once 'includes/EasyBreadcrumbConstants.inc';
   $disable_drupal_default_breadcrumb = variable_get(EasyBreadcrumbConstants::DB_VAR_DISABLE_DEFAULT_DRUPAL_BREADCRUMB, TRUE);
   if ($disable_drupal_default_breadcrumb) {
     // Sets the Drupal's default breadcrumb as an empty array to disable it.

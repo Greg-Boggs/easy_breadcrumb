@@ -23,6 +23,11 @@ class EasyBreadcrumbConstants {
    * Flag for including invalid paths while generating the breadcrumb segments.
    */
   const DB_VAR_INCLUDE_INVALID_PATHS = 'easy_breadcrumb-include_invalid_paths';
+  
+  /**
+   * List of paths to be excluded from the generated segments.
+   */
+  const DB_VAR_EXCLUDED_PATHS = 'easy_breadcrumb-excluded_paths';
 
   /**
    *  Separator between segments.
@@ -60,6 +65,20 @@ class EasyBreadcrumbConstants {
    */
   const DB_VAR_CAPITALIZATOR_IGNORED_WORDS = 'easy_breadcrumb-capitalizator_ignored_words';
 
+  /**
+   * Default list of excluded paths.
+   *
+   * @return array
+   *   Default list of ignored paths.
+   */
+  public static function defaultExcludedPaths() {
+    static $default_excluded_paths = array(
+      'search',
+      'search/node',
+    );
+    return $default_excluded_paths;
+  }
+  
   /**
    * Default list of ignored words.
    *

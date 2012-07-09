@@ -43,6 +43,10 @@ function _easy_breadcrumb_block() {
 
     // Flag for including invalid paths as plain-text segments.
     $include_invalid_paths = variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_INVALID_PATHS, TRUE);
+    
+    // List of path to be excluded while generating segments.
+    $excluded_paths_arr = variable_get(EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS,
+      EasyBreadcrumbConstants::defaultExcludedPaths());
 
     // Obtains the alias of the current path.
     $alias = drupal_get_path_alias();
@@ -69,6 +73,11 @@ function _easy_breadcrumb_block() {
       // String with the potential path alias of the segment being processed
       // (e.g. 'blog/article').
       $segment_url = implode('/', $segment_url_arr);
+      
+      // If this segment is configured to be excluded.
+      if (isset($excluded_paths_arr[$segment_url])) {
+        continue;
+      }
 
       // Get the segment's raw text from the URL.
       $item = $alias_arr[$idx_0];

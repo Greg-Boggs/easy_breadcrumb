@@ -35,6 +35,19 @@ function _easy_breadcrumb_general_settings_form() {
     '#description' => t("Include the invalid paths alias as plain-text segments in the breadcrumb."),
     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_INVALID_PATHS, TRUE),
   );
+  
+  // Formats the excluded paths array as line separated list of paths
+  // before displaying them.
+  $excluded_paths_arr = variable_get(EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS,
+    EasyBreadcrumbConstants::defaultExcludedPaths());
+  $excluded_paths = @join("\r\n", $excluded_paths_arr);
+  
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS] = array(
+    '#type' => 'textarea',
+    '#title' => t("Paths to be excluded while generating segments"),
+    '#description' => t("Enter a line separated list of paths to be excluded while generating the segments."),
+    '#default_value' => $excluded_paths,
+  );
 
   $fieldset_general[EasyBreadcrumbConstants::DB_VAR_INCLUDE_HOME_SEGMENT] = array(
     '#type' => 'checkbox',
@@ -140,9 +153,22 @@ function _easy_breadcrumb_admin_submit($form, &$form_state) {
   foreach ($ignored_words_arr_aux as $word) {
     $ignored_words_arr[$word] = $word;
   }
-
+  
+  $excluded_paths_arr = array();
+  $excluded_paths = $form_state['values'][EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS];
+  $excluded_paths = trim($excluded_paths);
+  $excluded_paths = preg_replace('/\s+/', "\r\n", $excluded_paths);
+  $excluded_paths_arr_aux = $excluded_paths === '' ? array() : preg_split('/\r*\n+/', $excluded_paths);
+  foreach ($excluded_paths_arr_aux as $path) {
+    $path = trim($path, "/");
+    $excluded_paths_arr[$path] = $path;
+  }
+  
   // Updates the $form_state before passing it to the Drupal system.
   $form_state['values'][EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS] = $ignored_words_arr;
+  
+  // Updates the $form_state before passing it to the Drupal system.
+  $form_state['values'][EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS] = $excluded_paths_arr;
 
   // Delegates persistence to the existing Drupal system.
   system_settings_form_submit($form, $form_state);

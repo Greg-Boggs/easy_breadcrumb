@@ -27,7 +27,7 @@ function _easy_breadcrumb_block() {
     // Marks the front--segment with an identifier class (useful for CSS).
     $segments_classes[1] = 'easy-breadcrumb_segment-front';
     // Adds a segment for the front page.
-    $breadcrumb[] = l($front_text, NULL, array('attributes' => array('class' => $segments_classes)));
+    $breadcrumb[] = l($front_text, NULL, array('attributes' => array('class' => join(' ', $segments_classes))));
   }
 
   // There won't be more segments if visiting the front page, the don't waste
@@ -85,12 +85,12 @@ function _easy_breadcrumb_block() {
       if ($valid_path) {
         // Adds the segment to the breadcrumb.
         $breadcrumb[] = l($segment_text, $segment_url, array(
-          'attributes' => array('class' => $segments_classes),
+          'attributes' => array('class' => join(' ', $segments_classes)),
           )
         );
       }
       elseif ($include_invalid_paths) {
-        $classes = implode(' ', $segments_classes);
+        $classes = join(' ', $segments_classes);
         $breadcrumb[] = '<span class="' . $classes . '">' . $segment_text . '</span>';
       }
     }
@@ -106,7 +106,7 @@ function _easy_breadcrumb_block() {
       $use_page_title_when_available = variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_FROM_PAGE_WHEN_AVAILABLE, TRUE);
       // Tries to get the title of the current page (if available).
       if ($use_page_title_when_available) {
-        $page_title = @drupal_get_title();
+        $page_title = drupal_get_title();
       }
       // If the current page has not title, then deduce the title from the url.
       if (!isset($page_title) || trim($page_title) === '') {
@@ -118,10 +118,10 @@ function _easy_breadcrumb_block() {
       $title_segment_as_link = variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_SEGMENT_AS_LINK, FALSE);
       // If the page's title will be a link or just a text.
       if ($title_segment_as_link) {
-        $breadcrumb[] = l($page_title, $alias, array('attributes' => array('class' => $segments_classes)));
+        $breadcrumb[] = l($page_title, $alias, array('attributes' => array('class' => join(' ', $segments_classes))));
       }
       else {
-        $classes = implode(' ', $segments_classes);
+        $classes = join(' ', $segments_classes);
         $breadcrumb[] = '<span class="' . $classes . '">' . $page_title . '</span>';
       }
     }

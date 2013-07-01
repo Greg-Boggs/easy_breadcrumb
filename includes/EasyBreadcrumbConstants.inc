@@ -23,7 +23,7 @@ class EasyBreadcrumbConstants {
    * Flag for including invalid paths while generating the breadcrumb segments.
    */
   const DB_VAR_INCLUDE_INVALID_PATHS = 'easy_breadcrumb-include_invalid_paths';
-  
+
   /**
    * List of paths to be excluded from the generated segments.
    */
@@ -38,6 +38,11 @@ class EasyBreadcrumbConstants {
    * Flag for including or not the front page as a segment.
    */
   const DB_VAR_INCLUDE_HOME_SEGMENT = 'easy_breadcrumb-include_home_segment';
+
+  /**
+   * Title for the front page segment.
+   */
+  const DB_VAR_HOME_SEGMENT_TITLE = 'easy_breadcrumb-home_segment_title';
 
   /**
    * Flag for including or not the page's title as a segment.
@@ -78,7 +83,7 @@ class EasyBreadcrumbConstants {
     );
     return $default_excluded_paths;
   }
-  
+
   /**
    * Default list of ignored words.
    *

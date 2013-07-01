@@ -35,13 +35,13 @@ function _easy_breadcrumb_general_settings_form() {
     '#description' => t("Include the invalid paths alias as plain-text segments in the breadcrumb."),
     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_INVALID_PATHS, TRUE),
   );
-  
+
   // Formats the excluded paths array as line separated list of paths
   // before displaying them.
   $excluded_paths_arr = variable_get(EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS,
     EasyBreadcrumbConstants::defaultExcludedPaths());
   $excluded_paths = @join("\r\n", $excluded_paths_arr);
-  
+
   $fieldset_general[EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS] = array(
     '#type' => 'textarea',
     '#title' => t("Paths to be excluded while generating segments"),
@@ -54,6 +54,13 @@ function _easy_breadcrumb_general_settings_form() {
     '#title' => t("Include the front page as a segment in the breadcrumb"),
     '#description' => t("Include the front page as the first segment in the breacrumb."),
     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_HOME_SEGMENT, TRUE),
+  );
+
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_HOME_SEGMENT_TITLE] = array(
+    '#type' => 'textfield',
+    '#title' => t("Title for the front page segment in the breadcrumb"),
+    '#description' => t("Text to be displayed as the from page segment."),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_HOME_SEGMENT_TITLE, t('Home')),
   );
 
   $fieldset_general[EasyBreadcrumbConstants::DB_VAR_INCLUDE_TITLE_SEGMENT] = array(
@@ -153,7 +160,7 @@ function _easy_breadcrumb_admin_submit($form, &$form_state) {
   foreach ($ignored_words_arr_aux as $word) {
     $ignored_words_arr[$word] = $word;
   }
-  
+
   $excluded_paths_arr = array();
   $excluded_paths = $form_state['values'][EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS];
   $excluded_paths = trim($excluded_paths);
@@ -163,10 +170,10 @@ function _easy_breadcrumb_admin_submit($form, &$form_state) {
     $path = trim($path, "/");
     $excluded_paths_arr[$path] = $path;
   }
-  
+
   // Updates the $form_state before passing it to the Drupal system.
   $form_state['values'][EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS] = $ignored_words_arr;
-  
+
   // Updates the $form_state before passing it to the Drupal system.
   $form_state['values'][EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS] = $excluded_paths_arr;
 

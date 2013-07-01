@@ -23,7 +23,12 @@ function _easy_breadcrumb_block() {
 
   // Conditionally include the front page segment in the breadcrumb.
   if ($include_front_page_segment) {
-    $front_text = t('Home');
+    $front_text = variable_get(EasyBreadcrumbConstants::DB_VAR_HOME_SEGMENT_TITLE);
+    if (isset($front_text) && function_exists('i18n_string')) {
+      $front_text = i18n_string('node', $front_text);
+    } else {
+      $front_text = t('Home');
+    }
     // Marks the front--segment with an identifier class (useful for CSS).
     $segments_classes[1] = 'easy-breadcrumb_segment-front';
     // Adds a segment for the front page.
@@ -43,7 +48,7 @@ function _easy_breadcrumb_block() {
 
     // Flag for including invalid paths as plain-text segments.
     $include_invalid_paths = variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_INVALID_PATHS, TRUE);
-    
+
     // List of path to be excluded while generating segments.
     $excluded_paths_arr = variable_get(EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS,
       EasyBreadcrumbConstants::defaultExcludedPaths());
@@ -73,25 +78,29 @@ function _easy_breadcrumb_block() {
       // String with the potential path alias of the segment being processed
       // (e.g. 'blog/article').
       $segment_url = implode('/', $segment_url_arr);
-      
+
       // If this segment is configured to be excluded.
       if (isset($excluded_paths_arr[$segment_url])) {
         continue;
       }
 
+      $segments_classes[1] = 'easy-breadcrumb_segment-' . $idx_1;
+
+      // Obtain the internal path it represents.
+      $segment_normal_path = drupal_get_normal_path($segment_url);
+
+      // Check if this is a valid path.
+      $segment_valid_path = _easy_breadcrumb_validate_path($segment_normal_path);
+
       // Get the segment's raw text from the URL.
       $item = $alias_arr[$idx_0];
       // Normalized segment's text (e.g. 'Blog');
-      $segment_text = _easy_breadcrumb_normalize_url_segment_text($item, $capitalizator_mode,
-        $capitalizator_ignored_words);
-      $segments_classes[1] = 'easy-breadcrumb_segment-' . $idx_1;
-
-      // Check if this is a valid path.
-      $valid_path = _easy_breadcrumb_validate_path_alias($segment_url);
+      $segment_text = _easy_breadcrumb_normalize_url_segment_text_url($segment_normal_path,
+        $segment_valid_path, $item, $capitalizator_mode, $capitalizator_ignored_words);
 
       // Only adds the segment as link if its URL really exists; adds it as text
       // otherwise (if configured for doing so).
-      if ($valid_path) {
+      if ($segment_valid_path) {
         // Adds the segment to the breadcrumb.
         $breadcrumb[] = l($segment_text, $segment_url, array(
           'attributes' => array('class' => $segments_classes),
@@ -100,7 +109,7 @@ function _easy_breadcrumb_block() {
       }
       elseif ($include_invalid_paths) {
         $classes = implode(' ', $segments_classes);
-        $breadcrumb[] = '<span class="' . $classes . '">' . $segment_text . '</span>';
+        $breadcrumb[] = '<span class="' . $classes . '">' . htmlspecialchars($segment_text) . '</span>';
       }
     }
 
@@ -156,7 +165,11 @@ function _easy_breadcrumb_block() {
  * Normalizes an URL segment's title. E.g., transforms "about-us" to "About Us"
  * or "About us", according to parameters.
  *
- * @param string $segment
+ * @param string $segment_normal_path
+ *   Segment's normal path.
+ * @param string $segment_valid_path
+ *   Flag if the URL of the segment if valid.
+ * @param string $segment_text
  *   Segment's title to be normalized.
  * @param string $uppercase_mode
  *   Specifies the type of uppercase transformation (if any) to be applied.
@@ -164,38 +177,65 @@ function _easy_breadcrumb_block() {
  * @return string
  *   normalized segment title.
  */
-function _easy_breadcrumb_normalize_url_segment_text($segment, $uppercase_mode = 'ucwords',
+function _easy_breadcrumb_normalize_url_segment_text_url($segment_normal_path,
+$segment_valid_path, $segment_text, $uppercase_mode = 'ucwords', $capitalizator_ignored_words = array()) {
+
+  // if path is valid then just try to infer it from the node's title (if available).
+  if ($segment_valid_path) {
+    $node = menu_get_object('node', 1, $segment_normal_path);
+    if(is_object($node) && property_exists($node, 'title')) {
+      return $node->title;
+    }
+  }
+
+  return _easy_breadcrumb_normalize_url_segment_text($segment_text, $uppercase_mode,
+            $capitalizator_ignored_words);
+}
+
+/**
+ * Normalizes an URL segment's title. E.g., transforms "about-us" to "About Us"
+ * or "About us", according to parameters.
+ *
+ * @param string $segment_text
+ *   Segment's title to be normalized.
+ * @param string $uppercase_mode
+ *   Specifies the type of uppercase transformation (if any) to be applied.
+ *
+ * @return string
+ *   normalized segment title.
+ */
+function _easy_breadcrumb_normalize_url_segment_text($segment_text, $uppercase_mode = 'ucwords',
 $capitalizator_ignored_words = array()) {
 
   // Transforms '-hello--world_javascript-' on 'hello world javascript'.
-  $normalized_segment = str_replace(array('-', '_'), ' ', $segment);
-  $normalized_segment = trim($normalized_segment);
-  $normalized_segment = preg_replace('/\s{2,}/', ' ', $normalized_segment);
+  $segment_text_normalized = str_replace(array('-', '_'), ' ', $segment_text);
+  $segment_text_normalized = trim($segment_text_normalized);
+  $segment_text_normalized = preg_replace('/\s{2,}/', ' ', $segment_text_normalized);
 
   switch ($uppercase_mode) {
     // Transforms the text 'once a time' to 'Once a Time'.
     case 'ucwords':
-      $segments_arr = explode(' ', $normalized_segment);
+      $segment_text_arr = explode(' ', $segment_text_normalized);
       // Transforms the non-ignored words of the segment.
-      $segments_arr[0] = drupal_ucfirst($segments_arr[0]);
-      for ($idx_1 = 1, $segments_words_quantity = count($segments_arr); $idx_1 < $segments_words_quantity; ++$idx_1) {
+      $segment_text_arr[0] = drupal_ucfirst($segment_text_arr[0]);
+      for ($idx_1 = 1, $segments_words_quantity = count($segment_text_arr); $idx_1 < $segments_words_quantity; ++$idx_1) {
         // Transforms this word only if it is not in the list of ignored words.
-        if (!isset($capitalizator_ignored_words[$segments_arr[$idx_1]])) {
-          $segments_arr[$idx_1] = drupal_ucfirst($segments_arr[$idx_1]);
+        if (!isset($capitalizator_ignored_words[$segment_text_arr[$idx_1]])) {
+          $segment_text_arr[$idx_1] = drupal_ucfirst($segment_text_arr[$idx_1]);
         }
       }
-      $normalized_segment = join(' ', $segments_arr);
+      $segment_text_normalized = join(' ', $segment_text_arr);
       break;
 
     // Transforms the text 'once a time' to 'Once a time'.
     case 'ucfirst':
-      $normalized_segment = drupal_ucfirst($normalized_segment);
+      $segment_text_normalized = drupal_ucfirst($segment_text_normalized);
       break;
 
     default:
   }
 
-  return $normalized_segment;
+  return $segment_text_normalized;
 }
 
 /**
@@ -207,17 +247,10 @@ $capitalizator_ignored_words = array()) {
  * @return boolean
  *   TRUE if the path is valid, false otherwise.
  */
-function _easy_breadcrumb_validate_path_alias($path_alias) {
+function _easy_breadcrumb_validate_path($normal_path) {
 
   // Check if the path is stored in the actual menu router.
-  $valid = drupal_valid_path(drupal_get_normal_path($path_alias));
-
-  // If don't exists in the actual menu router, then check if it's an url_alias
-  // (was generated by the pathauto module).
-  if (empty($valid)) {
-    $drupal_path = drupal_lookup_path('source', $path_alias);
-    $valid = !empty($drupal_path);
-  }
+  $valid = drupal_valid_path($normal_path);
 
   return $valid;
 }

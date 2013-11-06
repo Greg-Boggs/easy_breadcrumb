@@ -23,20 +23,16 @@ function _easy_breadcrumb_block() {
 
   // Conditionally include the front page segment in the breadcrumb.
   if ($include_front_page_segment) {
-    $front_text = variable_get(EasyBreadcrumbConstants::DB_VAR_HOME_SEGMENT_TITLE);
-    if (isset($front_text) && function_exists('i18n_string')) {
-      $front_text = i18n_string('node', $front_text);
-    } else {
-      $front_text = t('Home');
-    }
+    $front_text = variable_get(EasyBreadcrumbConstants::DB_VAR_HOME_SEGMENT_TITLE, 'Home');
+
     // Marks the front--segment with an identifier class (useful for CSS).
     $segments_classes[1] = 'easy-breadcrumb_segment-front';
+
     // Adds a segment for the front page.
     $breadcrumb[] = l($front_text, NULL, array('attributes' => array('class' => $segments_classes)));
   }
 
-  // There won't be more segments if visiting the front page, the don't waste
-  // resources.
+  // There won't be more segments if visiting the front page, the don't waste resources.
   if (!drupal_is_front_page()) {
 
     // Gets the flag saying the capitalizator mode.

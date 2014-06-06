@@ -45,7 +45,8 @@ function _easy_breadcrumb_general_settings_form() {
   $fieldset_general[EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS] = array(
     '#type' => 'textarea',
     '#title' => t("Paths to be excluded while generating segments"),
-    '#description' => t("Enter a line separated list of paths to be excluded while generating the segments."),
+    '#description' => t("Enter a line separated list of paths to be excluded while generating the segments.
+			Paths may use simple regex, i.e.: report/2[0-9][0-9][0-9]."),
     '#default_value' => $excluded_paths,
   );
 

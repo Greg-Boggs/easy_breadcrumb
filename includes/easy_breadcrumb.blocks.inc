@@ -24,16 +24,17 @@ function _easy_breadcrumb_block() {
   // Conditionally include the front page segment in the breadcrumb.
   if ($include_front_page_segment) {
     $front_text = variable_get(EasyBreadcrumbConstants::DB_VAR_HOME_SEGMENT_TITLE, 'Home');
-
     // Marks the front--segment with an identifier class (useful for CSS).
     $segments_classes[1] = 'easy-breadcrumb_segment-front';
-
     // Adds a segment for the front page.
     $breadcrumb[] = l($front_text, NULL, array('attributes' => array('class' => $segments_classes)));
   }
 
   // There won't be more segments if visiting the front page, the don't waste resources.
   if (!drupal_is_front_page()) {
+
+    // Use the real page title of each breadcrumb's segment when available (tipically, when the URL fragment points to a node).
+    $use_page_title_when_available = variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_FROM_PAGE_WHEN_AVAILABLE, TRUE);
 
     // Gets the flag saying the capitalizator mode.
     $capitalizator_mode = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_MODE, 'ucwords');
@@ -91,8 +92,8 @@ function _easy_breadcrumb_block() {
       // Get the segment's raw text from the URL.
       $item = $alias_arr[$idx_0];
       // Normalized segment's text (e.g. 'Blog');
-      $segment_text = _easy_breadcrumb_normalize_url_segment_text_url($segment_normal_path,
-        $segment_valid_path, $item, $capitalizator_mode, $capitalizator_ignored_words);
+      $segment_text = _easy_breadcrumb_normalize_url_segment_text_url($segment_normal_path, $segment_valid_path,
+        $use_page_title_when_available, $item, $capitalizator_mode, $capitalizator_ignored_words);
 
       // Only adds the segment as link if its URL really exists; adds it as text
       // otherwise (if configured for doing so).
@@ -117,7 +118,6 @@ function _easy_breadcrumb_block() {
       // Marks the page's-title-segment with an identifier class
       // (useful for CSS).
       $segments_classes[1] = 'easy-breadcrumb_segment-title';
-      $use_page_title_when_available = variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_FROM_PAGE_WHEN_AVAILABLE, TRUE);
       // Tries to get the title of the current page (if available).
       if ($use_page_title_when_available) {
         $page_title = drupal_get_title();
@@ -173,11 +173,12 @@ function _easy_breadcrumb_block() {
  * @return string
  *   normalized segment title.
  */
-function _easy_breadcrumb_normalize_url_segment_text_url($segment_normal_path,
-$segment_valid_path, $segment_text, $uppercase_mode = 'ucwords', $capitalizator_ignored_words = array()) {
+function _easy_breadcrumb_normalize_url_segment_text_url($segment_normal_path, $segment_valid_path,
+$use_page_title_when_available, $segment_text, $uppercase_mode = 'ucwords', $capitalizator_ignored_words = array()) {
 
-  // if path is valid then just try to infer it from the node's title (if available).
-  if ($segment_valid_path) {
+  // if path is valid and the option $use_page_title_when_available is checked.
+  if ($segment_valid_path && $use_page_title_when_available) {
+    // Then tries to get the title of the current page (if available).
     $node = menu_get_object('node', 1, $segment_normal_path);
     if(is_object($node) && property_exists($node, 'title')) {
       return $node->title;

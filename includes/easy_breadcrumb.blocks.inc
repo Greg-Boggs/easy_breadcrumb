@@ -32,9 +32,6 @@ function _easy_breadcrumb_block() {
   // There won't be more segments if visiting the front page, the don't waste resources.
   if (!drupal_is_front_page()) {
 
-    // Use the real page title of each breadcrumb's segment when available (tipically, when the URL fragment points to a node).
-    $use_page_title_when_available = variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_FROM_PAGE_WHEN_AVAILABLE, TRUE);
-
     // Gets the flag saying the capitalizator mode.
     $capitalizator_mode = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_MODE, 'ucwords');
 

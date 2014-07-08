@@ -199,28 +199,7 @@ function _easy_breadcrumb_build_item($item_title, $item_classes, $item_url, $as_
  */
 function _easy_breadcrumb_validate_segment_path($segment_path) {
   $is_valid_path = drupal_valid_path($segment_path);
-  if (!$is_valid_path) {
-    return false;
-  }
-  // then also check if the validated segment is the actual path, not an ancestor.
-  $menu_item = menu_get_item($segment_path);  
-  if ($menu_item['path'] === $segment_path) {
-    return true;
-  }
-  // if paths are different, then check their structures (i.e. node/xyz == node/%).
-  $arrSp = explode('/', $segment_path);
-  $countSp = count($arrSp);
-  $arrMi = explode('/', $menu_item['path']);
-  $countMi = count($arrMi);
-  if ($countSp !== $countMi) {
-    return false;
-  }
-  while ($countSp--) {
-    if ($arrMi[$countSp] !== $arrSp[$countSp] && $arrMi[$countSp] !== '%') {
-      return false;
-    }
-  }
-  return true;
+  return $is_valid_path;
 }
 
 /**

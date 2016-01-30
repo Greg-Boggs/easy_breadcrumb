@@ -1,9 +1,8 @@
 name: 'Easy Breadcrumb'
-description: 'Provides a plug-and-play block to be embedded in your pages, typically at some place near the page''s header.'
+description: 'Provides a block that upgrades core breadcrumbs to be configurable.'
 dependencies:
   - pathauto
 core: 8.x
-version: 7.x-2.12
+version: 8.x-1.0
 project: easy_breadcrumb
-datestamp: '1404848028'
 type: module

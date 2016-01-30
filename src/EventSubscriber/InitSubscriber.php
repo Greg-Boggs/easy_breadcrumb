@@ -7,6 +7,7 @@ namespace Drupal\easy_breadcrumb\EventSubscriber;
 
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Drupal\easy_breadcrumb\EasyBreadcrumbConstants;
 
 class InitSubscriber implements EventSubscriberInterface {
 
@@ -18,10 +19,11 @@ class InitSubscriber implements EventSubscriberInterface {
   }
 
   public function onEvent() {
-    $disable_drupal_default_breadcrumb = variable_get(EasyBreadcrumbConstants::DB_VAR_DISABLE_DEFAULT_DRUPAL_BREADCRUMB, TRUE);
+    $config = \Drupal::config('easy_breadcrumb.settings');
+    $disable_drupal_default_breadcrumb = $config->get(EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB);
     if ($disable_drupal_default_breadcrumb) {
       // Sets the Drupal's default breadcrumb as an empty array to disable it.
-      drupal_set_breadcrumb([]);
+      //drupal_set_breadcrumb([]);
     }
   }
 

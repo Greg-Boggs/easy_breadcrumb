@@ -29,13 +29,11 @@ function easy_breadcrumb_permission() {
  * Implements hook_init().
  */
 function easy_breadcrumb_init() {
-  // @FIXME
-// // @FIXME
-// // The correct configuration object could not be determined. You'll need to
-// // rewrite this call manually.
-// $disable_drupal_default_breadcrumb = variable_get(EasyBreadcrumbConstants::DB_VAR_DISABLE_DEFAULT_DRUPAL_BREADCRUMB, TRUE);
+  $config = $this->config('easy_breadcrumb.settings');
+  $disable_drupal_default_breadcrumb = $config->get(EasyBreadcrumbConstants::DB_VAR_DISABLE_DEFAULT_DRUPAL_BREADCRUMB);
 
   if ($disable_drupal_default_breadcrumb) {
+
     // Sets the Drupal's default breadcrumb as an empty array to disable it.
     drupal_set_breadcrumb(array());
   }
@@ -57,6 +55,7 @@ function easy_breadcrumb_menu() {
     'page arguments' => array('_easy_breadcrumb_general_settings_form'),
     'access arguments' => array('administer easy_breadcrumb'),
   );
+
   return $items;
 }
 
@@ -111,6 +110,7 @@ function easy_breadcrumb_block_info() {
     'info' => t('Easy Breadcrumb'),
     'cache' => DRUPAL_CACHE_PER_PAGE,
   );
+
   return $block;
 }
 

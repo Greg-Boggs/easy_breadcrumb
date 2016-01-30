@@ -10,6 +10,7 @@ namespace Drupal\easy_breadcrumb\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\easy_breadcrumb\EasyBreadcrumbConstants;
 
 class EasyBreadcrumbGeneralSettingsForm extends FormBase {
 
@@ -20,7 +21,7 @@ class EasyBreadcrumbGeneralSettingsForm extends FormBase {
     return '_easy_breadcrumb_general_settings_form';
   }
 
-  public function buildForm(array $form, \Drupal\Core\Form\FormStateInterface $form_state) {
+    public function buildForm(array $form, FormStateInterface $form_state) {
 
     // @FIXME
 // The Assets API has totally changed. CSS, JavaScript, and libraries are now
@@ -40,42 +41,27 @@ class EasyBreadcrumbGeneralSettingsForm extends FormBase {
       '#collapsed' => FALSE,
     ];
 
-    // @FIXME
-    // // @FIXME
-    // // The correct configuration object could not be determined. You'll need to
-    // // rewrite this call manually.
-    // $fieldset_general[EasyBreadcrumbConstants::DB_VAR_DISABLE_DEFAULT_DRUPAL_BREADCRUMB] = array(
-    //     '#type' => 'checkbox',
-    //     '#title' => t("Disable the default Drupal's breadcrumb"),
-    //     '#description' => t("Always disable the default Drupal's breadcrumb."),
-    //     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_DISABLE_DEFAULT_DRUPAL_BREADCRUMB, TRUE),
-    //   );
+    $config = $this->config('easy_breadcrumb.settings');
+    $fieldset_general[EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB] = array(
+      '#type' => 'checkbox',
+      '#title' => t("Disable the default Drupal's breadcrumb"),
+      '#description' => t("Always disable the default Drupal's breadcrumb."),
+      '#default_value' => $config->get(EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB),
+    );
 
-
-    // @FIXME
-    // // @FIXME
-    // // The correct configuration object could not be determined. You'll need to
-    // // rewrite this call manually.
-    // $fieldset_general[EasyBreadcrumbConstants::DB_VAR_INCLUDE_INVALID_PATHS] = array(
-    //     '#type' => 'checkbox',
-    //     '#title' => t("Include invalid paths alias as plain-text segments"),
-    //     '#description' => t("Include the invalid paths alias as plain-text segments in the breadcrumb."),
-    //     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_INVALID_PATHS, TRUE),
-    //   );
+    $fieldset_general[EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS] = array(
+      '#type' => 'checkbox',
+      '#title' => t("Include invalid paths alias as plain-text segments"),
+      '#description' => t("Include the invalid paths alias as plain-text segments in the breadcrumb."),
+      '#default_value' => $config->get(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS),
+    );
 
 
     // Formats the excluded paths array as line separated list of paths
     // before displaying them.
-    // @FIXME
-    // // @FIXME
-    // // The correct configuration object could not be determined. You'll need to
-    // // rewrite this call manually.
-    // $excluded_paths_arr = variable_get(EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS,
-    //     EasyBreadcrumbConstants::defaultExcludedPaths());
+    $excluded_paths = $config->get(EasyBreadcrumbConstants::EXCLUDED_PATHS);
 
-    $excluded_paths = @join("\r\n", $excluded_paths_arr);
-
-    $fieldset_general[EasyBreadcrumbConstants::DB_VAR_EXCLUDED_PATHS] = [
+    $fieldset_general[EasyBreadcrumbConstants::EXCLUDED_PATHS] = [
       '#type' => 'textarea',
       '#title' => t("Paths to be excluded while generating segments"),
       '#description' => t("Enter a line separated list of paths to be excluded while generating the segments.
@@ -83,111 +69,71 @@ class EasyBreadcrumbGeneralSettingsForm extends FormBase {
       '#default_value' => $excluded_paths,
     ];
 
-    // @FIXME
-    // // @FIXME
-    // // The correct configuration object could not be determined. You'll need to
-    // // rewrite this call manually.
-    // $fieldset_general[EasyBreadcrumbConstants::DB_VAR_INCLUDE_HOME_SEGMENT] = array(
-    //     '#type' => 'checkbox',
-    //     '#title' => t("Include the front page as a segment in the breadcrumb"),
-    //     '#description' => t("Include the front page as the first segment in the breacrumb."),
-    //     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_HOME_SEGMENT, TRUE),
-    //   );
+    $fieldset_general[EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT] = array(
+      '#type' => 'checkbox',
+      '#title' => t("Include the front page as a segment in the breadcrumb"),
+      '#description' => t("Include the front page as the first segment in the breacrumb."),
+      '#default_value' => $config->get(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT),
+    );
 
+    $fieldset_general[EasyBreadcrumbConstants::HOME_SEGMENT_TITLE] = array(
+      '#type' => 'textfield',
+      '#title' => t("Title for the front page segment in the breadcrumb"),
+      '#description' => t("Text to be displayed as the from page segment."),
+      '#default_value' => $config->get(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE),
+    );
 
-    // @FIXME
-    // // @FIXME
-    // // The correct configuration object could not be determined. You'll need to
-    // // rewrite this call manually.
-    // $fieldset_general[EasyBreadcrumbConstants::DB_VAR_HOME_SEGMENT_TITLE] = array(
-    //     '#type' => 'textfield',
-    //     '#title' => t("Title for the front page segment in the breadcrumb"),
-    //     '#description' => t("Text to be displayed as the from page segment."),
-    //     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_HOME_SEGMENT_TITLE, t('Home')),
-    //   );
+    $fieldset_general[EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT] = array(
+      '#type' => 'checkbox',
+      '#title' => t("Include the current page's title as a segment in the breadcrumb"),
+      '#description' => t("Include the current page's title as the last segment in the breacrumb."),
+      '#default_value' => $config->get(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT),
+    );
 
+    $fieldset_general[EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE] = array(
+      '#type' => 'checkbox',
+      '#title' => t("Use the real page's title when available"),
+      '#description' => t("Use the real page's title when it is available instead of always deducing it from the URL."),
+      '#default_value' => $config->get(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE),
+    );
 
-    // @FIXME
-    // // @FIXME
-    // // The correct configuration object could not be determined. You'll need to
-    // // rewrite this call manually.
-    // $fieldset_general[EasyBreadcrumbConstants::DB_VAR_INCLUDE_TITLE_SEGMENT] = array(
-    //     '#type' => 'checkbox',
-    //     '#title' => t("Include the current page's title as a segment in the breadcrumb"),
-    //     '#description' => t("Include the current page's title as the last segment in the breacrumb."),
-    //     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_INCLUDE_TITLE_SEGMENT, TRUE),
-    //   );
+    $fieldset_general[EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK] = array(
+      '#type' => 'checkbox',
+      '#title' => t("Make the page's title segment a link"),
+      '#description' => t("Prints the page's title segment as a link."),
+      '#default_value' => $config->get(EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK),
+    );
 
+    $fieldset_general[EasyBreadcrumbConstants::SEGMENTS_SEPARATOR] = array(
+      '#type' => 'textfield',
+      '#title' => t('Segments separator'),
+      '#description' => t("Separator to be used between the breadcrumb's segments."),
+      '#default_value' => $config->get(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR),
+    );
 
-    // @FIXME
-    // // @FIXME
-    // // The correct configuration object could not be determined. You'll need to
-    // // rewrite this call manually.
-    // $fieldset_general[EasyBreadcrumbConstants::DB_VAR_TITLE_FROM_PAGE_WHEN_AVAILABLE] = array(
-    //     '#type' => 'checkbox',
-    //     '#title' => t("Use the real page's title when available"),
-    //     '#description' => t("Use the real page's title when it is available instead of always deducing it from the URL."),
-    //     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_FROM_PAGE_WHEN_AVAILABLE, TRUE),
-    //   );
-
-
-    // @FIXME
-    // // @FIXME
-    // // The correct configuration object could not be determined. You'll need to
-    // // rewrite this call manually.
-    // $fieldset_general[EasyBreadcrumbConstants::DB_VAR_TITLE_SEGMENT_AS_LINK] = array(
-    //     '#type' => 'checkbox',
-    //     '#title' => t("Make the page's title segment a link"),
-    //     '#description' => t("Prints the page's title segment as a link."),
-    //     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_SEGMENT_AS_LINK, FALSE),
-    //   );
-
-
-    // @FIXME
-    // // @FIXME
-    // // The correct configuration object could not be determined. You'll need to
-    // // rewrite this call manually.
-    // $fieldset_general[EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR] = array(
-    //     '#type' => 'textfield',
-    //     '#title' => t('Segments separator'),
-    //     '#description' => t("Separator to be used between the breadcrumb's segments."),
-    //     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR, '>>'),
-    //   );
-
-
-    // @FIXME
-    // // @FIXME
-    // // The correct configuration object could not be determined. You'll need to
-    // // rewrite this call manually.
-    // $fieldset_general[EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_MODE] = array(
-    //     '#type' => 'select',
-    //     '#title' => t("Transformation mode for the segments' titles"),
-    //     '#options' => array(
-    //       'none' => t('None'),
-    //       'ucwords' => t("Capitalize the first letter of each word in the segment"),
-    //       'ucfirst' => t("Only capitalize the first letter of each segment"),
-    //     ),
-    //     '#description' => t("Choose the transformation mode you want to apply to the segments' titles. E.g.: 'blog/once-a-time' -> 'Home >> Blog >> Once a Time'."),
-    //     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_MODE, 'ucwords'),
-    //   );
-
+    $fieldset_general[EasyBreadcrumbConstants::CAPITALIZATOR_MODE] = array(
+      '#type' => 'select',
+      '#title' => t("Transformation mode for the segments' titles"),
+      '#options' => array(
+        'none' => t('None'),
+        'ucwords' => t("Capitalize the first letter of each word in the segment"),
+        'ucfirst' => t("Only capitalize the first letter of each segment"),
+      ),
+      '#description' => t("Choose the transformation mode you want to apply to the segments' "
+                         . "titles. E.g.: 'blog/once-a-time' -> 'Home >> Blog >> Once a Time'."),
+      '#default_value' => $config->get(EasyBreadcrumbConstants::CAPITALIZATOR_MODE),
+    );
 
     // Formats the ignored-words array as space separated list of words
     // (word1 word2 wordN) before displaying them.
-    // @FIXME
-    // // @FIXME
-    // // The correct configuration object could not be determined. You'll need to
-    // // rewrite this call manually.
-    // $capitalizator_ignored_words_arr = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS,
-    //     EasyBreadcrumbConstants::defaultIgnoredWords());
+    $capitalizator_ignored_words = $config->get(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS);
 
-    $capitalizator_ignored_words = @join(' ', $capitalizator_ignored_words_arr);
-
-    $fieldset_general[EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_IGNORED_WORDS] = [
+    $fieldset_general[EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS] = [
       '#type' => 'textarea',
       '#rows' => 3,
       '#title' => t("Words to be ignored by the 'capitalizator'"),
-      '#description' => t("Enter a space separated list of words to be ignored by the 'capitalizator'. This will be applyed only to the words not at the beginning of each segment. E.g.: of and."),
+      '#description' => t("Enter a space separated list of words to be ignored by the 'capitalizator'."
+                          . " This will be applyed only to the words not at the beginning of each segment. E.g.: of and."),
       '#default_value' => $capitalizator_ignored_words,
     ];
 
@@ -215,4 +161,28 @@ class EasyBreadcrumbGeneralSettingsForm extends FormBase {
     return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+      \Drupal::configFactory()->getEditable('easy_breadcrumb.settings')
+      ->set(EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB, $form_state->getValue(EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB))
+      ->set(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS, $form_state->getValue(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS))
+      ->set(EasyBreadcrumbConstants::EXCLUDED_PATHS, $form_state->getValue(EasyBreadcrumbConstants::EXCLUDED_PATHS))
+      ->set(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR, $form_state->getValue(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR))
+      ->set(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT, $form_state->getValue(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT))
+      ->set(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE, $form_state->getValue(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE))
+      ->set(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT, $form_state->getValue(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT))
+      ->set(EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK, $form_state->getValue(EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK))
+      ->set(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE, $form_state->getValue(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE))
+      ->set(EasyBreadcrumbConstants::CAPITALIZATOR_MODE, $form_state->getValue(EasyBreadcrumbConstants::CAPITALIZATOR_MODE))
+      ->set(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS, $form_state->getValue(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS))
+      ->save();
+  }
+  /**
+   * {@inheritdoc}.
+   */
+  protected function getEditableConfigNames() {
+    return ['easy_breadcrumb.settings'];
+  }
 }

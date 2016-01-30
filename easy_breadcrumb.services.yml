@@ -4,3 +4,7 @@ services:
     tags:
       -
         name: event_subscriber
+  easy_breadcrumb.breadcrumb:
+    class: Drupal\easy_breadcrumb\EasyBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 100 }

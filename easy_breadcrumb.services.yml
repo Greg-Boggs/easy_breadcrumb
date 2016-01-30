@@ -1,0 +1,6 @@
+services:
+  init_subscriber:
+    class: Drupal\easy_breadcrumb\EventSubscriber\InitSubscriber
+    tags:
+      -
+        name: event_subscriber

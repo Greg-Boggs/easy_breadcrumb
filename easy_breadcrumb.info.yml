@@ -1,7 +1,5 @@
 name: 'Easy Breadcrumb'
-description: 'Provides a block that upgrades core breadcrumbs to be configurable.'
-dependencies:
-  - pathauto
+description: 'Provides configurable path based breadcrumbs.'
 core: 8.x
 version: 8.x-1.0
 project: easy_breadcrumb

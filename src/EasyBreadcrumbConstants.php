@@ -12,11 +12,6 @@ class EasyBreadcrumbConstants {
   const MODULE_NAME = 'easy_breadcrumb';
 
   /**
-   * Flag for disabling or not the default Drupal's breadcrumb.
-   */
-  const DISABLE_DEFAULT_DRUPAL_BREADCRUMB = 'disable_drupal_breadcrumb';
-
-  /**
    * Flag for including invalid paths while generating the breadcrumb segments.
    */
   const INCLUDE_INVALID_PATHS = 'include_invalid_paths';

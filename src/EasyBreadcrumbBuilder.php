@@ -181,13 +181,21 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
           }
           $i++;
         }
-        array_pop($path_elements);
       }
+      elseif (EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS) {
+        // TODO: exclude the 404 page and other's with a system route
+        $title = str_replace(array('-', '_'), ' ', Unicode::ucfirst(end($path_elements)));
+        $links[] = Link::createFromRoute($title, '<none>');
+      }
+      array_pop($path_elements);
     }
+
     if ($path && '/' . $path != $front) {
 
-      // Add the Home link, except for the front page.
-      $links[] = Link::createFromRoute($this->config->get(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE), '<front>');
+      if (EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT) {
+        // Add the Home link, if desired.
+        $links[] = Link::createFromRoute($this->config->get(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE), '<front>');
+      }
     }
 
     return $breadcrumb->setLinks(array_reverse($links));

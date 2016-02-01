@@ -160,7 +160,6 @@ class EasyBreadcrumbGeneralSettingsForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
       \Drupal::configFactory()->getEditable('easy_breadcrumb.settings')
-      ->set(EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB, $form_state->getValue(EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB))
       ->set(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS, $form_state->getValue(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS))
       ->set(EasyBreadcrumbConstants::EXCLUDED_PATHS, $form_state->getValue(EasyBreadcrumbConstants::EXCLUDED_PATHS))
       ->set(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR, $form_state->getValue(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR))

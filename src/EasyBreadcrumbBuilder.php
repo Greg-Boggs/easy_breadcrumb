@@ -137,24 +137,25 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
   public function build(RouteMatchInterface $route_match) {
     $breadcrumb = new Breadcrumb();
     $links = array();
+    $exclude = array();
 
     // General path-based breadcrumbs. Use the actual request path, prior to
     // resolving path aliases, so the breadcrumb can be defined by simply
     // creating a hierarchy of path aliases.
     $path = trim($this->context->getPathInfo(), '/');
     $path_elements = explode('/', $path);
-    $exclude = array();
+
     // Don't show a link to the front-page path.
     $front = $this->siteConfig->get('page.front');
     $exclude[$front] = TRUE;
+
     // /user is just a redirect, so skip it.
-    // @todo Find a better way to deal with /user.
     $exclude['/user'] = TRUE;
     // Because this breadcrumb builder is entirely path-based, vary by the
     // 'url.path' cache context.
     $breadcrumb->addCacheContexts(['url.path']);
-    while (count($path_elements) > 1) {
-      array_pop($path_elements);
+    $i = 0;
+    while (count($path_elements) > 0) {
       // Copy the path elements for up-casting.
       $route_request = $this->getRequestForPath('/' . implode('/', $path_elements), $exclude);
       if ($route_request) {
@@ -162,7 +163,6 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         $access = $this->accessManager->check($route_match, $this->currentUser, NULL, TRUE);
         // The set of breadcrumb links depends on the access result, so merge
         // the access result's cacheability metadata.
-        $breadcrumb = $breadcrumb->addCacheableDependency($access);
         if ($access->isAllowed()) {
           $title = $this->titleResolver->getTitle($route_request, $route_match->getRouteObject());
           if (!isset($title)) {
@@ -170,13 +170,22 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
             // route is missing a _title or _title_callback attribute.
             $title = str_replace(array('-', '_'), ' ', Unicode::ucfirst(end($path_elements)));
           }
-          $url = Url::fromRouteMatch($route_match);
-          $links[] = new Link($title, $url);
-        }
-      }
 
+          // Add a linked breadcrumb unless it's the current page.
+          if ($i == 0) {
+            $links[] = Link::createFromRoute($title, '<none>');
+          }
+          else {
+            $url = Url::fromRouteMatch($route_match);
+            $links[] = new Link($title, $url);
+          }
+          $i++;
+        }
+        array_pop($path_elements);
+      }
     }
     if ($path && '/' . $path != $front) {
+
       // Add the Home link, except for the front page.
       $links[] = Link::createFromRoute($this->config->get(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE), '<front>');
     }

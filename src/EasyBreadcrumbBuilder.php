@@ -212,22 +212,16 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    * @return \Symfony\Component\HttpFoundation\Request
    *   A populated request object or NULL if the path couldn't be matched.
    */
-  protected function getRequestForPath($path, array $exclude) {
+  protected function getRequestForPath($path) {
     if (!empty($exclude[$path])) {
       return NULL;
     }
-    // @todo Use the RequestHelper once https://www.drupal.org/node/2090293 is
-    //   fixed.
     $request = Request::create($path);
     // Performance optimization: set a short accept header to reduce overhead in
     // AcceptHeaderMatcher when matching the request.
     $request->headers->set('Accept', 'text/html');
     // Find the system path by resolving aliases, language prefix, etc.
     $processed = $this->pathProcessor->processInbound($path, $request);
-    if (empty($processed) || !empty($exclude[$processed])) {
-      // This resolves to the front page, which we already add.
-      return NULL;
-    }
     $this->currentPath->setPath($processed, $request);
     // Attempt to match this path to provide a fully built request.
     try {

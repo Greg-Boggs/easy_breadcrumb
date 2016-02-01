@@ -164,7 +164,9 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         // The set of breadcrumb links depends on the access result, so merge
         // the access result's cacheability metadata.
         if ($access->isAllowed()) {
-          $title = $this->titleResolver->getTitle($route_request, $route_match->getRouteObject());
+          if (EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE) {
+            $title = $this->titleResolver->getTitle($route_request, $route_match->getRouteObject());
+          }
           if (!isset($title)) {
             // Fallback to using the raw path component as the title if the
             // route is missing a _title or _title_callback attribute.
@@ -183,7 +185,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         }
       }
       elseif (EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS) {
-        // TODO: exclude the 404 page and other's with a system route
+        // TODO: exclude the 404 page and other's with a system path.
         $title = str_replace(array('-', '_'), ' ', Unicode::ucfirst(end($path_elements)));
         $links[] = Link::createFromRoute($title, '<none>');
       }
@@ -212,16 +214,22 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    * @return \Symfony\Component\HttpFoundation\Request
    *   A populated request object or NULL if the path couldn't be matched.
    */
-  protected function getRequestForPath($path) {
+  protected function getRequestForPath($path, array $exclude) {
     if (!empty($exclude[$path])) {
       return NULL;
     }
+    // @todo Use the RequestHelper once https://www.drupal.org/node/2090293 is
+    //   fixed.
     $request = Request::create($path);
     // Performance optimization: set a short accept header to reduce overhead in
     // AcceptHeaderMatcher when matching the request.
     $request->headers->set('Accept', 'text/html');
     // Find the system path by resolving aliases, language prefix, etc.
     $processed = $this->pathProcessor->processInbound($path, $request);
+    if (empty($processed) || !empty($exclude[$processed])) {
+      // This resolves to the front page, which we already add.
+      return NULL;
+    }
     $this->currentPath->setPath($processed, $request);
     // Attempt to match this path to provide a fully built request.
     try {

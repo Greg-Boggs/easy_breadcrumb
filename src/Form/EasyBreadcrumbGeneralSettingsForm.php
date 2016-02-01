@@ -42,12 +42,6 @@ class EasyBreadcrumbGeneralSettingsForm extends FormBase {
     ];
 
     $config = $this->config('easy_breadcrumb.settings');
-    $fieldset_general[EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB] = array(
-      '#type' => 'checkbox',
-      '#title' => t("Disable the default Drupal's breadcrumb"),
-      '#description' => t("Always disable the default Drupal's breadcrumb."),
-      '#default_value' => $config->get(EasyBreadcrumbConstants::DISABLE_DEFAULT_DRUPAL_BREADCRUMB),
-    );
 
     $fieldset_general[EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS] = array(
       '#type' => 'checkbox',

@@ -7,6 +7,7 @@
 
 namespace Drupal\easy_breadcrumb;
 
+use Drupal\easy_breadcrumb\EasyBreadcrumbConstants;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Access\AccessManagerInterface;
 use Drupal\Core\Breadcrumb\Breadcrumb;
@@ -68,6 +69,13 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    *
    * @var \Drupal\Core\Config\Config
    */
+  protected $siteConfig;
+
+  /**
+   * Breadcrumb config object.
+   *
+   * @var \Drupal\Core\Config\Config
+   */
   protected $config;
 
   /**
@@ -109,7 +117,8 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $this->accessManager = $access_manager;
     $this->router = $router;
     $this->pathProcessor = $path_processor;
-    $this->config = $config_factory->get('system.site');
+    $this->siteConfig = $config_factory->get('system.site');
+    $this->config = $config_factory->get('easy_breadcrumb.settings');
     $this->titleResolver = $title_resolver;
     $this->currentUser = $current_user;
     $this->currentPath = $current_path;
@@ -136,7 +145,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $path_elements = explode('/', $path);
     $exclude = array();
     // Don't show a link to the front-page path.
-    $front = $this->config->get('page.front');
+    $front = $this->siteConfig->get('page.front');
     $exclude[$front] = TRUE;
     // /user is just a redirect, so skip it.
     // @todo Find a better way to deal with /user.
@@ -169,7 +178,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     }
     if ($path && '/' . $path != $front) {
       // Add the Home link, except for the front page.
-      $links[] = Link::createFromRoute($this->t('Test'), '<front>');
+      $links[] = Link::createFromRoute($this->config->get(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE), '<front>');
     }
 
     return $breadcrumb->setLinks(array_reverse($links));

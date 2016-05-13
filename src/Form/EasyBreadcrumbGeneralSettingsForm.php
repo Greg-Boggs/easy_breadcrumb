@@ -7,31 +7,32 @@
 
 namespace Drupal\easy_breadcrumb\Form;
 
-use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\easy_breadcrumb\EasyBreadcrumbConstants;
 
-class EasyBreadcrumbGeneralSettingsForm extends FormBase {
+/**
+ *  Build Easy Breadcrumb settings form.
+ */
+class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return '_easy_breadcrumb_general_settings_form';
+    return 'easy_breadcrumb_general_settings';
   }
 
-    public function buildForm(array $form, FormStateInterface $form_state) {
+  /**
+   * {@inheritdoc}.
+   */
+  protected function getEditableConfigNames() {
+    return ['easy_breadcrumb.settings'];
+  }
 
-    // @FIXME
-// The Assets API has totally changed. CSS, JavaScript, and libraries are now
-// attached directly to render arrays using the #attached property.
-// 
-// 
-// @see https://www.drupal.org/node/2169605
-// @see https://www.drupal.org/node/2408597
-// drupal_add_js(drupal_get_path('module', 'easy_breadcrumb') . '/js/easy_breadcrumb.admin.js');
-
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    $config = $this->config('easy_breadcrumb.settings');
 
     // Fieldset for grouping general settings fields.
     $fieldset_general = [
@@ -40,8 +41,6 @@ class EasyBreadcrumbGeneralSettingsForm extends FormBase {
       '#collapsible' => TRUE,
       '#collapsed' => FALSE,
     ];
-
-    $config = $this->config('easy_breadcrumb.settings');
 
     $fieldset_general[EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS] = array(
       '#type' => 'checkbox',
@@ -136,30 +135,23 @@ class EasyBreadcrumbGeneralSettingsForm extends FormBase {
     // Inserts the fieldset for grouping general settings fields.
     $form[EasyBreadcrumbConstants::MODULE_NAME] = $fieldset_general;
 
-    // Adds buttons for processing the form.
-    $form['buttons'] = [
-      'submit' => [
-        '#type' => 'submit',
-        '#value' => t('Save'),
-      ]
-      ];
+    return parent::buildForm($form, $form_state);
+  }
 
-    // Specifies the callback function for processing the form submission.
-    $form['#submit'] = [
-      '_easy_breadcrumb_admin_submit'
-      ];
-
-    // Specifies the theme for the form.
-    $form['#theme'] = 'system_settings_form';
-
-    return $form;
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    parent::validateForm($form, $form_state);
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-      \Drupal::configFactory()->getEditable('easy_breadcrumb.settings')
+    $config = $this->config('easy_breadcrumb.settings');
+
+    $config
       ->set(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS, $form_state->getValue(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS))
       ->set(EasyBreadcrumbConstants::EXCLUDED_PATHS, $form_state->getValue(EasyBreadcrumbConstants::EXCLUDED_PATHS))
       ->set(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR, $form_state->getValue(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR))
@@ -171,11 +163,7 @@ class EasyBreadcrumbGeneralSettingsForm extends FormBase {
       ->set(EasyBreadcrumbConstants::CAPITALIZATOR_MODE, $form_state->getValue(EasyBreadcrumbConstants::CAPITALIZATOR_MODE))
       ->set(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS, $form_state->getValue(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS))
       ->save();
-  }
-  /**
-   * {@inheritdoc}.
-   */
-  protected function getEditableConfigNames() {
-    return ['easy_breadcrumb.settings'];
+
+    parent::submitForm($form, $form_state);
   }
 }

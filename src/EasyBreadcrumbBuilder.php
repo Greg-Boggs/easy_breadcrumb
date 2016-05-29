@@ -144,20 +144,27 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     // creating a hierarchy of path aliases.
     $path = trim($this->context->getPathInfo(), '/');
     $path_elements = explode('/', $path);
-
-    // Don't show a link to the front-page path.
     $front = $this->siteConfig->get('page.front');
     $exclude[$front] = TRUE;
-
-    // /user is just a redirect, so skip it.
     $exclude['/user'] = TRUE;
-    // Because this breadcrumb builder is entirely path-based, vary by the
+
+    // Because this breadcrumb builder is path-based, vary cache by the
     // 'url.path' cache context.
     $breadcrumb->addCacheContexts(['url.path']);
     $i = 0;
+
     while (count($path_elements) > 0) {
+
       // Copy the path elements for up-casting.
       $route_request = $this->getRequestForPath('/' . implode('/', $path_elements), $exclude);
+      if (EasyBreadcrumbConstants::EXCLUDED_PATHS) {
+        $config_textarea = $this->config->get(EasyBreadcrumbConstants::EXCLUDED_PATHS);
+        $excludes = preg_split('/[\r\n]+/', $config_textarea, -1, PREG_SPLIT_NO_EMPTY);
+        if (in_array(end($path_elements), $excludes)) {
+          continue;
+        }
+      }
+
       if ($route_request) {
         $route_match = RouteMatch::createFromRequest($route_request);
         $access = $this->accessManager->check($route_match, $this->currentUser, NULL, TRUE);
@@ -192,10 +199,9 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       array_pop($path_elements);
     }
 
-    if ($path && '/' . $path != $front) {
-
-      if (EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT) {
-        // Add the Home link, if desired.
+    // Add the home link, if desired.
+    if ($this->config->get(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT)) {
+      if ($path && '/' . $path != $front) {
         $links[] = Link::createFromRoute($this->config->get(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE), '<front>');
       }
     }

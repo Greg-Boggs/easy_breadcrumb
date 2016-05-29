@@ -152,12 +152,14 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     // 'url.path' cache context.
     $breadcrumb->addCacheContexts(['url.path']);
     $i = 0;
-
+    if (!$this->config->get(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT)) {
+      array_pop($path_elements);
+    }
     while (count($path_elements) > 0) {
 
       // Copy the path elements for up-casting.
       $route_request = $this->getRequestForPath('/' . implode('/', $path_elements), $exclude);
-      if (EasyBreadcrumbConstants::EXCLUDED_PATHS) {
+      if ($this->config->get(EasyBreadcrumbConstants::EXCLUDED_PATHS)) {
         $config_textarea = $this->config->get(EasyBreadcrumbConstants::EXCLUDED_PATHS);
         $excludes = preg_split('/[\r\n]+/', $config_textarea, -1, PREG_SPLIT_NO_EMPTY);
         if (in_array(end($path_elements), $excludes)) {
@@ -171,7 +173,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         // The set of breadcrumb links depends on the access result, so merge
         // the access result's cacheability metadata.
         if ($access->isAllowed()) {
-          if (EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE) {
+          if ($this->config->get(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE)) {
             $title = $this->titleResolver->getTitle($route_request, $route_match->getRouteObject());
           }
           if (!isset($title)) {
@@ -181,17 +183,18 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
           }
 
           // Add a linked breadcrumb unless it's the current page.
-          if ($i == 0) {
-            $links[] = Link::createFromRoute($title, '<none>');
+          if ($i == 0 && $this->config->get(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT)) {
+              $links[] = Link::createFromRoute($title, '<none>');
           }
           else {
             $url = Url::fromRouteMatch($route_match);
             $links[] = new Link($title, $url);
           }
+          unset($title);
           $i++;
         }
       }
-      elseif (EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS) {
+      elseif ($this->config->get(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS)) {
         // TODO: exclude the 404 page and other's with a system path.
         $title = str_replace(array('-', '_'), ' ', Unicode::ucfirst(end($path_elements)));
         $links[] = Link::createFromRoute($title, '<none>');

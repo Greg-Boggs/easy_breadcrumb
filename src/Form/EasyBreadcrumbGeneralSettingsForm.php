@@ -38,7 +38,7 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
     $fieldset_general = [
       '#type' => 'fieldset',
       '#title' => t('General settings'),
-      '#collapsible' => TRUE,
+      '#collapsible' => FALSE,
       '#collapsed' => FALSE,
     ];
 
@@ -78,8 +78,8 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
 
     $fieldset_general[EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT] = array(
       '#type' => 'checkbox',
-      '#title' => t("Include the current page's title as a segment in the breadcrumb"),
-      '#description' => t("Include the current page's title as the last segment in the breacrumb."),
+      '#title' => t("Include the current page as a segment in the breadcrumb"),
+      '#description' => t("Include the current page as the last segment in the breacrumb."),
       '#default_value' => $config->get(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT),
     );
 

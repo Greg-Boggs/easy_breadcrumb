@@ -1,12 +1,5 @@
 <?php
 /**
  * @file
- * Install hooks.
+ * Update hooks.
  */
-
-/**
- * Implements hook_uninstall().
- */
-function easy_breadcrumb_uninstall() {
-  
-}

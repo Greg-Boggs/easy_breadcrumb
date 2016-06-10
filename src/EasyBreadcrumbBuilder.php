@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\easy_breadcrumb\EasyBreadcrumbBuilder.
- */
-
 namespace Drupal\easy_breadcrumb;
 
 use Drupal\easy_breadcrumb\EasyBreadcrumbConstants;

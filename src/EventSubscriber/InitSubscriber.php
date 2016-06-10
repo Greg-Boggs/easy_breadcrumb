@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\easy_breadcrumb\EventSubscriber\InitSubscriber.
- */
 
 namespace Drupal\easy_breadcrumb\EventSubscriber;
 

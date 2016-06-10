@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\easy_breadcrumb\Form\EasyBreadcrumbGeneralSettingsForm.
- */
-
 namespace Drupal\easy_breadcrumb\Form;
 
 use Drupal\Core\Form\ConfigFormBase;

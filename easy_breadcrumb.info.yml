@@ -1,6 +1,5 @@
 name: 'Easy Breadcrumb'
 description: 'Provides configurable path based breadcrumbs.'
 core: 8.x
-version: 8.x-1.0
 project: easy_breadcrumb
 type: module

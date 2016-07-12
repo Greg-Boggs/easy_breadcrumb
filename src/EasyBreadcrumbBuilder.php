@@ -2,7 +2,6 @@
 
 namespace Drupal\easy_breadcrumb;
 
-use Drupal\easy_breadcrumb\EasyBreadcrumbConstants;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Access\AccessManagerInterface;
 use Drupal\Core\Breadcrumb\Breadcrumb;

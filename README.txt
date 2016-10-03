@@ -1,9 +1,11 @@
-The Easy Breadcrumb module provides configurable breadcrumbs which improve on
-core breadcrumbs by including the current page t itle as an unlinked crumb which
-follows breadcrumb best-practices. Easy Breadcrumb takes
-advantage of the work you've already done for generating your paths' alias,
-while it naturally encourages the creation of semantic and consistent paths.
-This modules is currently available for Drupal 6.x, 7.x, and 8.x.x.
+The Easy Breadcrumb module provides configurable breadcrumbs that improve on
+core breadcrumbs by including the current page title as an unlinked crumb which
+follows breadcrumb best-practices
+(URL "https://www.nngroup.com/articles/breadcrumb-navigation-useful/" ).
+Easy Breadcrumb takes advantage of the work you've already done for generating
+your path aliases, while it naturally encourages the creation of semantic
+and consistent paths. This module is currently available for Drupal 6.x, 7.x,
+and 8.x.x.
 
 Easy Breadcrumb uses the current URL (path alias) and the current page's title
 to automatically extract the breadcrumb's segments and its respective links.
@@ -25,7 +27,7 @@ Recommended modules:
 Configuration:
 
   To start using it, just go to the admin modules page
-  (URL "admin/modules/list"), locate it under the category "others" and activate
+  (URL "admin/modules"), locate it under the category "Other" and activate
   it. The system breadcrumb block has now been updated.
 
   The configuration page of this module is under

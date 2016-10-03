@@ -63,6 +63,11 @@ class EasyBreadcrumbConstants {
   const CAPITALIZATOR_IGNORED_WORDS = 'capitalizator_ignored_words';
 
   /**
+   * Flag for showing the language prefix as its own segment.
+   */
+  const LANGUAGE_PATH_PREFIX_AS_SEGMENT = 'language_path_prefix_as_segment';
+
+  /**
    * Default list of excluded paths.
    *
    * @return array

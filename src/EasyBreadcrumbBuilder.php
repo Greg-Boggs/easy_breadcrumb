@@ -203,7 +203,17 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       }
     }
 
-    return $breadcrumb->setLinks(array_reverse($links));
+    $links = array_reverse($links);
+
+    // Remove the language path prefix, if desired.
+    if (!($this->config->get(EasyBreadcrumbConstants::LANGUAGE_PATH_PREFIX_AS_SEGMENT))) {
+      $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
+      if (!empty($links[1]) && strtoupper($links[1]->getText()) == strtoupper($langcode)) {
+        unset($links[1]);
+      }
+    }
+
+    return $breadcrumb->setLinks($links);
   }
 
   /**

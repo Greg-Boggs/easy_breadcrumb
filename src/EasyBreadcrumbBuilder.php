@@ -156,7 +156,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     // Remove the first parameter if it matches the current language and it's not wanted.
     if (!($this->config->get(EasyBreadcrumbConstants::LANGUAGE_PATH_PREFIX_AS_SEGMENT))) {
       $curr_lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
-      if (strtoupper($path_elements[0]) == strtoupper($curr_lang)) {
+      if (Unicode::strtolower($path_elements[0]) == $curr_lang) {
         array_shift($path_elements);
       }
     }

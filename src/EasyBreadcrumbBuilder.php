@@ -153,11 +153,14 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       array_pop($path_elements);
     }
 
-    // Remove the first parameter if it matches the current language and it's not wanted.
-    if (!($this->config->get(EasyBreadcrumbConstants::LANGUAGE_PATH_PREFIX_AS_SEGMENT))) {
-      $curr_lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
-      if (Unicode::strtolower($path_elements[0]) == $curr_lang) {
-        array_shift($path_elements);
+    if (isset($path_elements[0])) {
+
+      // Remove the first parameter if it matches the current language and it's not wanted.
+      if (!($this->config->get(EasyBreadcrumbConstants::LANGUAGE_PATH_PREFIX_AS_SEGMENT))) {
+        $curr_lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
+        if (Unicode::strtolower($path_elements[0]) == $curr_lang) {
+          array_shift($path_elements);
+        }
       }
     }
     while (count($path_elements) > 0) {

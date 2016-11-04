@@ -134,6 +134,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $exclude = array();
     $curr_lang = '';
 
+
     // General path-based breadcrumbs. Use the actual request path, prior to
     // resolving path aliases, so the breadcrumb can be defined by simply
     // creating a hierarchy of path aliases.
@@ -143,9 +144,10 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $exclude[$front] = TRUE;
     $exclude['/user'] = TRUE;
 
-    // Because this breadcrumb builder is path-based, vary cache by the
-    // 'url.path' cache context.
+    // Because this breadcrumb builder is path and config based, vary cache by the
+    // 'url.path' cache context and config changes.
     $breadcrumb->addCacheContexts(['url.path']);
+    $breadcrumb->addCacheableDependency($this->config);
     $i = 0;
 
     // Remove the current page if it's not wanted.

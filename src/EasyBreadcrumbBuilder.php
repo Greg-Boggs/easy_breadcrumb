@@ -23,6 +23,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
+use Drupal\Core\Menu\MenuLinkManager;
 
 /**
  * Class to define the menu_link breadcrumb builder.
@@ -87,6 +88,13 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
   protected $currentUser;
 
   /**
+   * The menu link manager.
+   *
+   * @var \Drupal\Core\Menu\MenuLinkManager
+   */
+  protected $menuLinkManager;
+
+  /**
    * Constructs the PathBasedBreadcrumbBuilder.
    *
    * @param \Drupal\Core\Routing\RequestContext $context
@@ -105,8 +113,10 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    *   The current user object.
    * @param \Drupal\Core\Path\CurrentPathStack $current_path
    *   The current path.
+   * @param \Drupal\Core\Menu\MenuLinkManager $menu_link_manager
+   *   The menu link manager.
    */
-  public function __construct(RequestContext $context, AccessManagerInterface $access_manager, RequestMatcherInterface $router, InboundPathProcessorInterface $path_processor, ConfigFactoryInterface $config_factory, TitleResolverInterface $title_resolver, AccountInterface $current_user, CurrentPathStack $current_path) {
+  public function __construct(RequestContext $context, AccessManagerInterface $access_manager, RequestMatcherInterface $router, InboundPathProcessorInterface $path_processor, ConfigFactoryInterface $config_factory, TitleResolverInterface $title_resolver, AccountInterface $current_user, CurrentPathStack $current_path, MenuLinkManager $menu_link_manager) {
     $this->context = $context;
     $this->accessManager = $access_manager;
     $this->router = $router;
@@ -116,6 +126,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $this->titleResolver = $title_resolver;
     $this->currentUser = $current_user;
     $this->currentPath = $current_path;
+    $this->menuLinkManager = $menu_link_manager;
   }
 
   /**
@@ -185,9 +196,24 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
             $title = $this->titleResolver->getTitle($route_request, $route_match->getRouteObject());
           }
           if (!isset($title)) {
+
+            if ($this->config->get(EasyBreadcrumbConstants::USE_MENU_TITLE_AS_FALLBACK)) {
+              // Try resolve the menu title from the route.
+              $route_name = $route_match->getRouteName();
+              $route_parameters = $route_match->getRawParameters()->all();
+              $menu_links = $this->menuLinkManager->loadLinksByRoute($route_name, $route_parameters);
+
+              if (!empty($menu_links)) {
+                $menu_link = reset($menu_links);
+                $title = $menu_link->getTitle();
+              }
+            }
+
             // Fallback to using the raw path component as the title if the
             // route is missing a _title or _title_callback attribute.
-            $title = str_replace(array('-', '_'), ' ', Unicode::ucfirst(end($path_elements)));
+            if (!isset($title)) {
+              $title = str_replace(array('-', '_'), ' ', Unicode::ucfirst(end($path_elements)));
+            }
           }
 
           // Add a linked breadcrumb unless it's the current page.

@@ -68,6 +68,11 @@ class EasyBreadcrumbConstants {
   const LANGUAGE_PATH_PREFIX_AS_SEGMENT = 'language_path_prefix_as_segment';
 
   /**
+   * Use menu title as fallback.
+   */
+  const USE_MENU_TITLE_AS_FALLBACK = 'use_menu_title_as_fallback';
+
+  /**
    * Default list of excluded paths.
    *
    * @return array

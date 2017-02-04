@@ -245,7 +245,62 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     }
     $links = array_reverse($links);
 
+    if ($this->config->get(EasyBreadcrumbConstants::REMOVE_REPEATED_SEGMENTS)) {
+      $links = $this->removeRepeatedSegments($links);
+    }
+
     return $breadcrumb->setLinks($links);
+  }
+
+  /**
+   * Remove duplicate repeated segments.
+   *
+   * @param Link[] $links
+   *   The links.
+   *
+   * @return Link[]
+   *   The new links.
+   */
+  protected function removeRepeatedSegments(array $links) {
+    $newLinks = [];
+
+    /** @var Link $last */
+    $last = NULL;
+
+    foreach ($links as $link) {
+      if (empty($last) || (!$this->linksAreEqual($last, $link))) {
+        $newLinks[] = $link;
+      }
+
+      $last = $link;
+    }
+
+    return $newLinks;
+  }
+
+  /**
+   * Compares two breadcrumb links for equality.
+   *
+   * @param \Drupal\Core\Link $link1
+   *   The first link.
+   * @param \Drupal\Core\Link $link2
+   *   The second link.
+   *
+   * @return bool
+   *   TRUE if equal, FALSE otherwise.
+   */
+  protected function linksAreEqual(Link $link1, Link $link2) {
+    $links_equal = TRUE;
+
+    if ($link1->getText() != $link2->getText()) {
+      $links_equal = FALSE;
+    }
+
+    if ($link1->getUrl()->getInternalPath() != $link2->getUrl()->getInternalPath()) {
+      $links_equal = FALSE;
+    }
+
+    return $links_equal;
   }
 
   /**

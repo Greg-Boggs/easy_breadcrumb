@@ -73,6 +73,11 @@ class EasyBreadcrumbConstants {
   const USE_MENU_TITLE_AS_FALLBACK = 'use_menu_title_as_fallback';
 
   /**
+   * Flag for removing repeated identical segments from the breadcrumb.
+   */
+  const REMOVE_REPEATED_SEGMENTS = 'remove_repeated_segments';
+
+  /**
    * Default list of excluded paths.
    *
    * @return array

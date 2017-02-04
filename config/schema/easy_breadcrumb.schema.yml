@@ -30,3 +30,6 @@ easy_breadcrumb.settings:
     use_menu_title_as_fallback:
       type: integer
       label: 'Use menu title as fallback instead of raw path component'
+    remove_repeated_segments:
+      type: integer
+      label: 'Remove repeated identical segments'

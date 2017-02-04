@@ -132,8 +132,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $breadcrumb = new Breadcrumb();
     $links = array();
     $exclude = array();
-    $curr_lang = '';
-
+    $curr_lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
 
     // General path-based breadcrumbs. Use the actual request path, prior to
     // resolving path aliases, so the breadcrumb can be defined by simply
@@ -159,7 +158,6 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
       // Remove the first parameter if it matches the current language and it's not wanted.
       if (!($this->config->get(EasyBreadcrumbConstants::LANGUAGE_PATH_PREFIX_AS_SEGMENT))) {
-        $curr_lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
         if (Unicode::strtolower($path_elements[0]) == $curr_lang) {
           array_shift($path_elements);
         }
@@ -214,7 +212,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
     // Add the home link, if desired.
     if ($this->config->get(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT)) {
-      if ($path && '/' . $path != $front) {
+      if ($path && '/' . $path != $front && $path != $curr_lang) {
         $links[] = Link::createFromRoute($this->config->get(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE), '<front>');
       }
     }

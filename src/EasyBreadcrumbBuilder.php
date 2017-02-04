@@ -155,8 +155,8 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $exclude[$front] = TRUE;
     $exclude['/user'] = TRUE;
 
-    // Because this breadcrumb builder is path and config based, vary cache by the
-    // 'url.path' cache context and config changes.
+    // Because this breadcrumb builder is path and config based, vary cache
+    // by the 'url.path' cache context and config changes.
     $breadcrumb->addCacheContexts(['url.path']);
     $breadcrumb->addCacheableDependency($this->config);
     $i = 0;
@@ -168,7 +168,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
     if (isset($path_elements[0])) {
 
-      // Remove the first parameter if it matches the current language and it's not wanted.
+      // Remove the first parameter if it matches the current language.
       if (!($this->config->get(EasyBreadcrumbConstants::LANGUAGE_PATH_PREFIX_AS_SEGMENT))) {
         if (Unicode::strtolower($path_elements[0]) == $curr_lang) {
           array_shift($path_elements);
@@ -219,7 +219,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
           // Add a linked breadcrumb unless it's the current page.
           if ($i == 0 && $this->config->get(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT)) {
-              $links[] = Link::createFromRoute($title, '<none>');
+            $links[] = Link::createFromRoute($title, '<none>');
           }
           else {
             $url = Url::fromRouteMatch($route_match);

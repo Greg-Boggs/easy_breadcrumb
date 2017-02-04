@@ -4,11 +4,10 @@ namespace Drupal\easy_breadcrumb\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element;
 use Drupal\easy_breadcrumb\EasyBreadcrumbConstants;
 
 /**
- *  Build Easy Breadcrumb settings form.
+ * Build Easy Breadcrumb settings form.
  */
 class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
 
@@ -20,12 +19,15 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * {@inheritdoc}.
+   * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
     return ['easy_breadcrumb.settings'];
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('easy_breadcrumb.settings');
 
@@ -43,7 +45,6 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
       '#description' => t("Include the invalid paths alias as plain-text segments in the breadcrumb."),
       '#default_value' => $config->get(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS),
     );
-
 
     // Formats the excluded paths array as line separated list of paths
     // before displaying them.
@@ -95,7 +96,7 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
     $fieldset_general[EasyBreadcrumbConstants::LANGUAGE_PATH_PREFIX_AS_SEGMENT] = array(
       '#type' => 'checkbox',
       '#title' => t("Make the language path prefix a segment"),
-      '#description' => t("On multilingual sites where a path prefix (\"/en\") is used, add this in the breadcrumb."),
+      '#description' => $this->t('On multilingual sites where a path prefix ("/en") is used, add this in the breadcrumb.'),
       '#default_value' => $config->get(EasyBreadcrumbConstants::LANGUAGE_PATH_PREFIX_AS_SEGMENT),
     );
 
@@ -105,41 +106,6 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
       '#description' => t("Use menu title as fallback instead of raw path component."),
       '#default_value' => $config->get(EasyBreadcrumbConstants::USE_MENU_TITLE_AS_FALLBACK),
     );
-
-    /* @fixme todo: not coded yet.
-    $fieldset_general[EasyBreadcrumbConstants::SEGMENTS_SEPARATOR] = array(
-      '#type' => 'textfield',
-      '#title' => t('Segments separator'),
-      '#description' => t("Separator to be used between the breadcrumb's segments."),
-      '#default_value' => $config->get(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR),
-    );
-
-    $fieldset_general[EasyBreadcrumbConstants::CAPITALIZATOR_MODE] = array(
-      '#type' => 'select',
-      '#title' => t("Transformation mode for the segments' titles"),
-      '#options' => array(
-        'none' => t('None'),
-        'ucwords' => t("Capitalize the first letter of each word in the segment"),
-        'ucfirst' => t("Only capitalize the first letter of each segment"),
-      ),
-      '#description' => t("Choose the transformation mode you want to apply to the segments' "
-                         . "titles. E.g.: 'blog/once-a-time' -> 'Home >> Blog >> Once a Time'."),
-      '#default_value' => $config->get(EasyBreadcrumbConstants::CAPITALIZATOR_MODE),
-    );
-
-    // Formats the ignored-words array as space separated list of words
-    // (word1 word2 wordN) before displaying them.
-    $capitalizator_ignored_words = $config->get(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS);
-
-    $fieldset_general[EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS] = [
-      '#type' => 'textarea',
-      '#rows' => 3,
-      '#title' => t("Words to be ignored by the 'capitalizator'"),
-      '#description' => t("Enter a space separated list of words to be ignored by the 'capitalizator'."
-                          . " This will be applyed only to the words not at the beginning of each segment. E.g.: of and."),
-      '#default_value' => $capitalizator_ignored_words,
-    ];
-    */
 
     $form = [];
 
@@ -173,10 +139,9 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
       ->set(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE, $form_state->getValue(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE))
       ->set(EasyBreadcrumbConstants::LANGUAGE_PATH_PREFIX_AS_SEGMENT, $form_state->getValue(EasyBreadcrumbConstants::LANGUAGE_PATH_PREFIX_AS_SEGMENT))
       ->set(EasyBreadcrumbConstants::USE_MENU_TITLE_AS_FALLBACK, $form_state->getValue(EasyBreadcrumbConstants::USE_MENU_TITLE_AS_FALLBACK))
-      //->set(EasyBreadcrumbConstants::CAPITALIZATOR_MODE, $form_state->getValue(EasyBreadcrumbConstants::CAPITALIZATOR_MODE))
-      //->set(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS, $form_state->getValue(EasyBreadcrumbConstants::CAPITALIZATOR_IGNORED_WORDS))
       ->save();
 
     parent::submitForm($form, $form_state);
   }
+
 }

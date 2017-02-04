@@ -44,6 +44,6 @@ Configuration:
     * Print the page's title as a link or as a plain-text segment.
     * Use a custom separator between the breadcrumb's segments. (TODO)
     * Choose a transformation mode for the segments' title.(TODO)
-    * Make the 'capitalizator' ignore some words (words not to be capitalized). (TODO)
+    * Make the 'capitalizator' ignore some words (TODO)
 
 Module Page: http://drupal.org/project/easy_breadcrumb

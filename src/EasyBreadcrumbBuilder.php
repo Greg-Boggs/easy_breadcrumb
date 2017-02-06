@@ -218,7 +218,9 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
           }
 
           // Add a linked breadcrumb unless it's the current page.
-          if ($i == 0 && $this->config->get(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT)) {
+          if ($i == 0
+              && $this->config->get(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT)
+              && !$this->config->get(EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK)) {
             $links[] = Link::createFromRoute($title, '<none>');
           }
           else {

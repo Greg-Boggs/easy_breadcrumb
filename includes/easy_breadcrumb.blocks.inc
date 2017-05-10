@@ -199,11 +199,6 @@ function _easy_breadcrumb_build_item($item_title, $item_classes, $item_url, $as_
  */
 function _easy_breadcrumb_validate_segment_path($segment_path) {
   $is_valid_path = drupal_valid_path($segment_path);
-  if ($is_valid_path) {
-    // then also check if the validated segment is the actual path, not an ancestor.
-    $menu_item = menu_get_item($segment_path);
-    $is_valid_path = $menu_item['path'] === $segment_path;
-  }
   return $is_valid_path;
 }
 

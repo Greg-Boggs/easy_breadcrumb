@@ -131,3 +131,25 @@ function theme_easy_breadcrumb($variables) {
 
   return $html;
 }
+
+/**
+ * Process variables for easy-breadcrumb.tpl.php.
+ *
+ * @see easy-breadcrumb.tpl.php
+ */
+function template_preprocess_easy_breadcrumb(&$variables) {
+  $breadcrumbs = _easy_breadcrumb_build_items();
+  foreach ($breadcrumbs as $i => $breadcrumb) {
+    $content = decode_entities($breadcrumb['content']);
+    if (isset($breadcrumb['url'])) {
+      $variables['breadcrumb'][$i] = l($content, $breadcrumb['url'], array(
+        'attributes' => array('class' => $breadcrumb['class'])
+      ));
+    } else {
+      $class = implode(' ', $breadcrumb['class']);
+      $variables['breadcrumb'][$i] = '<span class="' . $class . '">' . check_plain($content) . '</span>';
+    }
+  }
+  $variables['segments_quantity'] = count($variables['breadcrumb']);
+  $variables['separator'] = filter_xss(variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR, '>>'));
+}

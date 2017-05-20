@@ -60,6 +60,8 @@ function easy_breadcrumb_theme($existing, $type, $theme, $path) {
         'segments_quantity' => NULL,
         'separator' => NULL,
       ),
+      'template' => 'easy-breadcrumb',
+      'path' => drupal_get_path('module', 'easy_breadcrumb') . '/tpl',
     ),
   );
 }
@@ -83,9 +85,8 @@ function easy_breadcrumb_block_view($delta = NULL) {
   $block = array();
   switch ($delta) {
     case 'easy_breadcrumb':
-      require_once 'includes/easy_breadcrumb.blocks.inc';
       $block['subject'] = NULL;
-      $block['content'] = _easy_breadcrumb_block();
+      $block['content'] = theme('easy_breadcrumb');
       break;
   }
   return $block;

@@ -12,9 +12,6 @@
 
 /**
  * Implements hook_permission().
- *
- * @return Assoc
- *   permission items.
  */
 function easy_breadcrumb_permission() {
   return array(
@@ -38,9 +35,6 @@ function easy_breadcrumb_init() {
 
 /**
  * Implements hook_menu().
- *
- * @return Assoc
- *   menu items.
  */
 function easy_breadcrumb_menu() {
   $items = array();
@@ -57,30 +51,6 @@ function easy_breadcrumb_menu() {
 
 /**
  * Implements hook_theme().
- *
- * @param array $existing
- *   An array of existing implementations that may be used for override
- *   purposes. This is primarily useful for themes that may wish to examine
- *   existing implementations to extract data (such as arguments) so that it may
- *   properly register its own, higher priority implementations.
- * @param string $type
- *   What 'type' is being processed. This is primarily useful so that themes
- *   tell if they are the actual theme being called or a parent theme. May be
- *   one of: module: A module is being checked for theme implementations.
- *   base_theme_engine: A theme engine is being checked for a theme which is a
- *   parent of the actual theme being used. theme_engine: A theme engine is
- *   being checked for the actual theme being used. base_theme: A base theme is
- *   being checked for theme implementations. theme: The actual theme in use is
- *   being checked.
- * @param string $theme
- *   The actual name of theme that is being being checked (mostly only useful
- *   for theme engine).
- * @param string $path
- *   The directory path of the theme or module, so that it doesn't need to be
- *   looked up.
- *
- * @return Assoc
- *   A keyed array of theme hooks.
  */
 function easy_breadcrumb_theme($existing, $type, $theme, $path) {
   return array(
@@ -96,9 +66,6 @@ function easy_breadcrumb_theme($existing, $type, $theme, $path) {
 
 /**
  * Implements hook_block_info().
- *
- * @return Assoc
- *   the blocks' info.
  */
 function easy_breadcrumb_block_info() {
   $block = array();
@@ -111,12 +78,6 @@ function easy_breadcrumb_block_info() {
 
 /**
  * Implements hook_block_view().
- *
- * @param string $delta
- *   the identifier of the requested block.
- *
- * @return Assoc
- *   the requested block's view.
  */
 function easy_breadcrumb_block_view($delta = NULL) {
   $block = array();
@@ -140,7 +101,6 @@ function easy_breadcrumb_block_view($delta = NULL) {
  *   HTML for the themed breadcrumb.
  */
 function theme_easy_breadcrumb($variables) {
-
   $breadcrumb = $variables['breadcrumb'];
   $segments_quantity = $variables['segments_quantity'];
   $separator = $variables['separator'];
@@ -152,19 +112,19 @@ function theme_easy_breadcrumb($variables) {
     $html .= '<div class="easy-breadcrumb">';
 
     for ($i = 0, $s = $segments_quantity - 1; $i < $segments_quantity; ++$i) {
-			$it = $breadcrumb[$i];
+      $it = $breadcrumb[$i];
       $content = decode_entities($it['content']);
-			if (isset($it['url'])) {
-				$html .= l($content, $it['url'], array('attributes' => array('class' => $it['class'])));
-			} else {
+      if (isset($it['url'])) {
+        $html .= l($content, $it['url'], array('attributes' => array('class' => $it['class'])));
+      } else {
         $class = implode(' ', $it['class']);
-				$html .= '<span class="' . $class . '">'	. check_plain($content) . '</span>';
-			}
-			if ($i < $s) {
-				$html .= '<span class="easy-breadcrumb_segment-separator"> ' . $separator . ' </span>';
-			}
+        $html .= '<span class="' . $class . '">' . check_plain($content) . '</span>';
+      }
+      if ($i < $s) {
+        $html .= '<span class="easy-breadcrumb_segment-separator"> ' . $separator . ' </span>';
+      }
     }
-    
+
     $html .= '</div>';
   }
 

@@ -318,6 +318,9 @@ function _easy_breadcrumb_check_excluded_path($url) {
       break;
     }
   }
+
+  drupal_alter('easy_breadcrumb_exclude_path', $excluded, $url);
+  
   return $excluded;
 }
 

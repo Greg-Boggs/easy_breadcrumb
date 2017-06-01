@@ -1,9 +1,7 @@
 name = Easy Breadcrumb
 description = Provides a plug-and-play block to be embedded in your pages, typically at some place near the page's header.
+core = 7.x
+package = User interface
+dependencies[] = pathauto
 files[] = includes/EasyBreadcrumbConstants.inc
 configure = admin/config/user-interface/easy-breadcrumb
-dependencies[] = pathauto
-
-core = 7.x
-
-

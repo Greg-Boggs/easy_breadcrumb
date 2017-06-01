@@ -156,6 +156,9 @@ function _easy_breadcrumb_build_items() {
     // Obtains the alias of the current path.
     $alias = drupal_get_path_alias();
 
+    // Allow the alias to be altered.
+    drupal_alter('easy_breadcrumb_path', $alias);
+
     // Get the segments of the current path.
     $alias_arr = explode('/', $alias);
 
@@ -214,6 +217,10 @@ function _easy_breadcrumb_build_items() {
       $breadcrumb[] = _easy_breadcrumb_build_item($segment_title, $segments_classes, $alias, $title_segment_as_link);
     }
   }
+
+  // Allow the entire breadcrumb to be altered.
+  drupal_alter('easy_breadcrumb_breadcrumb', $breadcrumb);
+
   return $breadcrumb;
 }
 
@@ -285,15 +292,11 @@ function _easy_breadcrumb_build_item($item_title, $item_classes, $item_url, $as_
  *   path of the segment.
  *
  * @return bool
- *   true is the segment is a valid path, false otherwise.
+ *   true if the segment is a valid path, false otherwise.
  */
 function _easy_breadcrumb_validate_segment_path($segment_path) {
   $is_valid_path = drupal_valid_path($segment_path);
-  if ($is_valid_path) {
-    // Then also check if the validated segment is the actual path, not an ancestor.
-    $menu_item = menu_get_item($segment_path);
-    $is_valid_path = $menu_item['path'] === $segment_path;
-  }
+
   return $is_valid_path;
 }
 
@@ -318,6 +321,9 @@ function _easy_breadcrumb_check_excluded_path($url) {
       break;
     }
   }
+
+  drupal_alter('easy_breadcrumb_exclude_path', $excluded, $url);
+  
   return $excluded;
 }
 

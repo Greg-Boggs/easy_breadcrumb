@@ -156,8 +156,26 @@ function _easy_breadcrumb_build_items() {
     // Obtains the alias of the current path.
     $alias = drupal_get_path_alias();
 
+    // We need to pass our path through hook_url_outbound_alter(). This fixes
+    // clean URLs not working when they don't exist in the {url_alias} table and
+    // are created with something like subpathauto.
+    $normalized_path = current_path();
+
+    // hook_url_outbound_alter() expects defaults in url() options.
+    $options = array(
+      'fragment' => '',
+      'query' => array(),
+      'absolute' => FALSE,
+      'alias' => FALSE,
+      'prefix' => '',
+      'external' => FALSE,
+    );
+
+    drupal_alter('url_outbound', $alias, $options, $normalized_path);
+
     // Allow the alias to be altered.
     drupal_alter('easy_breadcrumb_path', $alias);
+
 
     // Get the segments of the current path.
     $alias_arr = explode('/', $alias);

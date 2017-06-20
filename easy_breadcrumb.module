@@ -296,6 +296,14 @@ function _easy_breadcrumb_obtain_page_title($page_text) {
  *   the generated breadcrumb item.
  */
 function _easy_breadcrumb_build_item($item_title, $item_classes, $item_url, $as_link = TRUE) {
+  if (variable_get(EasyBreadcrumbConstants::DB_VAR_TRUNCATOR_MODE, FALSE)) {
+    $item_title = truncate_utf8(
+      $item_title,
+      variable_get(EasyBreadcrumbConstants::DB_VAR_TRUNCATOR_LENGTH, 100),
+      TRUE,
+      variable_get(EasyBreadcrumbConstants::DB_VAR_TRUNCATOR_DOTS, TRUE)
+    );
+  }
   $item = array('content' => $item_title, 'class' => $item_classes);
   if ($as_link) {
     $item['url'] = $item_url;

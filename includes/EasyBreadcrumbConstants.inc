@@ -103,6 +103,21 @@ class EasyBreadcrumbConstants {
   const DB_VAR_TRUNCATOR_DOTS = 'easy_breadcrumb_truncator_dots';
 
   /**
+   * List of words to be forced by the 'capitalizator'. E.g.: your brand's name.
+   */
+  const DB_VAR_CAPITALIZATOR_FORCED_WORDS = 'easy_breadcrumb-capitalizator_forced_words';
+
+  /**
+   * List of words to be forced by the 'capitalizator'. E.g.: your brand's name.
+   */
+  const DB_VAR_CAPITALIZATOR_FORCED_WORDS_FIRST_LETTER = 'easy_breadcrumb-capitalizator_forced_words_first_letter';
+
+  /**
+   * Logical value to 'Make the first letters of each segment capitalized'.
+   */
+  const DB_VAR_CAPITALIZATOR_FORCED_WORDS_CASE_SENSITIVITY = 'easy_breadcrumb-capitalizator_forced_words_case_sensitivity';
+
+  /**
    * Default list of excluded paths.
    *
    * @return array

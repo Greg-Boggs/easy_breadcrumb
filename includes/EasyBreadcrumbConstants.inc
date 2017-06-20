@@ -71,6 +71,11 @@ class EasyBreadcrumbConstants {
   const DB_VAR_CAPITALIZATOR_IGNORED_WORDS = 'easy_breadcrumb-capitalizator_ignored_words';
 
   /**
+   * Use the segment text as the title instead of main page title.
+   */
+  const DB_VAR_SEGMENT_TEXT_AS_TITLE = 'easy_breadcrumb-segment_text_as_title';
+
+  /**
    * Default list of excluded paths.
    *
    * @return array

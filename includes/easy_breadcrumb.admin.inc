@@ -85,6 +85,13 @@ function _easy_breadcrumb_general_settings_form() {
     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_SEGMENT_AS_LINK, FALSE),
   );
 
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_SEGMENT_TEXT_AS_TITLE] = array(
+    '#type' => 'checkbox',
+    '#title' => t("Use segment text as title instead of main page title."),
+    '#description' => t("Use the path as the title instead of main page title. Usefull for views page with contextual filters."),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENT_TEXT_AS_TITLE, FALSE),
+  );
+  
   $fieldset_general[EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR] = array(
     '#type' => 'textfield',
     '#title' => t('Segments separator'),

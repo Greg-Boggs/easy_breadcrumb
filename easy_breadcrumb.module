@@ -344,7 +344,10 @@ function _easy_breadcrumb_obtain_segment_title($normal_path, $valid_path, $segme
   // If path is valid then try to obtain the title from the menu router (if available).
   if ($valid_path) {
     $router_item = menu_get_item($normal_path);
-    $title = $router_item['title'];
+    // If not using segment text as title then use the menu router title.
+    if (!variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENT_TEXT_AS_TITLE, FALSE)) {
+      $title = $router_item['title'];
+    }
   }
   // Just infer the title from the segment text.
   if (!isset($title) || $title === '') {

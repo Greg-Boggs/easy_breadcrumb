@@ -71,6 +71,11 @@ class EasyBreadcrumbConstants {
   const DB_VAR_CAPITALIZATOR_IGNORED_WORDS = 'easy_breadcrumb-capitalizator_ignored_words';
 
   /**
+   * Flag for printing the page's title as a link, or printing it as a text.
+   */
+  const DB_VAR_SEPERATOR_ENDING = 'easy_breadcrumb-seperator_ending';
+
+  /**
    * Default list of excluded paths.
    *
    * @return array

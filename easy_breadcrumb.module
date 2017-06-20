@@ -59,6 +59,7 @@ function easy_breadcrumb_theme($existing, $type, $theme, $path) {
         'breadcrumb' => NULL,
         'segments_quantity' => NULL,
         'separator' => NULL,
+        'separator_ending' => NULL,
       ),
       'template' => 'easy-breadcrumb',
       'path' => drupal_get_path('module', 'easy_breadcrumb') . '/tpl',
@@ -111,6 +112,7 @@ function template_preprocess_easy_breadcrumb(&$variables) {
     }
   }
   $variables['segments_quantity'] = count($variables['breadcrumb']);
+  $variables['seperator_ending'] = variable_get(EasyBreadcrumbConstants::DB_VAR_SEPERATOR_ENDING, FALSE) ? 0 : 1;
   $variables['separator'] = filter_xss(variable_get(EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR, '>>'));
 }
 

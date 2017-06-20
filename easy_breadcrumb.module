@@ -370,7 +370,6 @@ function _easy_breadcrumb_normalize_text($raw_text) {
 
   // Gets the flag saying the capitalizator mode.
   $capitalizator_mode = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_MODE, 'ucwords');
-
   if ($capitalizator_mode === 'ucwords') {
     // Transforms the text 'once a time' to 'Once a Time'.
     // List of words to be ignored by the capitalizator.
@@ -385,7 +384,40 @@ function _easy_breadcrumb_normalize_text($raw_text) {
       }
     }
     $normalized_text = join(' ', $words_arr);
-  } else {
+  }
+  elseif ($capitalizator_mode === 'ucall') {
+    // Transforms the text 'once a time' to 'ONCE A TIME'.
+    $normalized_text = drupal_strtoupper($normalized_text);
+  }
+  elseif ($capitalizator_mode === 'ucforce') {
+    // Transforms the text 'once a time' to 'once a TIME'.
+    // List of words to be forced by the capitalizator.
+    $forced_words = variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_FORCED_WORDS, '');
+    // If case sensitivity is false make all the forced words uncapitalized by default.
+    if (!variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_FORCED_WORDS_CASE_SENSITIVITY, FALSE)) {
+      $forced_words = array_map('drupal_strtolower', $forced_words);
+    }
+    $words_arr = explode(' ', $normalized_text);
+    // Transforms the non-ignored words of the segment.
+    if (variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_FORCED_WORDS_FIRST_LETTER, '')) {
+      $words_arr[0] = drupal_ucfirst($words_arr[0]);
+    }
+    for ($idx_1 = 0, $words_quantity = count($words_arr); $idx_1 < $words_quantity; ++$idx_1) {
+    // If case sensitivity is false make the compared word uncapitalized in order to allow the comparison well.
+      if (!variable_get(EasyBreadcrumbConstants::DB_VAR_CAPITALIZATOR_FORCED_WORDS_CASE_SENSITIVITY, FALSE)) {
+        $selected_word = drupal_strtolower($words_arr[$idx_1]);
+      }
+      else {
+        $selected_word = $words_arr[$idx_1];
+      }
+      // Transforms this word only if it is in the list of forced words.
+      if (in_array($selected_word, $forced_words)) {
+        $words_arr[$idx_1] = drupal_strtoupper($selected_word);
+      }
+    }
+    $normalized_text = join(' ', $words_arr);
+  }
+  else {
     // Transforms the text 'once a time' to 'Once a time' (ucfirst).
     $normalized_text = drupal_ucfirst($normalized_text);
   }

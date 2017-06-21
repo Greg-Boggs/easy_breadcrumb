@@ -76,6 +76,13 @@ class EasyBreadcrumbConstants {
   const DB_VAR_SEGMENT_TEXT_AS_TITLE = 'easy_breadcrumb-segment_text_as_title';
 
   /**
+   * Variables for truncator.
+   */
+  const DB_VAR_TRUNCATOR_MODE = 'easy_breadcrumb_truncator_mode';
+  const DB_VAR_TRUNCATOR_LENGTH = 'easy_breadcrumb_truncator_length';
+  const DB_VAR_TRUNCATOR_DOTS = 'easy_breadcrumb_truncator_dots';
+
+  /**
    * Default list of excluded paths.
    *
    * @return array

@@ -86,6 +86,13 @@ class EasyBreadcrumbConstants {
   const DB_VAR_CAPITALIZATOR_FORCED_WORDS_CASE_SENSITIVITY = 'easy_breadcrumb-capitalizator_forced_words_case_sensitivity';
 
   /**
+   * Variables for truncator.
+   */
+  const DB_VAR_TRUNCATOR_MODE = 'easy_breadcrumb_truncator_mode';
+  const DB_VAR_TRUNCATOR_LENGTH = 'easy_breadcrumb_truncator_length';
+  const DB_VAR_TRUNCATOR_DOTS = 'easy_breadcrumb_truncator_dots';
+
+  /**
    * Default list of excluded paths.
    *
    * @return array

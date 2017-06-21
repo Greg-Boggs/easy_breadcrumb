@@ -90,6 +90,40 @@ function _easy_breadcrumb_general_settings_form() {
     '#title' => t("Show segments separator at the end of the breadcrumb"),
     '#description' => t("Shows the segment seperator after the last breadcrumb element"),
     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_SEPERATOR_ENDING, FALSE),
+
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_TRUNCATOR_MODE] = array(
+    '#type' => 'checkbox',
+    '#title' => t("Truncate the page's title to a maximum number"),
+    '#description' => t("Example: if you set it to 10, from <em>Long page title</em> will be <em>Long page...</em>"),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_TRUNCATOR_MODE, FALSE),
+  );
+
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_TRUNCATOR_LENGTH] = array(
+    '#type' => 'textfield',
+    '#title' => t("Limit of truncation"),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_TRUNCATOR_LENGTH, 100),
+    '#states' => array(
+      'visible' => array(
+        ':input[name="' . EasyBreadcrumbConstants::DB_VAR_TRUNCATOR_MODE . '"]' => array('checked' => TRUE),
+      ),
+      'invisible' => array(
+        ':input[name="' . EasyBreadcrumbConstants::DB_VAR_TRUNCATOR_MODE . '"]' => array('checked' => FALSE),
+      )
+    )
+  );
+
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_TRUNCATOR_DOTS] = array(
+      '#type' => 'checkbox',
+      '#title' => t("The truncated page's title will have 3 dots in its end."),
+      '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_TRUNCATOR_DOTS, TRUE),
+      '#states' => array(
+          'visible' => array(
+              ':input[name="' . EasyBreadcrumbConstants::DB_VAR_TRUNCATOR_MODE . '"]' => array('checked' => TRUE),
+          ),
+          'invisible' => array(
+              ':input[name="' . EasyBreadcrumbConstants::DB_VAR_TRUNCATOR_MODE . '"]' => array('checked' => FALSE),
+          )
+      )
   );
 
   $fieldset_general[EasyBreadcrumbConstants::DB_VAR_SEGMENTS_SEPARATOR] = array(

@@ -71,18 +71,6 @@ class EasyBreadcrumbConstants {
   const DB_VAR_CAPITALIZATOR_IGNORED_WORDS = 'easy_breadcrumb-capitalizator_ignored_words';
 
   /**
-   * Flag for printing the page's title as a link, or printing it as a text.
-   */
-  const DB_VAR_SEPERATOR_ENDING = 'easy_breadcrumb-seperator_ending';
-
-  /**
-   * Variables for truncator.
-   */
-  const DB_VAR_TRUNCATOR_MODE = 'easy_breadcrumb_truncator_mode';
-  const DB_VAR_TRUNCATOR_LENGTH = 'easy_breadcrumb_truncator_length';
-  const DB_VAR_TRUNCATOR_DOTS = 'easy_breadcrumb_truncator_dots';
-
-  /**
    * List of words to be forced by the 'capitalizator'. E.g.: your brand's name.
    */
   const DB_VAR_CAPITALIZATOR_FORCED_WORDS = 'easy_breadcrumb-capitalizator_forced_words';
@@ -96,6 +84,23 @@ class EasyBreadcrumbConstants {
    * Logical value to 'Make the first letters of each segment capitalized'.
    */
   const DB_VAR_CAPITALIZATOR_FORCED_WORDS_CASE_SENSITIVITY = 'easy_breadcrumb-capitalizator_forced_words_case_sensitivity';
+
+  /**
+   * Flag for printing the page's title as a link, or printing it as a text.
+   */
+  const DB_VAR_SEPERATOR_ENDING = 'easy_breadcrumb-seperator_ending';
+
+  /**
+   * Use the segment text as the title instead of main page title.
+   */
+  const DB_VAR_SEGMENT_TEXT_AS_TITLE = 'easy_breadcrumb-segment_text_as_title';
+
+  /**
+   * Variables for truncator.
+   */
+  const DB_VAR_TRUNCATOR_MODE = 'easy_breadcrumb_truncator_mode';
+  const DB_VAR_TRUNCATOR_LENGTH = 'easy_breadcrumb_truncator_length';
+  const DB_VAR_TRUNCATOR_DOTS = 'easy_breadcrumb_truncator_dots';
 
   /**
    * Default list of excluded paths.

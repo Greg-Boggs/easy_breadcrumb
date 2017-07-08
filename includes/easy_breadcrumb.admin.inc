@@ -85,6 +85,12 @@ function _easy_breadcrumb_general_settings_form() {
     '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_TITLE_SEGMENT_AS_LINK, FALSE),
   );
 
+  $fieldset_general[EasyBreadcrumbConstants::DB_VAR_SEPERATOR_ENDING] = array(
+    '#type' => 'checkbox',
+    '#title' => t("Show segments separator at the end of the breadcrumb"),
+    '#description' => t("Shows the segment seperator after the last breadcrumb element"),
+    '#default_value' => variable_get(EasyBreadcrumbConstants::DB_VAR_SEPERATOR_ENDING, FALSE),
+
   $fieldset_general[EasyBreadcrumbConstants::DB_VAR_TRUNCATOR_MODE] = array(
     '#type' => 'checkbox',
     '#title' => t("Truncate the page's title to a maximum number"),

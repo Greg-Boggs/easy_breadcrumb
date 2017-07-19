@@ -57,6 +57,17 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
 			Paths may use simple regex, i.e.: report/2[0-9][0-9][0-9].'),
       '#default_value' => $excluded_paths,
     ];
+    // Formats the excluded paths array as line separated list of paths
+    // before displaying them.
+    $replaced_titles = $config->get(EasyBreadcrumbConstants::REPLACED_TITLES);
+
+    $fieldset_general[EasyBreadcrumbConstants::REPLACED_TITLES] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Titles to be replaced while generating segments'),
+      '#description' => $this->t('Enter a line separated list of titles with their replacements seperated by :.
+			For example TITLE:DIFFERENT_TITLE'),
+      '#default_value' => $replaced_titles,
+    ];
 
     $fieldset_general[EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT] = array(
       '#type' => 'checkbox',
@@ -138,6 +149,7 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
     $config
       ->set(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS, $form_state->getValue(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS))
       ->set(EasyBreadcrumbConstants::EXCLUDED_PATHS, $form_state->getValue(EasyBreadcrumbConstants::EXCLUDED_PATHS))
+      ->set(EasyBreadcrumbConstants::REPLACED_TITLES, $form_state->getValue(EasyBreadcrumbConstants::REPLACED_TITLES))
       ->set(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR, $form_state->getValue(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR))
       ->set(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT, $form_state->getValue(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT))
       ->set(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE, $form_state->getValue(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE))

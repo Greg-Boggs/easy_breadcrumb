@@ -8,6 +8,9 @@ easy_breadcrumb.settings:
     excluded_paths:
       type: text
       label: 'Paths to be excluded while generating segments'
+    replaced_titles:
+      type: text
+      label: 'Titles to be replaced with synonyms'
     include_home_segment:
       type: integer
       label: 'Include the front page as a segment in the breadcrumb'

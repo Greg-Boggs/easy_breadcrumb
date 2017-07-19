@@ -23,6 +23,11 @@ class EasyBreadcrumbConstants {
   const EXCLUDED_PATHS = 'excluded_paths';
 
   /**
+   * List of paths to be excluded from the generated segments.
+   */
+  const REPLACED_TITLES = 'replaced_titles';
+
+  /**
    * Separator between segments.
    */
   const SEGMENTS_SEPARATOR = 'segments_separator';
@@ -90,6 +95,18 @@ class EasyBreadcrumbConstants {
     );
 
     return $default_excluded_paths;
+  }
+  /**
+   * Default list of replaced titles.
+   *
+   * @return array
+   *   Default list of replaced titles.
+   */
+  public static function defaultReplacedTitles() {
+    static $default_replaced_titles = array(
+    );
+
+    return $default_replaced_titles;
   }
 
   /**

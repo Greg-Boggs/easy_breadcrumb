@@ -89,13 +89,14 @@ class EasyBreadcrumbConstants {
    *   Default list of ignored paths.
    */
   public static function defaultExcludedPaths() {
-    static $default_excluded_paths = array(
+    static $default_excluded_paths = [
       'search',
       'search/node',
-    );
+    ];
 
     return $default_excluded_paths;
   }
+
   /**
    * Default list of replaced titles.
    *
@@ -103,8 +104,7 @@ class EasyBreadcrumbConstants {
    *   Default list of replaced titles.
    */
   public static function defaultReplacedTitles() {
-    static $default_replaced_titles = array(
-    );
+    static $default_replaced_titles = [];
 
     return $default_replaced_titles;
   }
@@ -116,7 +116,7 @@ class EasyBreadcrumbConstants {
    *   Default list of ignored words.
    */
   public static function defaultIgnoredWords() {
-    static $default_ignored_words = array(
+    static $default_ignored_words = [
       'of',
       'and',
       'or',
@@ -124,7 +124,7 @@ class EasyBreadcrumbConstants {
       'del',
       'y',
       'o',
-    );
+    ];
 
     return $default_ignored_words;
   }

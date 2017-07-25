@@ -39,12 +39,12 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
       '#collapsed' => FALSE,
     ];
 
-    $fieldset_general[EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS] = array(
+    $fieldset_general[EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Include invalid paths alias as plain-text segments'),
       '#description' => $this->t('Include the invalid paths alias as plain-text segments in the breadcrumb.'),
       '#default_value' => $config->get(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS),
-    );
+    ];
 
     // Formats the excluded paths array as line separated list of paths
     // before displaying them.
@@ -69,61 +69,61 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
       '#default_value' => $replaced_titles,
     ];
 
-    $fieldset_general[EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT] = array(
+    $fieldset_general[EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Include the front page as a segment in the breadcrumb'),
       '#description' => $this->t('Include the front page as the first segment in the breacrumb.'),
       '#default_value' => $config->get(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT),
-    );
+    ];
 
-    $fieldset_general[EasyBreadcrumbConstants::HOME_SEGMENT_TITLE] = array(
+    $fieldset_general[EasyBreadcrumbConstants::HOME_SEGMENT_TITLE] = [
       '#type' => 'textfield',
       '#title' => $this->t('Title for the front page segment in the breadcrumb'),
       '#description' => $this->t('Text to be displayed as the from page segment.'),
       '#default_value' => $config->get(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE),
-    );
+    ];
 
-    $fieldset_general[EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT] = array(
+    $fieldset_general[EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Include the current page as a segment in the breadcrumb'),
       '#description' => $this->t('Include the current page as the last segment in the breacrumb.'),
       '#default_value' => $config->get(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT),
-    );
+    ];
 
-    $fieldset_general[EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE] = array(
+    $fieldset_general[EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Use the real page title when available'),
       '#description' => $this->t('Use the real page title when it is available instead of always deducing it from the URL.'),
       '#default_value' => $config->get(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE),
-    );
+    ];
 
-    $fieldset_general[EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK] = array(
+    $fieldset_general[EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Make the page title segment a link'),
       '#description' => $this->t('Prints the page title segment as a link.'),
       '#default_value' => $config->get(EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK),
-    );
+    ];
 
-    $fieldset_general[EasyBreadcrumbConstants::LANGUAGE_PATH_PREFIX_AS_SEGMENT] = array(
+    $fieldset_general[EasyBreadcrumbConstants::LANGUAGE_PATH_PREFIX_AS_SEGMENT] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Make the language path prefix a segment'),
       '#description' => $this->t('On multilingual sites where a path prefix ("/en") is used, add this in the breadcrumb.'),
       '#default_value' => $config->get(EasyBreadcrumbConstants::LANGUAGE_PATH_PREFIX_AS_SEGMENT),
-    );
+    ];
 
-    $fieldset_general[EasyBreadcrumbConstants::USE_MENU_TITLE_AS_FALLBACK] = array(
+    $fieldset_general[EasyBreadcrumbConstants::USE_MENU_TITLE_AS_FALLBACK] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Use menu title as fallback'),
       '#description' => $this->t('Use menu title as fallback instead of raw path component.'),
       '#default_value' => $config->get(EasyBreadcrumbConstants::USE_MENU_TITLE_AS_FALLBACK),
-    );
+    ];
 
-    $fieldset_general[EasyBreadcrumbConstants::REMOVE_REPEATED_SEGMENTS] = array(
+    $fieldset_general[EasyBreadcrumbConstants::REMOVE_REPEATED_SEGMENTS] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Remove repeated identical segments'),
       '#description' => $this->t('Remove segments of the breadcrumb that are identical.'),
       '#default_value' => $config->get(EasyBreadcrumbConstants::REMOVE_REPEATED_SEGMENTS),
-    );
+    ];
 
     $form = [];
 

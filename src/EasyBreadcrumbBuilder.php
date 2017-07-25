@@ -141,17 +141,17 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   public function build(RouteMatchInterface $route_match) {
     $breadcrumb = new Breadcrumb();
-    $links = array();
-    $exclude = array();
+    $links = [];
+    $exclude = [];
     $curr_lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
-    $replacedTitles = array();
-        $mapValues = preg_split('/[\r\n]+/', $this->config->get(EasyBreadcrumbConstants::REPLACED_TITLES));
-        foreach ($mapValues as $mapValue) {
-            $values = explode(":", $mapValue);
-            if(sizeof($values)==2) {
-                $replacedTitles[$values[0]] = $values[1];
-            }
-        }
+    $replacedTitles = [];
+    $mapValues = preg_split('/[\r\n]+/', $this->config->get(EasyBreadcrumbConstants::REPLACED_TITLES));
+    foreach ($mapValues as $mapValue) {
+      $values = explode(":", $mapValue);
+      if (count($values) == 2) {
+        $replacedTitles[$values[0]] = $values[1];
+      }
+    }
 
     // General path-based breadcrumbs. Use the actual request path, prior to
     // resolving path aliases, so the breadcrumb can be defined by simply
@@ -227,7 +227,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
             // Fallback to using the raw path component as the title if the
             // route is missing a _title or _title_callback attribute.
             if (!isset($title)) {
-              $title = str_replace(array('-', '_'), ' ', Unicode::ucfirst(end($path_elements)));
+              $title = str_replace(['-', '_'], ' ', Unicode::ucfirst(end($path_elements)));
               if (array_key_exists($title, $replacedTitles)) {
                 $title = $replacedTitles[$title];
               }
@@ -250,7 +250,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       }
       elseif ($this->config->get(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS)) {
         // TODO: exclude the 404 page and other's with a system path.
-        $title = str_replace(array('-', '_'), ' ', Unicode::ucfirst(end($path_elements)));
+        $title = str_replace(['-', '_'], ' ', Unicode::ucfirst(end($path_elements)));
         $links[] = Link::createFromRoute($title, '<none>');
       }
       array_pop($path_elements);
@@ -274,16 +274,16 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
   /**
    * Remove duplicate repeated segments.
    *
-   * @param Link[] $links
+   * @param \Drupal\Core\Link[] $links
    *   The links.
    *
-   * @return Link[]
+   * @return \Drupal\Core\Link[]
    *   The new links.
    */
   protected function removeRepeatedSegments(array $links) {
     $newLinks = [];
 
-    /** @var Link $last */
+    /** @var \Drupal\Core\Link $last */
     $last = NULL;
 
     foreach ($links as $link) {

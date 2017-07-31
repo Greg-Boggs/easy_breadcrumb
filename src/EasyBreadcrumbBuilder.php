@@ -161,6 +161,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $path_elements = explode('/', $path);
     $front = $this->siteConfig->get('page.front');
     $exclude[$front] = TRUE;
+    $exclude[''] = TRUE;
     $exclude['/user'] = TRUE;
 
     // Because this breadcrumb builder is path and config based, vary cache
@@ -248,7 +249,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
           $i++;
         }
       }
-      elseif ($this->config->get(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS)) {
+      elseif ($this->config->get(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS) && empty($exclude[implode('/', $path_elements)])) {
         // TODO: exclude the 404 page and other's with a system path.
         $title = str_replace(['-', '_'], ' ', Unicode::ucfirst(end($path_elements)));
         $links[] = Link::createFromRoute($title, '<none>');

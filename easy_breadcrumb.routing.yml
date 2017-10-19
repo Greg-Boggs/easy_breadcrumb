@@ -4,4 +4,4 @@ easy_breadcrumb.general_settings_form:
     _title: 'Easy Breadcrumb'
     _form: \Drupal\easy_breadcrumb\Form\EasyBreadcrumbGeneralSettingsForm
   requirements:
-    _permission: 'administer easy_breadcrumb'
+    _permission: 'administer easy breadcrumb'

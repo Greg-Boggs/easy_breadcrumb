@@ -79,7 +79,7 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
     $fieldset_general[EasyBreadcrumbConstants::HOME_SEGMENT_TITLE] = [
       '#type' => 'textfield',
       '#title' => $this->t('Title for the front page segment in the breadcrumb'),
-      '#description' => $this->t('Text to be displayed as the from page segment.'),
+      '#description' => $this->t('Text to be displayed as the front page segment.'),
       '#default_value' => $config->get(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE),
     ];
 

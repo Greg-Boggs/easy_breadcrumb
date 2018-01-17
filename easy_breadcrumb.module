@@ -3,12 +3,37 @@
 /**
  * @file
  * The Easy Breadcrumb module improves the core system breadcrumbs.
- *
- * Easy Breadcrumb uses the URL (path alias) and the current page's title
- * (when available) to obtain the breadcrumb's segments and its respective
- * links. The resulting block will be something like:
- * "Home >> Contact Us" or "Home / Contact us".
- * Such presentation could vary depending on the configuration of the module.
  */
 
-namespace Drupal\easy_breadcrumb;
+/**
+ * Implements hook_help().
+ */
+function easy_breadcrumb_help($route_name) {
+  switch ($route_name) {
+    case 'help.page.easy_breadcrumb':
+      $text = file_get_contents(__DIR__ . "/README.md");
+
+      // If the Markdown module is installed...
+      if (\Drupal::moduleHandler()->moduleExists('markdown') === TRUE) {
+        // Uses the Markdown filter to render the README.
+        $filter_manager = \Drupal::service('plugin.manager.filter');
+        $settings = \Drupal::configFactory()->get('markdown.settings')->getRawData();
+        $config = ['settings' => $settings];
+        $filter = $filter_manager->createInstance('markdown', $config);
+        $output = $filter->process($text, 'en');
+      }
+      // Else the Markdown module is not installed...
+      else {
+        // Outputs the README in plain text.
+        $output = '<pre>' . $text . '</pre>';
+      }
+
+      // Adds a link to the Drupal.org documentation pages.
+      $output .= t('<p>See the <a href=":documentation">documentation pages</a> on Drupal.org for more information.</p>',
+        [
+          ':documentation' => 'https://www.drupal.org/docs/8/improve-the-breadcrumbs',
+        ]);
+
+      return $output;
+  }
+}

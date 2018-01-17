@@ -72,7 +72,7 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
     $fieldset_general[EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Include the front page as a segment in the breadcrumb'),
-      '#description' => $this->t('Include the front page as the first segment in the breacrumb.'),
+      '#description' => $this->t('Include the front page as the first segment in the breadcrumb.'),
       '#default_value' => $config->get(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT),
     ];
 
@@ -86,7 +86,7 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
     $fieldset_general[EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Include the current page as a segment in the breadcrumb'),
-      '#description' => $this->t('Include the current page as the last segment in the breacrumb.'),
+      '#description' => $this->t('Include the current page as the last segment in the breadcrumb.'),
       '#default_value' => $config->get(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT),
     ];
 

@@ -3,6 +3,7 @@
 namespace Drupal\easy_breadcrumb;
 
 use Drupal\Component\Utility\Unicode;
+use Drupal\Component\Utility\Xss;
 use Drupal\Core\Access\AccessManagerInterface;
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Breadcrumb\BreadcrumbBuilderInterface;
@@ -17,6 +18,7 @@ use Drupal\Core\Routing\RouteMatch;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -204,7 +206,28 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         if ($access->isAllowed()) {
           if ($this->config->get(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE)) {
             $title = $this->titleResolver->getTitle($route_request, $route_match->getRouteObject());
+
+            // Many paths return a translatable markup object.
+            if ($title instanceof TranslatableMarkup) {
+              // Sets the title to the translated string.
+              $title = $title->render();
+            }
+            // Other paths, such as admin/structure/menu/manage/main, will
+            // return a render array suitable to render using core's XSS filter.
+            elseif (is_array($title) && array_key_exists('#markup', $title) && array_key_exists('#allowed_tags', $title)) {
+              // Sets the title to the XSS filtered string.
+              $title = Xss::filter($title['#markup'], $title['#allowed_tags']);
+            }
+
+            // If a module declares the title in an unexpected way...
+            if (!is_string($title)) {
+              // Logs a watchdog notice.
+              \Drupal::logger('easy_breadcrumb')->notice('Easy Breadcrumb could not determine the title to use for @path', ['@path' => $route_match->getRouteObject()->getPath()]);
+            }
+
+            // If the title is to be replaced...
             if (array_key_exists($title, $replacedTitles)) {
+              // Replaces the title.
               $title = $replacedTitles[$title];
             }
           }

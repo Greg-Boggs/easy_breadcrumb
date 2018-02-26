@@ -3,7 +3,7 @@ easy_breadcrumb.settings:
   label: 'Easy Breadcrumb'
   mapping:
     include_invalid_paths:
-      type: integer
+      type: boolean
       label: 'Include invalid paths alias as plain-text segments'
     excluded_paths:
       type: text
@@ -12,27 +12,30 @@ easy_breadcrumb.settings:
       type: text
       label: 'Titles to be replaced with synonyms'
     include_home_segment:
-      type: integer
+      type: boolean
       label: 'Include the front page as a segment in the breadcrumb'
     home_segment_title:
       type: label
       label: 'Title for the front page segment in the breadcrumb'
       translatable: true
     include_title_segment:
-      type: integer
+      type: boolean
       label: 'Include the current page as a segment in the breadcrumb'
     title_from_page_when_available:
-      type: integer
+      type: boolean
       label: 'Use the real page title when available'
     title_segment_as_link:
-      type: integer
+      type: boolean
       label: 'Make the page title segment a link'
     segments_separator:
       type: text
       label: 'Segments Separator'
     use_menu_title_as_fallback:
-      type: integer
+      type: boolean
       label: 'Use menu title as fallback instead of raw path component'
     remove_repeated_segments:
-      type: integer
+      type: boolean
       label: 'Remove repeated identical segments'
+    language_path_prefix_as_segment:
+      type: boolean
+      label: 'Use language path prefix as segment'

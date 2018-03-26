@@ -75,3 +75,8 @@ MAINTAINERS
 -----------
 
  * Greg Boggs - https://www.drupal.org/u/greg-boggs
+ * Jeff Mahoney (loopduplicate) - https://www.drupal.org/u/loopduplicate
+
+Supporting organization:
+
+ * Hook 42 - https://www.drupal.org/hook-42

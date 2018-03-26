@@ -201,6 +201,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       if ($route_request) {
         $route_match = RouteMatch::createFromRequest($route_request);
         $access = $this->accessManager->check($route_match, $this->currentUser, NULL, TRUE);
+        $breadcrumb = $breadcrumb->addCacheableDependency($access);
         // The set of breadcrumb links depends on the access result, so merge
         // the access result's cacheability metadata.
         if ($access->isAllowed()) {

@@ -125,6 +125,14 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get(EasyBreadcrumbConstants::REMOVE_REPEATED_SEGMENTS),
     ];
 
+    // Flag for storing whether or not absolute paths are used as link.
+    $fieldset_general[EasyBreadcrumbConstants::ABSOLUTE_PATHS] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Use absolute path for Breadcrumb links'),
+      '#description' => $this->t('By selecting, absolute paths will be used (default: false) instead of relative.'),
+      '#default_value' => $config->get(EasyBreadcrumbConstants::ABSOLUTE_PATHS),
+    ];
+
     $form = [];
 
     // Inserts the fieldset for grouping general settings fields.
@@ -159,6 +167,7 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
       ->set(EasyBreadcrumbConstants::LANGUAGE_PATH_PREFIX_AS_SEGMENT, $form_state->getValue(EasyBreadcrumbConstants::LANGUAGE_PATH_PREFIX_AS_SEGMENT))
       ->set(EasyBreadcrumbConstants::USE_MENU_TITLE_AS_FALLBACK, $form_state->getValue(EasyBreadcrumbConstants::USE_MENU_TITLE_AS_FALLBACK))
       ->set(EasyBreadcrumbConstants::REMOVE_REPEATED_SEGMENTS, $form_state->getValue(EasyBreadcrumbConstants::REMOVE_REPEATED_SEGMENTS))
+      ->set(EasyBreadcrumbConstants::ABSOLUTE_PATHS, $form_state->getValue(EasyBreadcrumbConstants::ABSOLUTE_PATHS))
       ->save();
 
     parent::submitForm($form, $form_state);

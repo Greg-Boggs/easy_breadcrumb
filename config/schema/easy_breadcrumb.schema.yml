@@ -39,3 +39,6 @@ easy_breadcrumb.settings:
     language_path_prefix_as_segment:
       type: boolean
       label: 'Use language path prefix as segment'
+    absolute_paths:
+      type: boolean
+      label: 'Use absolute path for Breadcrumb links'

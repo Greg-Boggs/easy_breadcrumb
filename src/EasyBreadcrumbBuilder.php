@@ -266,6 +266,9 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
           }
           else {
             $url = Url::fromRouteMatch($route_match);
+            if($this->config->get(EasyBreadcrumbConstants::ABSOLUTE_PATHS)){
+              $url->setOption('absolute', TRUE);
+            }
             $links[] = new Link($title, $url);
           }
           unset($title);

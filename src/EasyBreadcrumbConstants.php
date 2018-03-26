@@ -83,6 +83,11 @@ class EasyBreadcrumbConstants {
   const REMOVE_REPEATED_SEGMENTS = 'remove_repeated_segments';
 
   /**
+   * Flag for storing absolute path settings.
+   */
+  const ABSOLUTE_PATHS = 'absolute_paths';
+
+  /**
    * Default list of excluded paths.
    *
    * @return array

@@ -280,6 +280,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         // TODO: exclude the 404 page and other's with a system path.
         $title = str_replace(['-', '_'], ' ', Unicode::ucfirst(end($path_elements)));
         $links[] = Link::createFromRoute($title, '<none>');
+        unset($title);
       }
       array_pop($path_elements);
     }

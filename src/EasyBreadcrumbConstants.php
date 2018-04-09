@@ -43,6 +43,11 @@ class EasyBreadcrumbConstants {
   const HOME_SEGMENT_TITLE = 'home_segment_title';
 
   /**
+   * Flag for keeping the breadcrumb on the front page.
+   */
+  const HOME_SEGMENT_KEEP = 'home_segment_keep';
+
+  /**
    * Flag for including or not the page's title as a segment.
    */
   const INCLUDE_TITLE_SEGMENT = 'include_title_segment';

@@ -18,6 +18,9 @@ easy_breadcrumb.settings:
       type: label
       label: 'Title for the front page segment in the breadcrumb'
       translatable: true
+    home_segment_keep:
+      type: integer
+      label: 'Display the front page segment on the front page'
     include_title_segment:
       type: boolean
       label: 'Include the current page as a segment in the breadcrumb'

@@ -79,8 +79,20 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
     $fieldset_general[EasyBreadcrumbConstants::HOME_SEGMENT_TITLE] = [
       '#type' => 'textfield',
       '#title' => $this->t('Title for the front page segment in the breadcrumb'),
-      '#description' => $this->t('Text to be displayed as the from page segment.'),
+      '#description' => $this->t('Text to be displayed as the front page segment.'),
       '#default_value' => $config->get(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE),
+    ];
+
+    $fieldset_general[EasyBreadcrumbConstants::HOME_SEGMENT_KEEP] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Display the front page segment on the front page'),
+      '#description' => $this->t('If checked, the Home segment will be displayed on the front page.'),
+      '#default_value' => $config->get(EasyBreadcrumbConstants::HOME_SEGMENT_KEEP),
+      '#states' => array(
+        'visible' => array(
+          ':input[name="' . EasyBreadcrumbConstants::HOME_SEGMENT_TITLE . '"]' => array('empty' => FALSE),
+        ),
+      ),
     ];
 
     $fieldset_general[EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT] = [
@@ -154,6 +166,7 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
       ->set(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR, $form_state->getValue(EasyBreadcrumbConstants::SEGMENTS_SEPARATOR))
       ->set(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT, $form_state->getValue(EasyBreadcrumbConstants::INCLUDE_HOME_SEGMENT))
       ->set(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE, $form_state->getValue(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE))
+      ->set(EasyBreadcrumbConstants::HOME_SEGMENT_KEEP, $form_state->getValue(EasyBreadcrumbConstants::HOME_SEGMENT_KEEP))
       ->set(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT, $form_state->getValue(EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT))
       ->set(EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK, $form_state->getValue(EasyBreadcrumbConstants::TITLE_SEGMENT_AS_LINK))
       ->set(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE, $form_state->getValue(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE))

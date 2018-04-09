@@ -162,8 +162,11 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $path = urldecode($path);
     $path_elements = explode('/', $path);
     $front = $this->siteConfig->get('page.front');
-    $exclude[$front] = TRUE;
-    $exclude[''] = TRUE;
+    // Give the site-builder the option to keep the breadcrumb on the front page
+    $keep_front = !empty($this->config->get(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE))
+                  && $this->config->get(EasyBreadcrumbConstants::HOME_SEGMENT_KEEP);
+    $exclude[$front] = !$keep_front;
+    $exclude[''] = !$keep_front;
     $exclude['/user'] = TRUE;
 
     // Because this breadcrumb builder is path and config based, vary cache

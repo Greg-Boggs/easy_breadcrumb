@@ -64,8 +64,8 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
     $fieldset_general[EasyBreadcrumbConstants::REPLACED_TITLES] = [
       '#type' => 'textarea',
       '#title' => $this->t('Titles to be replaced while generating segments'),
-      '#description' => $this->t('Enter a line separated list of titles with their replacements seperated by :.
-			For example TITLE:DIFFERENT_TITLE'),
+      '#description' => $this->t('Enter a line separated list of titles with their replacements seperated by ::.
+			For example TITLE::DIFFERENT_TITLE'),
       '#default_value' => $replaced_titles,
     ];
 

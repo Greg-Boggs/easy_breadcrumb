@@ -148,9 +148,10 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $curr_lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
     $replacedTitles = [];
     $mapValues = preg_split('/[\r\n]+/', $this->config->get(EasyBreadcrumbConstants::REPLACED_TITLES));
+
     foreach ($mapValues as $mapValue) {
-      $values = explode(":", $mapValue);
-      if (count($values) == 2) {
+      $values = explode("::", $mapValue);
+      if (sizeof($values) == 2) {
         $replacedTitles[$values[0]] = $values[1];
       }
     }
@@ -216,7 +217,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         if ($access->isAllowed()) {
           if ($this->config->get(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE)) {
             $title = $this->titleResolver->getTitle($route_request, $route_match->getRouteObject());
-
+            $this->applyTitleReplacement($title, $replacedTitles);
             // Many paths return a translatable markup object.
             if ($title instanceof TranslatableMarkup) {
               // Sets the title to the translated string.
@@ -288,6 +289,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       elseif ($this->config->get(EasyBreadcrumbConstants::INCLUDE_INVALID_PATHS) && empty($exclude[implode('/', $path_elements)])) {
         // TODO: exclude the 404 page and other's with a system path.
         $title = str_replace(['-', '_'], ' ', Unicode::ucfirst(end($path_elements)));
+        $this->applyTitleReplacement($title, $replacedTitles);
         $links[] = Link::createFromRoute($title, '<none>');
         unset($title);
       }
@@ -307,6 +309,26 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     }
 
     return $breadcrumb->setLinks($links);
+  }
+
+  /**
+   * Apply title replacements.
+   *
+   * @param String $title
+   *   Page title.
+   *
+   * @param array $replacements.
+   *   Replacement rules map.
+   */
+  public function applyTitleReplacement(&$title, $replacements) {
+    if (!is_string($title)) {
+      
+      return;
+    }
+
+    if (array_key_exists($title, $replacements)) {
+      $title = $replacements[$title];
+    }
   }
 
   /**

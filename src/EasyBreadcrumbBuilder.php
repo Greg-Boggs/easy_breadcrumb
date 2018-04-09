@@ -345,8 +345,20 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   protected function linksAreEqual(Link $link1, Link $link2) {
     $links_equal = TRUE;
+    
+    if($link1->getText() instanceof TranslatableMarkup) {
+      $link_one_text = (string) $link1->getText();
+    } else {
+      $link_one_text = $link1->getText();
+    }
 
-    if ($link1->getText() != $link2->getText()) {
+    if($link2->getText() instanceof TranslatableMarkup) {
+      $link_two_text = (string) $link2->getText();
+    } else {
+      $link_two_text = $link2->getText();
+    }
+
+    if ($link_one_text != $link_two_text) {
       $links_equal = FALSE;
     }
 

@@ -88,11 +88,11 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Display the front page segment on the front page'),
       '#description' => $this->t('If checked, the Home segment will be displayed on the front page.'),
       '#default_value' => $config->get(EasyBreadcrumbConstants::HOME_SEGMENT_KEEP),
-      '#states' => array(
-        'visible' => array(
-          ':input[name="' . EasyBreadcrumbConstants::HOME_SEGMENT_TITLE . '"]' => array('empty' => FALSE),
-        ),
-      ),
+      '#states' => [
+        'visible' => [
+          ':input[name="' . EasyBreadcrumbConstants::HOME_SEGMENT_TITLE . '"]' => ['empty' => FALSE],
+        ],
+      ],
     ];
 
     $fieldset_general[EasyBreadcrumbConstants::INCLUDE_TITLE_SEGMENT] = [

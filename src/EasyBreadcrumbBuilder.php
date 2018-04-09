@@ -151,7 +151,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
     foreach ($mapValues as $mapValue) {
       $values = explode("::", $mapValue);
-      if (sizeof($values) == 2) {
+      if (count($values) == 2) {
         $replacedTitles[$values[0]] = $values[1];
       }
     }
@@ -163,7 +163,8 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $path = urldecode($path);
     $path_elements = explode('/', $path);
     $front = $this->siteConfig->get('page.front');
-    // Give the site-builder the option to keep the breadcrumb on the front page
+
+    // Give the option to keep the breadcrumb on the front page.
     $keep_front = !empty($this->config->get(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE))
                   && $this->config->get(EasyBreadcrumbConstants::HOME_SEGMENT_KEEP);
     $exclude[$front] = !$keep_front;
@@ -314,15 +315,14 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
   /**
    * Apply title replacements.
    *
-   * @param String $title
+   * @param string $title
    *   Page title.
-   *
-   * @param array $replacements.
+   * @param array $replacements
    *   Replacement rules map.
    */
-  public function applyTitleReplacement(&$title, $replacements) {
+  public function applyTitleReplacement(&$title, array $replacements) {
     if (!is_string($title)) {
-      
+
       return;
     }
 
@@ -370,16 +370,18 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   protected function linksAreEqual(Link $link1, Link $link2) {
     $links_equal = TRUE;
-    
-    if($link1->getText() instanceof TranslatableMarkup) {
+
+    if ($link1->getText() instanceof TranslatableMarkup) {
       $link_one_text = (string) $link1->getText();
-    } else {
+    }
+    else {
       $link_one_text = $link1->getText();
     }
 
-    if($link2->getText() instanceof TranslatableMarkup) {
+    if ($link2->getText() instanceof TranslatableMarkup) {
       $link_two_text = (string) $link2->getText();
-    } else {
+    }
+    else {
       $link_two_text = $link2->getText();
     }
 

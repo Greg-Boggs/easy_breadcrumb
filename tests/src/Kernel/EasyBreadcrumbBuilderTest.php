@@ -17,6 +17,9 @@ class EasyBreadcrumbBuilderTest extends KernelTestBase {
 
   public static $modules = ['easy_breadcrumb', 'system'];
 
+  /**
+   * Tests the front page with an invalid path.
+   */
   public function testFrontpageWithInvalidPaths() {
     \Drupal::configFactory()->getEditable('easy_breadcrumb.settings')
       ->set('include_invalid_paths', TRUE)
@@ -35,7 +38,7 @@ class EasyBreadcrumbBuilderTest extends KernelTestBase {
       \Drupal::service('path.current'),
       \Drupal::service('plugin.manager.menu.link')
     );
-    
+
     $route_match = new RouteMatch('test_front', new Route('/front'));
     $result = $breadcrumb_builder->build($route_match);
     $this->assertCount(0, $result->getLinks());

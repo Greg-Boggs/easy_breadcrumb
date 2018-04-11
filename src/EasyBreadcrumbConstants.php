@@ -93,6 +93,11 @@ class EasyBreadcrumbConstants {
   const ABSOLUTE_PATHS = 'absolute_paths';
 
   /**
+   * Flag for storing single home item settings.
+   */
+  const HIDE_SINGLE_HOME_ITEM = 'hide_single_home_item';
+
+  /**
    * Default list of excluded paths.
    *
    * @return array

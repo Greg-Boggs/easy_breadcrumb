@@ -302,6 +302,9 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       if ($path && '/' . $path != $front && $path != $curr_lang) {
         $links[] = Link::createFromRoute($this->config->get(EasyBreadcrumbConstants::HOME_SEGMENT_TITLE), '<front>');
       }
+      if ($this->config->get(EasyBreadcrumbConstants::HIDE_SINGLE_HOME_ITEM) && count($links) === 1) {
+        return $breadcrumb->setLinks([]);
+      }
     }
     $links = array_reverse($links);
 

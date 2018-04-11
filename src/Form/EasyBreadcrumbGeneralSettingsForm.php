@@ -145,6 +145,13 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get(EasyBreadcrumbConstants::ABSOLUTE_PATHS),
     ];
 
+    $fieldset_general[EasyBreadcrumbConstants::HIDE_SINGLE_HOME_ITEM] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t("Hide link to home page if it's the only breadcrumb item"),
+      '#description' => $this->t('Hide the breadcrumb when it only links to the home page and nothing more.'),
+      '#default_value' => $config->get(EasyBreadcrumbConstants::HIDE_SINGLE_HOME_ITEM),
+    ];
+
     $form = [];
 
     // Inserts the fieldset for grouping general settings fields.
@@ -174,6 +181,7 @@ class EasyBreadcrumbGeneralSettingsForm extends ConfigFormBase {
       ->set(EasyBreadcrumbConstants::USE_MENU_TITLE_AS_FALLBACK, $form_state->getValue(EasyBreadcrumbConstants::USE_MENU_TITLE_AS_FALLBACK))
       ->set(EasyBreadcrumbConstants::REMOVE_REPEATED_SEGMENTS, $form_state->getValue(EasyBreadcrumbConstants::REMOVE_REPEATED_SEGMENTS))
       ->set(EasyBreadcrumbConstants::ABSOLUTE_PATHS, $form_state->getValue(EasyBreadcrumbConstants::ABSOLUTE_PATHS))
+      ->set(EasyBreadcrumbConstants::HIDE_SINGLE_HOME_ITEM, $form_state->getValue(EasyBreadcrumbConstants::HIDE_SINGLE_HOME_ITEM))
       ->save();
 
     parent::submitForm($form, $form_state);

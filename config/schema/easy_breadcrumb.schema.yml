@@ -45,3 +45,6 @@ easy_breadcrumb.settings:
     absolute_paths:
       type: boolean
       label: 'Use absolute path for Breadcrumb links'
+    hide_single_home_item:
+          type: boolean
+          label: 'Hide the breadcrumb when it only links to the home page and nothing more'

@@ -6,3 +6,4 @@ language_path_prefix_as_segment: FALSE
 use_menu_title_as_fallback: FALSE
 remove_repeated_segments: TRUE
 absolute_paths: FALSE
+hide_single_home_item: FALSE

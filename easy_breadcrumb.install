@@ -4,3 +4,11 @@
  * @file
  * Update hooks.
  */
+
+/**
+ * Force an update because we removed an unused service.
+ */
+function easy_breadcrumb_update_8001(&$sandbox) {
+
+  // Do nothing because database updates run cache rebuild.
+}

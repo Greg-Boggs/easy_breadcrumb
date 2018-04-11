@@ -232,7 +232,7 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
             }
 
             // If a module declares the title in an unexpected way...
-            if (!is_string($title)) {
+            if ($title && !is_string($title)) {
               // Logs a watchdog notice.
               \Drupal::logger('easy_breadcrumb')->notice('Easy Breadcrumb could not determine the title to use for @path', ['@path' => $route_match->getRouteObject()->getPath()]);
             }

@@ -8,6 +8,7 @@ use Drupal\Component\Utility\Xss;
 use Drupal\Core\Access\AccessManagerInterface;
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Breadcrumb\BreadcrumbBuilderInterface;
+use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Controller\TitleResolverInterface;
 use Drupal\Core\Link;
@@ -171,6 +172,18 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $exclude[$front] = !$keep_front;
     $exclude[''] = !$keep_front;
     $exclude['/user'] = TRUE;
+
+
+    $parameters = $route_match->getParameters();
+    foreach ($parameters as $key => $parameter) {
+      if ($key === 'view_id') {
+        $breadcrumb->addCacheTags(['config:views.view.' . $parameter]);
+      }
+      // TODO: only consider route parameters that actually are being used below!
+      if ($parameter instanceof CacheableDependencyInterface) {
+        $breadcrumb->addCacheableDependency($parameter);
+      }
+    }
 
     // Because this breadcrumb builder is path and config based, vary cache
     // by the 'url.path' cache context and config changes.

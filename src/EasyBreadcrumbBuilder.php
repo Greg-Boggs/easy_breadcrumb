@@ -2,6 +2,7 @@
 
 namespace Drupal\easy_breadcrumb;
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Access\AccessManagerInterface;
@@ -217,28 +218,10 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         // the access result's cacheability metadata.
         if ($access->isAllowed()) {
           if ($this->config->get(EasyBreadcrumbConstants::TITLE_FROM_PAGE_WHEN_AVAILABLE)) {
-            $title = $this->titleResolver->getTitle($route_request, $route_match->getRouteObject());
-            $this->applyTitleReplacement($title, $replacedTitles);
-            // Many paths return a translatable markup object.
-            if ($title instanceof TranslatableMarkup) {
-              // Sets the title to the translated string.
-              $title = $title->render();
-            }
-            // Other paths, such as admin/structure/menu/manage/main, will
-            // return a render array suitable to render using core's XSS filter.
-            elseif (is_array($title) && array_key_exists('#markup', $title) && array_key_exists('#allowed_tags', $title)) {
-              // Sets the title to the XSS filtered string.
-              $title = Xss::filter($title['#markup'], $title['#allowed_tags']);
-            }
-
-            // If a module declares the title in an unexpected way...
-            if ($title && !is_string($title)) {
-              // Logs a watchdog notice.
-              \Drupal::logger('easy_breadcrumb')->notice('Easy Breadcrumb could not determine the title to use for @path', ['@path' => $route_match->getRouteObject()->getPath()]);
-            }
+            $title = $this->getTitleString($route_request, $route_match, $replacedTitles);
 
             // If the title is to be replaced...
-            if (array_key_exists($title, $replacedTitles)) {
+            if ($title && array_key_exists($title, $replacedTitles)) {
               // Replaces the title.
               $title = $replacedTitles[$title];
             }
@@ -332,6 +315,46 @@ class EasyBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     if (array_key_exists($title, $replacements)) {
       $title = $replacements[$title];
     }
+  }
+
+  /**
+   * Get string title for route.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $route_request
+   *   A request object.
+   * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+   * @param array $replacedTitles
+   *
+   *
+   * @return string | FALSE
+   *   Either the current title string or FALSE if unable to determine it.
+   */
+  public function getTitleString(Request $route_request, RouteMatchInterface $route_match, array $replacedTitles) {
+    $title = $this->titleResolver->getTitle($route_request, $route_match->getRouteObject());
+    $this->applyTitleReplacement($title, $replacedTitles);
+    // Get string from title. Different routes return different objects.
+    // Many routes return a translatable markup object.
+    if ($title instanceof TranslatableMarkup) {
+      $title = $title->render();
+    }
+    elseif ($title instanceof FormattableMarkup) {
+      $title = (string) $title;
+    }
+
+    // Other paths, such as admin/structure/menu/manage/main, will
+    // return a render array suitable to render using core's XSS filter.
+    elseif (is_array($title) && array_key_exists('#markup', $title)) {
+      // If this render array has #allowed tags use that instead of default.
+      $tags = array_key_exists('#allowed_tags', $title) ? $title['#allowed_tags'] : NULL;
+      $title = Xss::filter($title['#markup'], $tags);
+    }
+
+    // If a route declares the title in an unexpected way log and return FALSE.
+    if (!is_string($title)) {
+      \Drupal::logger('easy_breadcrumb')->notice('Easy Breadcrumb could not determine the title to use for @path', ['@path' => $route_match->getRouteObject()->getPath()]);
+      return FALSE;
+    }
+    return $title;
   }
 
   /**
